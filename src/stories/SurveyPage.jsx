@@ -78,6 +78,7 @@ const SurveyPage = () => {
       {/* 진행도 바 */}
       <ProgressBar progress={progressPercentage} />
       <div style={{ width: '100%', maxWidth: '600px' }}>
+        <h6 style={{ color: '#5467f5', textAlign: 'left', marginBottom: '10px' }}>{step + 1}/6</h6>
         <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{questions[step].intro}</h2>
         <h2 style={{ color: '#5467f5', textAlign: 'left', marginTop: '5px' }}>{questions[step].question}</h2>
         <p style={{ textAlign: 'left' }}>{questions[step].description}</p>
