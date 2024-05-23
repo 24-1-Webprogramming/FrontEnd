@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Link 컴포넌트를 임포트합니다.
-import { withRouter } from 'react-router-dom'; // withRouter 함수를 임포트합니다.
 import { Button } from './Button'; // Button 컴포넌트를 임포트합니다.
 
 const SurveyStartPage = ({ location }) => {
 
-    const nickname = location.state.nickname;
+    //const nickname = location.state.nickname;
+    const nickname = '김코딩'; // 테스트용 닉네임
 
   return (
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>

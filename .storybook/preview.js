@@ -12,23 +12,13 @@ const preview = {
 
 export default preview;
 
-import { INITIAL_VIEWPORTS, MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 export const decorators = [
   (Story) => (
-    <Router>
+    <MemoryRouter initialEntries={['/']}>
       <Story />
-    </Router>
+    </MemoryRouter>
   ),
 ];
-
-export const parameters = {
-  viewport: {
-    viewports: {
-      ...INITIAL_VIEWPORTS,
-      ...MINIMAL_VIEWPORTS,
-    },
-    defaultViewport: 'iphone14',
-  },
-};
