@@ -1,6 +1,5 @@
 import React from 'react';
 import ProgressBar from './ProgressBar';
-import { type } from '@testing-library/user-event/dist/type';
 
 const meta = {
   title: 'Components/ProgressBar',
@@ -14,7 +13,6 @@ const meta = {
     },
     width: { control: 'text' },
     height: { control: 'text' },
-    type
   },
   tags: ['autodocs'],
 };
