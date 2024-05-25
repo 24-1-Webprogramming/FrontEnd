@@ -12,6 +12,7 @@ const meta = {
       control: 'select',
       options: ['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']
     },
+    customText: { control: 'text' },
   },
   tags: ['autodocs'],
 };

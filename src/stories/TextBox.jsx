@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// TextBox.jsx
+
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const allowedCharsMap = {
@@ -8,9 +10,14 @@ const allowedCharsMap = {
   alphabetic: 'a-zA-Z',
 };
 
-const TextBox = ({ placeholder, maxLength, showCharCount, allowedCharsType }) => {
-  const [value, setValue] = useState('');
-  const [charCount, setCharCount] = useState(0);
+const TextBox = ({ value: propValue, placeholder, maxLength, showCharCount, allowedCharsType, customText, onChange }) => {
+  const [value, setValue] = useState(propValue || '');
+  const [charCount, setCharCount] = useState((propValue || '').length);
+
+  useEffect(() => {
+    setValue(propValue);
+    setCharCount((propValue || '').length);
+  }, [propValue]);
 
   const handleChange = (e) => {
     const inputValue = e.target.value;
@@ -24,6 +31,10 @@ const TextBox = ({ placeholder, maxLength, showCharCount, allowedCharsType }) =>
     if (inputValue.length <= maxLength) {
       setValue(inputValue);
       setCharCount(inputValue.length);
+      // onChange prop을 호출하여 부모 컴포넌트로 변경된 값을 전달
+      if (typeof onChange === 'function') {
+        onChange(inputValue);
+      }
     }
   };
 
@@ -43,6 +54,21 @@ const TextBox = ({ placeholder, maxLength, showCharCount, allowedCharsType }) =>
           outline: 'none',
         }}
       />
+      {customText && !showCharCount && (
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            color: '#ccc',
+            fontSize: '12px',
+            marginRight: '10px',
+            marginBottom: '8px',
+          }}
+        >
+          {customText}
+        </div>
+      )}
       {showCharCount && (
         <div
           style={{
@@ -74,15 +100,19 @@ const TextBox = ({ placeholder, maxLength, showCharCount, allowedCharsType }) =>
 };
 
 TextBox.propTypes = {
+  value: PropTypes.string,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number.isRequired,
   showCharCount: PropTypes.bool,
   allowedCharsType: PropTypes.oneOf(['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']),
+  customText: PropTypes.string,
+  onChange: PropTypes.func, // onChange prop 추가
 };
 
 TextBox.defaultProps = {
   showCharCount: true,
   allowedCharsType: '',
+  customText: '',
 };
 
 export default TextBox;

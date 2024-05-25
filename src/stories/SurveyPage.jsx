@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './Button'; // Button 컴포넌트를 임포트합니다.
-import ProgressBar from './ProgressBar'; // ProgressBar 컴포넌트를 임포트합니다.
+import { Button } from './Button';
+import TextBox from './TextBox';
+import ProgressBar from './ProgressBar';
 
 const questions = [
   {
@@ -8,6 +9,12 @@ const questions = [
     question: '성별이 어떻게 되시나요?',
     description: '적절한 운동계획을 제공할 때 필요해요! 외부에 공개되지 않아요',
     answers: ['남성', '여성']
+  },
+  {
+    intro: '금고에 넣어둘게요!',
+    question: '체중을 알려주세요',
+    description: '적절한 운동계획을 제공할 때 필요해요! 외부에 공개되지 않아요',
+    answers: ['입력 완료']
   },
   {
     intro: '고마워요,',
@@ -39,12 +46,12 @@ const questions = [
     description: '적절한 운동에 필요해요! 외부에 공개되지 않아요',
     answers: ['좋아요!', '직접 설정할래요!']
   }
-  // 추가적인 질문과 답안을 여기에 추가할 수 있습니다.
 ];
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0);
   const [responses, setResponses] = useState(Array(questions.length).fill(null));
+  const [currentWeight, setCurrentWeight] = useState('');
   const [loadingDots, setLoadingDots] = useState('');
 
   const handleAnswerClick = (answer) => {
@@ -56,6 +63,16 @@ const SurveyPage = () => {
     } else {
       // 설문조사 완료 후 처리 로직 추가
       console.log('설문조사 완료:', newResponses);
+    }
+  };
+
+  const handleWeightChange = (value) => {
+    setCurrentWeight(value);
+  };
+
+  const handleWeightSubmit = () => {
+    if (currentWeight.trim() !== '') {
+      handleAnswerClick(currentWeight + ' kg');
     }
   };
 
@@ -75,31 +92,53 @@ const SurveyPage = () => {
 
   return (
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      {/* 진행도 바 */}
-      <ProgressBar progress={progressPercentage} />
+      <ProgressBar totalSteps={questions.length} currentStep={step} width="100%" height="8px" />
       <div style={{ width: '100%', maxWidth: '600px' }}>
-        <h6 style={{ color: '#5467f5', textAlign: 'left', marginBottom: '10px' }}>{step + 1}/6</h6>
+        <h6 style={{ color: '#5467f5', textAlign: 'left', marginBottom: '10px' }}>{step + 1}/{questions.length}</h6>
         <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{questions[step].intro}</h2>
         <h2 style={{ color: '#5467f5', textAlign: 'left', marginTop: '5px' }}>{questions[step].question}</h2>
         <p style={{ textAlign: 'left' }}>{questions[step].description}</p>
-        {step === 5 && (
+        {step === questions.length-1 && (
           <>
             <img src="../../DumbbellDefault.svg" style={{ width: '100px', margin: '20px auto', display: 'block' }} />
             <p style={{ textAlign: 'center', fontSize: 'small' }}>맞춤 아령 만드는 중{loadingDots}</p>
           </>
         )}
-        <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
-          {questions[step].answers.map((answer, index) => (
-            <Button 
-              key={index}
-              onClick={() => handleAnswerClick(answer)} 
-              label={answer}
+        {step === 1 && (
+          <>
+            <TextBox
+              value={currentWeight}
+              onChange={handleWeightChange}
+              maxLength={5}
+              showCharCount={false}
+              placeholder="체중을 입력해주세요"
+              allowedCharsType="numericWithDecimal"
+              customText="kg"
+            />
+            <Button
+              onClick={handleWeightSubmit}
+              label="입력 완료"
               type="secondary"
               size="medium"
               style={{ margin: '10px 0', width: '100%' }}
+              disabled={currentWeight.trim() === ''}
             />
-          ))}
-        </div>
+          </>
+        )}
+        {step !== 1 && (
+          <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', width: '100%' }}>
+            {questions[step].answers.map((answer, index) => (
+              <Button 
+                key={index}
+                onClick={() => handleAnswerClick(answer)} 
+                label={answer}
+                type="secondary"
+                size="medium"
+                style={{ margin: '10px 0', width: '100%' }}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

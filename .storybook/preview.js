@@ -1,19 +1,10 @@
-/** @type { import('@storybook/react').Preview } */
-const preview = {
-  parameters: {
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/i,
-      },
-    },
-  },
-};
-
-export default preview;
-
-import { BrowserRouter as Router } from 'react-router-dom';
 import { MemoryRouter } from 'react-router-dom';
+import '../src/index.css';
+
+export const parameters = {
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  controls: { expanded: true },
+};
 
 export const decorators = [
   (Story) => (
