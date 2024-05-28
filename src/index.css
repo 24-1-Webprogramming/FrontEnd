@@ -1,7 +1,7 @@
 /* Pretendard-Light 폰트 불러오기 */
 @font-face {
   font-family: 'Pretendard';
-  src: url('../public/static/Pretendard-Light.otf') format('opentype');
+  src: url('../public/Fonts/Pretendard-Light.otf') format('opentype');
   font-weight: 300;
   font-style: normal;
 }

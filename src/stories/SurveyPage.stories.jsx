@@ -1,6 +1,7 @@
 import SurveyPage from './SurveyPage';
 
 const meta = {
+  title: 'Pages/SurveyPage',
   component: SurveyPage,
 };
 

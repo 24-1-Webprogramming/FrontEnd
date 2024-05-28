@@ -1,0 +1,4 @@
+.icon-button {
+  border: none; /* 테두리 없음 */
+  position: relative; /* 상대 위치 설정 */
+}

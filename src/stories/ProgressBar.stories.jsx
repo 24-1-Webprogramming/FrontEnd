@@ -21,24 +21,10 @@ export default meta;
 
 const Template = (args) => <ProgressBar {...args} />;
 
-export const Default = Template.bind({});
-Default.args = {
-  totalSteps: 100,
-  currentStep: 50,
-  direction: 'horizontal',
-  width: '100%',
-  height: '8px',
-};
-Default.parameters = {
-  docs: {
-    storyDescription: '기본 프로그레스 바 컴포넌트입니다.',
-  },
-};
-
 export const Horizontal = Template.bind({});
 Horizontal.args = {
-  totalSteps: 100,
-  currentStep: 50,
+  totalSteps: 7,
+  currentStep: 3,
   direction: 'horizontal',
   width: '100%',
   height: '8px',
@@ -51,8 +37,8 @@ Horizontal.parameters = {
 
 export const Vertical = Template.bind({});
 Vertical.args = {
-  totalSteps: 100,
-  currentStep: 50,
+  totalSteps: 7,
+  currentStep: 3,
   direction: 'vertical',
   width: '8px',
   height: '250px',
@@ -60,19 +46,5 @@ Vertical.args = {
 Vertical.parameters = {
   docs: {
     storyDescription: '세로 방향의 프로그레스 바 컴포넌트입니다.',
-  },
-};
-
-export const Discrete = Template.bind({});
-Discrete.args = {
-  totalSteps: 5,
-  currentStep: 3,
-  direction: 'horizontal',
-  width: '100%',
-  height: '8px',
-};
-Discrete.parameters = {
-  docs: {
-    storyDescription: '단계별 프로그레스 바 컴포넌트입니다.',
   },
 };

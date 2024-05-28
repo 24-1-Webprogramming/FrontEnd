@@ -1,6 +1,7 @@
 import ProfileSetupPage from './ProfileSetupPage';
 
 const meta = {
+  title: 'Pages/ProfileSetupPage',
   component: ProfileSetupPage,
 };
 
