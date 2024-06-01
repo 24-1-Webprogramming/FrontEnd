@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Image from './Image';
-import TextBox from './TextBox';
+import TextField from './TextField';
 import { Button } from './Button';
 
 const ProfileSetupPage = () => {
@@ -40,7 +40,7 @@ const ProfileSetupPage = () => {
       </div>
       <div style={{ marginTop: '20px' }}>
         <h5>닉네임<br /></h5>
-        <TextBox 
+        <TextField 
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
           maxLength={10}

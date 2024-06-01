@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
-import TextBox from './TextBox';
+import TextField from './TextField';
 import ProgressBar from './ProgressBar';
 
 const questions = [
@@ -106,7 +106,7 @@ const SurveyPage = () => {
         )}
         {step === 1 && (
           <>
-            <TextBox
+            <TextField
               value={currentWeight}
               onChange={handleWeightChange}
               maxLength={5}

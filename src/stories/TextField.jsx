@@ -61,7 +61,7 @@ const CustomText = styled.div`
   margin-bottom: 8px;
 `;
 
-export const TextBox = React.forwardRef(function TextBox({ label, maxLength, allowedCharsType, customText, showCharCount, ...props }, ref) {
+export const TextField = React.forwardRef(function TextField({ label, maxLength, allowedCharsType, customText, showCharCount, ...props }, ref) {
   const inputRef = useRef(null);
   useImperativeHandle(ref, () => inputRef.current);
 
@@ -126,7 +126,7 @@ export const TextBox = React.forwardRef(function TextBox({ label, maxLength, all
   );
 });
 
-TextBox.propTypes = {
+TextField.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number.isRequired,
@@ -135,10 +135,10 @@ TextBox.propTypes = {
   customText: PropTypes.string,
 };
 
-TextBox.defaultProps = {
+TextField.defaultProps = {
   showCharCount: false,
   allowedCharsType: '',
   customText: '',
 };
 
-export default TextBox;
+export default TextField;

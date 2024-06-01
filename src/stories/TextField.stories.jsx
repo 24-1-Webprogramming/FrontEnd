@@ -1,9 +1,9 @@
 import React from 'react';
-import TextBox from './TextBox';
+import TextField from './TextField';
 
 const meta = {
-  title: 'Components/TextBox',
-  component: TextBox,
+  title: 'Components/TextField',
+  component: TextField,
   argTypes: {
     placeholder: { control: 'text' },
     maxLength: { control: 'number' },
@@ -19,7 +19,7 @@ const meta = {
 
 export default meta;
 
-const Template = (args) => <TextBox {...args} />;
+const Template = (args) => <TextField {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
