@@ -2,28 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Card = ({ 
-  width, 
-  height, 
-  borderRadius, 
-  backgroundColor, 
-  color, 
-  shadow,
-  children 
-}) => {
-  return (
-    <CardContainer
-      width={width}
-      height={height}
-      borderRadius={borderRadius}
-      backgroundColor={backgroundColor}
-      color={color}
-      shadow={shadow}
-    >
-      {children}
-    </CardContainer>
-  );
-};
+const Card = React.forwardRef(
+  ({ 
+    width, 
+    height, 
+    borderRadius, 
+    backgroundColor, 
+    color, 
+    shadow,
+    children 
+  }, ref) => {
+    return (
+      <CardContainer
+        ref={ref}
+        width={width}
+        height={height}
+        borderRadius={borderRadius}
+        backgroundColor={backgroundColor}
+        color={color}
+        shadow={shadow}
+      >
+        {children}
+      </CardContainer>
+    );
+  }
+);
 
 Card.propTypes = {
   width: PropTypes.string,
