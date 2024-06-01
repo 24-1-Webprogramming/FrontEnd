@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'; // Routes와 Route 추가
+import './index.css'
 import OnboardingPage from './stories/OnBoardingPage';
 import ProfileSetupPage from './stories/ProfileSetupPage';
 import SurveyStartPage from './stories/SurveyStartPage';

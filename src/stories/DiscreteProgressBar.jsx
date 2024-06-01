@@ -12,7 +12,7 @@ const DiscreteProgressBar = ({ totalSteps, currentStep, width, height, gap }) =>
   const barStyles = {
     width: `${100 / totalSteps}%`,
     height: '100%',
-    backgroundColor: '#d9d9ec',
+    backgroundColor: '#d9d9d9',
     overflow: 'hidden',
     marginRight: `${gap}px`, // gap props를 통해 간격 조절
   };
@@ -20,7 +20,7 @@ const DiscreteProgressBar = ({ totalSteps, currentStep, width, height, gap }) =>
   const filledBarStyles = {
     ...barStyles,
     height: '100%',
-    backgroundColor: '#5467f5',
+    backgroundColor: '#495EF6',
   };
 
   return (

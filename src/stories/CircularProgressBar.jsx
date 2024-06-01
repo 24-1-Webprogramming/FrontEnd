@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, showPercentage, showCustomText, customText }) => {
+const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, showPercentage, Text }) => {
   // 각도 계산
   const progressAngle = (currentStep / totalSteps) * 360;
 
@@ -19,19 +19,6 @@ const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, sho
   // 진행도의 퍼센티지를 계산
   const percentage = ((currentStep / totalSteps) * 100).toFixed(0);
 
-  // customText의 위치를 설정
-  const customTextStyle = {
-    display: showCustomText ? 'block' : 'none',
-    fill: '#000000', // 검은색으로 설정
-    fontSize: '16px',
-    textAnchor: 'middle',
-    dominantBaseline: 'middle',
-  };
-
-  // Percentage와 customText의 중앙 위치 계산
-  const percentageY = showCustomText ? '45%' : '50%';
-  const customTextY = showPercentage ? '55%' : '50%';
-
   return (
     <svg width={radius * 2} height={radius * 2} viewBox={`0 0 ${radius * 2} ${radius * 2}`}>
       <circle
@@ -47,7 +34,7 @@ const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, sho
         cy={radius}
         r={circleRadius}
         fill="transparent"
-        stroke="#5467f5"
+        stroke="#495EF6"
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         style={progressStyle}
@@ -56,8 +43,8 @@ const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, sho
       {showPercentage && (
         <text
           x="50%"
-          y={percentageY}
-          fill="#5467f5"
+          y="45%"
+          fill="#495EF6"
           fontSize="26px"
           fontWeight="800"
           lineweight="normal"
@@ -67,13 +54,17 @@ const CircularProgressBar = ({ totalSteps, currentStep, radius, strokeWidth, sho
           {percentage}%
         </text>
       )}
-      {showCustomText && (
+      {Text && (
         <text
           x="50%"
-          y={customTextY}
-          style={customTextStyle}
+          y="70%"
+          fill="#000000"
+          fontSize="12px"
+          fontWeight={700}
+          textAnchor="middle"
+          dominantBaseline="middle"
         >
-          {customText}
+          {Text}
         </text>
       )}
     </svg>
@@ -86,16 +77,14 @@ CircularProgressBar.propTypes = {
   radius: PropTypes.number.isRequired,
   strokeWidth: PropTypes.number.isRequired,
   showPercentage: PropTypes.bool.isRequired,
-  showCustomText: PropTypes.bool.isRequired,
-  customText: PropTypes.string,
+  Text: PropTypes.string,
 };
 
 CircularProgressBar.defaultProps = {
   radius: 50, // 기본 반지름
   strokeWidth: 10, // 기본 선의 두께
   showPercentage: false, // 기본값은 false
-  showCustomText: false, // 기본값은 false
-  customText: '', // 기본값은 빈 문자열
+  Text: '', // 기본값은 빈 문자열
 };
 
 export default CircularProgressBar;

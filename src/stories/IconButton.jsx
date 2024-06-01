@@ -75,7 +75,7 @@ IconButton.defaultProps = {
   currentBackgroundColor: 'transparent',
   hoverBackgroundColor: 'rgba(0, 0, 0, 0.1)',
   textSize: '11px', // 기본 텍스트 크기
-  textColor: '#B2B2C2', // 기본 텍스트 색상
+  textColor: '#B2BAC2', // 기본 텍스트 색상
   disabledIcon: null,
   disabledFontcolor: '#495EF6', // disabled 상태일 때 기본 텍스트 색상
 };

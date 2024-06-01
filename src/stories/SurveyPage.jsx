@@ -66,8 +66,8 @@ const SurveyPage = () => {
     }
   };
 
-  const handleWeightChange = (value) => {
-    setCurrentWeight(value);
+  const handleWeightChange = (e) => {
+    setCurrentWeight(e.target.value);
   };
 
   const handleWeightSubmit = () => {
@@ -92,13 +92,13 @@ const SurveyPage = () => {
 
   return (
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px' }}>
-      <ProgressBar totalSteps={questions.length} currentStep={step} width="100%" height="8px" />
+      <ProgressBar totalSteps={questions.length} currentStep={step + 1} width="100%" height="8px" />
       <div style={{ width: '100%', maxWidth: '600px' }}>
-        <h6 style={{ color: '#5467f5', textAlign: 'left', marginBottom: '10px' }}>{step + 1}/{questions.length}</h6>
+        <h6 style={{ color: '#495EF6', textAlign: 'left', marginBottom: '10px' }}>{step + 1}/{questions.length}</h6>
         <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{questions[step].intro}</h2>
-        <h2 style={{ color: '#5467f5', textAlign: 'left', marginTop: '5px' }}>{questions[step].question}</h2>
+        <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{questions[step].question}</h2>
         <p style={{ textAlign: 'left' }}>{questions[step].description}</p>
-        {step === questions.length-1 && (
+        {step === questions.length - 1 && (
           <>
             <img src="../../DumbbellDefault.svg" style={{ width: '100px', margin: '20px auto', display: 'block' }} />
             <p style={{ textAlign: 'center', fontSize: 'small' }}>맞춤 아령 만드는 중{loadingDots}</p>
@@ -110,10 +110,10 @@ const SurveyPage = () => {
               value={currentWeight}
               onChange={handleWeightChange}
               maxLength={5}
-              showCharCount={false}
+              showCharCount={false} // 문자 수 표시
               placeholder="체중을 입력해주세요"
               allowedCharsType="numericWithDecimal"
-              customText="kg"
+              customText="Kg"
             />
             <Button
               onClick={handleWeightSubmit}

@@ -1,0 +1,46 @@
+.storybook-button {
+  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  border: 0.1px solid #495EF6;
+  border-radius: 0.5em;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+.storybook-button--primary {
+  color: white;
+  background-color: #495EF6;
+}
+.storybook-button--border {
+  color: #495EF6;
+  background-color: #ffffff; /* 하얀색 배경색 */
+}
+.storybook-button--warning {
+  color: white;
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+}
+
+.storybook-button--primary:hover {
+  background-color: #3f50f5;
+}
+.storybook-button--border:hover {
+  background-color: #495EF6;
+  color: white;
+}
+.storybook-button--warning:hover {
+  background-color: #ff0000;
+}
+
+.storybook-button:disabled {
+  background-color: #b2bac2;
+  color: white;
+  border-color: #b2bac2;
+  cursor: not-allowed;
+}
+
+
+
+/*# sourceMappingURL=stories-ProfileSetupPage-stories.c9331f7c.chunk.css.map*/

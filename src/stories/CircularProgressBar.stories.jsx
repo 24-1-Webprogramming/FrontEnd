@@ -23,6 +23,5 @@ Default.args = {
   radius: 50,
   strokeWidth: 8,
   showPercentage: true,
-  showCustomText: true,
-  customText: '이번주 목표',
+  Text: '이번주 목표',
 };

@@ -1,59 +1,67 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import IconButton from './IconButton';
 
-import { Button } from './Button';
-import './header.css';
+const Header = ({ showIcon, text, backButton }) => {
+  const headerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between', // 좌우 여백을 최대한 벌리기 위해 space-between으로 설정
+    alignItems: 'flex-end', // 아이콘과 텍스트를 아래로 정렬하기 위해 추가
+    position: 'fixed', // 상단 고정
+    top: 0, // 화면 상단에 고정
+    width: '100%', // 화면 너비만큼 가로 폭 설정
+    height: '111px',
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize: '21px',
+    padding: '10px 10px 20px 10px', // 좌우 padding 추가
+    zIndex: '1000', // 다른 요소들보다 위에 나타나도록 설정
+  };
 
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }) => (
-  <header>
-    <div className="storybook-header">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" fillRule="evenodd">
-            <path
-              d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
-              fill="#FFF"
-            />
-            <path
-              d="M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z"
-              fill="#555AB9"
-            />
-            <path
-              d="M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z"
-              fill="#91BAF8"
-            />
-          </g>
-        </svg>
-        <h1>Acme</h1>
-      </div>
-      <div>
-        {user ? (
-          <>
-            <span className="welcome">
-              Welcome, <b>{user.name}</b>!
-            </span>
-            <Button size="small" onClick={onLogout} label="Log out" />
-          </>
+  const iconButtonStyle = {
+    position: 'absolute',
+    left: '20px', // 왼쪽에 고정
+    top: '50%',
+    transform: 'translateY(-50%)',
+  };
+
+  const centerContentStyle = {
+    position: 'absolute',
+    left: '50%',
+    transform: 'translateX(-50%)', // 가운데 정렬
+  };
+
+  return (
+    <div style={headerStyle}>
+      {backButton && (
+        <IconButton
+          src="/Icons/Icon_arrow.svg"
+          width="40px"
+          height="40px"
+          style={iconButtonStyle}
+        />
+      )}
+      <div style={centerContentStyle}>
+        {showIcon ? (
+          <img src="/Logo-color.svg" alt="로고" />
         ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-          </>
+          <span>{text}</span>
         )}
       </div>
     </div>
-  </header>
-);
+  );
+};
 
 Header.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-  onLogin: PropTypes.func.isRequired,
-  onLogout: PropTypes.func.isRequired,
-  onCreateAccount: PropTypes.func.isRequired,
+  showIcon: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  backButton: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
-  user: null,
+  showIcon: false,
+  text: '',
+  backButton: true,
 };
+
+export default Header;

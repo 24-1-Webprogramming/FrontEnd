@@ -1,7 +1,6 @@
-// TextBox.jsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from "react";
 import PropTypes from 'prop-types';
+import styled from "styled-components";
 
 const allowedCharsMap = {
   alphanumeric: 'a-zA-Z0-9',
@@ -10,107 +9,134 @@ const allowedCharsMap = {
   alphabetic: 'a-zA-Z',
 };
 
-const TextBox = ({ value: propValue, placeholder, maxLength, showCharCount, allowedCharsType, customText, onChange }) => {
-  const [value, setValue] = useState(propValue || '');
-  const [charCount, setCharCount] = useState((propValue || '').length);
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: gray;
+`;
+
+const StyledTextField = styled.input`
+  outline: none;
+  border: none;
+  padding: 8px;
+  border-radius: 0px;
+  font-size: 20px;
+  background-color: transparent;
+  transition: 200ms;
+  border-bottom: 2px solid gray;
+  &:focus {
+    border-bottom: 2px solid blue;
+  }
+`;
+
+const MaxLength = styled.span`
+  position: absolute;
+  bottom: 14px;
+  right: 8px;
+  font-size: 16px;
+  color: gray;
+  letter-spacing: -5%;
+  span {
+    color: black;
+  }
+`;
+
+const CustomText = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #000000;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 10px;
+  margin-bottom: 8px;
+`;
+
+export const TextBox = React.forwardRef(function TextBox({ label, maxLength, allowedCharsType, customText, showCharCount, ...props }, ref) {
+  const inputRef = useRef(null);
+  useImperativeHandle(ref, () => inputRef.current);
+
+  const [length, setLength] = useState(0);
 
   useEffect(() => {
-    setValue(propValue);
-    setCharCount((propValue || '').length);
-  }, [propValue]);
+    const current = inputRef.current;
 
-  const handleChange = (e) => {
-    const inputValue = e.target.value;
-    const allowedChars = allowedCharsMap[allowedCharsType] || '';
+    const handler = (e) => {
+      setTimeout(() => {
+        const target = e.target;
+        let inputValue = target.value;
+        const allowedChars = allowedCharsMap[allowedCharsType] || '';
 
-    if (allowedChars) {
-      const regex = new RegExp(`^[${allowedChars}]*$`);
-      if (!regex.test(inputValue)) return;
+        if (allowedChars) {
+          const regex = new RegExp(`^[${allowedChars}]*$`);
+          if (!regex.test(inputValue)) {
+            inputValue = inputValue.slice(0, inputValue.length - 1);
+          }
+        }
+
+        if (inputValue.length <= maxLength) {
+          target.value = inputValue;
+          setLength(inputValue.length);
+        } else {
+          target.value = inputValue.slice(0, maxLength);
+          setLength(maxLength);
+        }
+      }, 0);
+    };
+
+    if (current) {
+      current.addEventListener("input", handler);
     }
 
-    if (inputValue.length <= maxLength) {
-      setValue(inputValue);
-      setCharCount(inputValue.length);
-      // onChange prop을 호출하여 부모 컴포넌트로 변경된 값을 전달
-      if (typeof onChange === 'function') {
-        onChange(inputValue);
+    return () => {
+      if (current) {
+        current.removeEventListener("input", handler);
       }
-    }
-  };
+    };
+  }, [maxLength, allowedCharsType]);
 
   return (
-    <div style={{ position: 'relative', width: '100%' }}>
-      <input
-        type="text"
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        style={{
-          width: '100%',
-          padding: '10px',
-          border: 'none',
-          borderBottom: '2px solid #ccc',
-          transition: 'border-bottom-color 0.3s ease',
-          outline: 'none',
-        }}
+    <Div>
+      {label && <Label>{label}</Label>}
+      <StyledTextField
+        ref={inputRef}
+        maxLength={maxLength}
+        {...props}
       />
-      {customText && !showCharCount && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            color: '#ccc',
-            fontSize: '12px',
-            marginRight: '10px',
-            marginBottom: '8px',
-          }}
-        >
+      {showCharCount && maxLength && (
+        <MaxLength>
+          <span>{length}</span> / {maxLength}
+        </MaxLength>
+      )}
+      {!showCharCount && customText && (
+        <CustomText>
           {customText}
-        </div>
+        </CustomText>
       )}
-      {showCharCount && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            color: charCount > maxLength ? 'red' : '#ccc',
-            fontSize: '12px',
-            marginRight: '10px',
-            marginBottom: '8px',
-          }}
-        >
-          {charCount}/{maxLength}
-        </div>
-      )}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: '2px',
-          backgroundColor: value ? '#5467f5' : '#ccc',
-          transition: 'background-color 0.3s ease',
-        }}
-      />
-    </div>
+    </Div>
   );
-};
+});
 
 TextBox.propTypes = {
-  value: PropTypes.string,
+  label: PropTypes.string,
   placeholder: PropTypes.string,
   maxLength: PropTypes.number.isRequired,
   showCharCount: PropTypes.bool,
   allowedCharsType: PropTypes.oneOf(['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']),
   customText: PropTypes.string,
-  onChange: PropTypes.func, // onChange prop 추가
 };
 
 TextBox.defaultProps = {
-  showCharCount: true,
+  showCharCount: false,
   allowedCharsType: '',
   customText: '',
 };

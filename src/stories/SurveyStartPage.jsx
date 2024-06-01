@@ -14,7 +14,7 @@ const SurveyStartPage = () => {
 
   return (
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h2>{nickname}님을 더 알고 싶어요.<br /><span style={{ color: '#5467f5' }}>몇 가지 질문에 답해주실래요?</span></h2>
+      <h2>{nickname}님을 더 알고 싶어요.<br /><span style={{ color: '#495EF6' }}>몇 가지 질문에 답해주실래요?</span></h2>
       <img src="../../DumbbellCrying2.svg" alt="캐릭터 사진" style={{ width: '200px', height: '200px', marginTop: '20px' }} />
       <p style={{ fontSize: '14px', marginTop: '10px' }}>{nickname}님의 정보 저장소에 먼지만 날리는 중...</p>
       <Link to='/survey'> {/* 링크를 survey 페이지로 설정 */}

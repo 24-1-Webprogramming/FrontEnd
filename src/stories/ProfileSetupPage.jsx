@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ImageComponent from './ImageComponent';
+import Image from './Image';
 import TextBox from './TextBox';
 import { Button } from './Button';
 
@@ -23,9 +23,9 @@ const ProfileSetupPage = () => {
 
   return (
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h2>맛있다에서 사용할 <br /><span style={{ color: '#5467f5' }}>닉네임과 프로필</span>을 설정해주세요</h2>
+      <h2>맛있다에서 사용할 <br /><span style={{ color: '#495EF6' }}>닉네임과 프로필</span>을 설정해주세요</h2>
       <div style={{ position: 'relative', width: '100px', height: '100px' }}>
-        <ImageComponent 
+        <Image 
           src="../../status=view.svg"
           alt="프로필 이미지"
           width="100px"
@@ -42,9 +42,10 @@ const ProfileSetupPage = () => {
         <h5>닉네임<br /></h5>
         <TextBox 
           value={nickname}
-          onChange={setNickname}
+          onChange={(e) => setNickname(e.target.value)}
           maxLength={10}
-          placeholder="10글자 이내로 입력해주세요"
+          placeholder=""
+          showCharCount={true}  // 문자 수 표시
         />
       </div>
       <Link to='/survey-start'> {/* 링크를 survey-start 페이지로 설정 */}

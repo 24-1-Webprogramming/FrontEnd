@@ -1,7 +1,7 @@
 .storybook-button {
   font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
-  border: 0.1px solid #5467f5;
+  border: 0.1px solid #495EF6;
   border-radius: 0.5em;
   cursor: pointer;
   display: inline-block;
@@ -11,10 +11,10 @@
 }
 .storybook-button--primary {
   color: white;
-  background-color: #5467f5;
+  background-color: #495EF6;
 }
 .storybook-button--border {
-  color: #5467f5;
+  color: #495EF6;
   background-color: #ffffff; /* 하얀색 배경색 */
 }
 .storybook-button--warning {
@@ -27,11 +27,11 @@
   background-color: #3f50f5;
 }
 .storybook-button--border:hover {
-  background-color: #5467f5;
+  background-color: #495EF6;
   color: white;
 }
 .storybook-button--warning:hover {
-  background-color: #ff3333;
+  background-color: #ff0000;
 }
 
 .storybook-button:disabled {
