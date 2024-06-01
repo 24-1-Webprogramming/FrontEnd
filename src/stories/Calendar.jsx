@@ -34,7 +34,6 @@ const CalendarDate = styled.div`
     background-color: ${({ isToday }) => (isToday ? '#EBEEFD' : 'transparent')};
     border-radius: 50%;
     display: block;
-    transition: background-color 0.3s;
   }
 
   span {
@@ -59,27 +58,30 @@ export const Calendar = React.forwardRef(function Calendar({ year, month, ...pro
   const daysInMonth = getDaysInMonth(year, month);
   const firstDayOfMonth = getFirstDayOfMonth(year, month);
 
+  const today = new Date(); // 오늘의 날짜
+
   const days = [];
   for (let i = 0; i < firstDayOfMonth; i++) {
     days.push(null);
   }
   for (let i = 1; i <= daysInMonth; i++) {
-    days.push(new Date(year, month, i));
+    const date = new Date(year, month, i);
+    days.push(date);
   }
 
   return (
-      <CalendarDays>
-        {days.map((date, index) => (
-          <CalendarDate
-            key={index}
-            isToday={date && date.toDateString() === currentDate.toDateString()}
-            isSaturday={date?.getDay() === 6}
-            isSunday={date?.getDay() === 0}
-          >
-            <span>{date && date.getDate()}</span>
-          </CalendarDate>
-        ))}
-      </CalendarDays>
+    <CalendarDays>
+      {days.map((date, index) => (
+        <CalendarDate
+          key={index}
+          isToday={isToday(date)}
+          isSaturday={date && date.getDay() === 6}
+          isSunday={date && date.getDay() === 0}
+        >
+          <span>{date && date.getDate()}</span>
+        </CalendarDate>
+      ))}
+    </CalendarDays>
   );
 });
 
@@ -92,4 +94,9 @@ Calendar.defaultProps = {
   year: new Date().getFullYear(),
   month: new Date().getMonth(),
 };
-export default Calendar;
+
+// 오늘인지 여부를 판단하는 함수
+const isToday = (date) => {
+  const today = new Date(); // 오늘의 날짜
+  return date && date.toDateString() === today.toDateString();
+};
