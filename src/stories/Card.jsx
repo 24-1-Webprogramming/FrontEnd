@@ -8,6 +8,7 @@ const Card = React.forwardRef(
     height, 
     borderRadius, 
     backgroundColor, 
+    background, 
     color, 
     shadow,
     children 
@@ -19,6 +20,7 @@ const Card = React.forwardRef(
         height={height}
         borderRadius={borderRadius}
         backgroundColor={backgroundColor}
+        background={background}
         color={color}
         shadow={shadow}
       >
@@ -33,6 +35,7 @@ Card.propTypes = {
   height: PropTypes.string,
   borderRadius: PropTypes.string,
   backgroundColor: PropTypes.string,
+  background: PropTypes.string, // Add background prop
   color: PropTypes.string,
   shadow: PropTypes.bool,
   children: PropTypes.node,
@@ -43,6 +46,7 @@ Card.defaultProps = {
   height: 'auto',
   borderRadius: '8px',
   backgroundColor: 'white',
+  background: 'none', // Set default background to none
   color: 'black',
   shadow: true,
 };
@@ -54,6 +58,7 @@ const CardContainer = styled.div`
   height: ${(props) => props.height};
   border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.backgroundColor};
+  background: ${(props) => props.background}; // Use background prop here
   color: ${(props) => props.color};
   padding: 16px;
   box-shadow: ${(props) => (props.shadow ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none')};

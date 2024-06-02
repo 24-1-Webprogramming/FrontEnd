@@ -10,6 +10,7 @@ export default {
     height: { control: 'text' },
     borderRadius: { control: 'text' },
     backgroundColor: { control: 'color' },
+    background: { control: 'text' }, // Add control for background
     color: { control: 'color' },
     shadow: { control: 'boolean' },
   },
@@ -36,8 +37,19 @@ NoShadow.args = {
   width: '300px',
   height: '200px',
   borderRadius: '16px',
-  backgroundColor: '#f0f0f0',
-  color: '#333',
+  background: '#495EF6', // Change background to '#f0f0f0'
+  color: 'white',
   shadow: false,
   children: 'This card has no shadow',
+};
+
+export const WithLinearBackground = Template.bind({}); // New story
+WithLinearBackground.args = {
+  width: '300px',
+  height: '200px',
+  borderRadius: '16px',
+  background: 'linear-gradient(to right, #FFA17F, #00223E)', // Apply linear gradient
+  color: '#fff',
+  shadow: true,
+  children: 'This card has a linear background',
 };
