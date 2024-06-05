@@ -7,6 +7,7 @@ import SurveyStart from './stories/Pages/Onboarding/SurveyStart';
 import SurveyPage from './stories/Pages/Onboarding/SurveyPage';
 import Error from './stories/Pages/Error';
 import GlobalStyle from './stories/Component/GlobalStyle';
+import Meal from './stories/Pages/Home/entry/Meal';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/onboarding" element={<ProfileSetup/>}/>
           <Route path="/survey" element={<SurveyStart />} />
           <Route path="/survey/question" element={<SurveyPage/>} />
+          <Route path="/entry/meal" element={<Meal/>} />
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>

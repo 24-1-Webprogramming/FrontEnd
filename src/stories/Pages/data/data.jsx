@@ -1,4 +1,4 @@
-const questions = [
+export const questions = [
   {
     intro: '고마워요,',
     question: '성별이 어떻게 되시나요?',
@@ -43,4 +43,29 @@ const questions = [
   }
 ];
 
-export default questions;
+export const mealsurvey = [
+  {
+    intro: '맛있게 드셨나봐요,',
+    question: '어떤 음식을 드셨나요?',
+    unit:'',
+    allowedCharsType : '',
+  },
+  {
+    intro: '김치볶음밥의',
+    question: '탄수화물 정보를 알려주세요',
+    unit:'g',
+    allowedCharsType : 'numericWithDecimal',
+  },
+  {
+    intro: '김치볶음밥의',
+    question: '단백질 정보를 알려주세요',
+    unit:'g',
+    allowedCharsType : 'numericWithDecimal',
+  },
+  {
+    intro: '김치볶음밥의',
+    question: '지방 정보를 알려주세요',
+    unit:'g',
+    allowedCharsType : 'numericWithDecimal',
+  },
+]

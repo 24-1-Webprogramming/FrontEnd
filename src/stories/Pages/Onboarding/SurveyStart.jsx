@@ -4,20 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Image from '../../Component/Image';
 import CryImage from '../../assets/DumbbellCrying2.svg';
-
-
-const PageTitle = styled.h2`
-  color: var(--Primary, #000000);
-  font-family: 'Pretendard', sans-serif;
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  letter-spacing: -0.75px;
-  text-align: left;
-  width: 322px;
-  margin-bottom: 87px;
-`;
+import PageTitle from '../../Component/PageTitle';
+import FixedButtonContainer from '../../Component/FixedButtonContainer';
 
 const Container = styled.div`
   background-color: #fff;
@@ -28,17 +16,6 @@ const Container = styled.div`
   justify-content: start;
   align-items: center;
 `;
-
-const FixedButtonContainer = styled.div`
-    position: fixed;  
-    bottom: 52px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-  `;
 
 const DescriptionText = styled.p`
   color: var(--deprecated-Gray-01, #252525);

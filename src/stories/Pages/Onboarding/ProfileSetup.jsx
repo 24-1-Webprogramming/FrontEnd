@@ -4,17 +4,8 @@ import Image from '../../Component/Image';
 import TextField from '../../Component/TextField';
 import { Button } from '../../Component/Button';
 import styled from 'styled-components';
-
-const PageTitle = styled.h2`
-  color: var(--Primary, #000000);
-  font-family: 'Pretendard', sans-serif;
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  letter-spacing: -0.75px;
-  text-align: left;
-`;
+import PageTitle from '../../Component/PageTitle';
+import FixedButtonContainer from '../../Component/FixedButtonContainer';
 
 const Container = styled.div`
   background-color: #fff;
@@ -35,17 +26,6 @@ const ProfileImageContainer = styled.div`
   position: relative;
   margin-top: 50px;
 `;
-
-const FixedButtonContainer = styled.div`
-    position: fixed;  
-    bottom: 52px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-  `;
 
 const ProfileSetupPage = () => {
   const [nickname, setNickname] = useState('');

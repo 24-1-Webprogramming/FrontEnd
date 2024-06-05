@@ -37,7 +37,6 @@ const PageTitle = styled.h2`
   font-style: normal;
   font-weight: 700;
   line-height: 120%;
-  letter-spacing: -0.75px;
   text-align: left;
   width: 322px;
   margin-bottom: 87px;

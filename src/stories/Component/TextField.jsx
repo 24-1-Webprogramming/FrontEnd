@@ -13,6 +13,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  align-items: center;
   width: 100%;
 `;
 
@@ -22,6 +23,8 @@ const Label = styled.label`
   font-weight: 700;
   margin-bottom: 8px;
   color: gray;
+  width: 100%;
+  text-align: left;
 `;
 
 const StyledTextField = styled.input`
@@ -33,6 +36,7 @@ const StyledTextField = styled.input`
   background-color: transparent;
   transition: 200ms;
   border-bottom: 2px solid gray;
+  width: ${props => props.width || '321px'}; // 너비를 props에서 받거나 기본값으로 321px 사용
   &:focus {
     border-bottom: 2px solid blue;
   }
@@ -54,14 +58,16 @@ const CustomText = styled.div`
   position: absolute;
   bottom: 0;
   right: 0;
-  color: #000000;
-  font-size: 20px;
+  color: #4d4d4d;
+  font-size: 18px;
   font-weight: 500;
-  margin-right: 10px;
-  margin-bottom: 8px;
+  margin-right: 50px;
+  margin-bottom: 10px;
 `;
 
-export const TextField = React.forwardRef(function TextField({ label, maxLength, allowedCharsType, customText, showCharCount, ...props }, ref) {
+
+
+export const TextField = React.forwardRef(function TextField({ label, maxLength, allowedCharsType, customText, showCharCount, width, ...props }, ref) {
   const inputRef = useRef(null);
   useImperativeHandle(ref, () => inputRef.current);
 
@@ -110,6 +116,7 @@ export const TextField = React.forwardRef(function TextField({ label, maxLength,
       <StyledTextField
         ref={inputRef}
         maxLength={maxLength}
+        width={width} // 너비 prop 전달
         {...props}
       />
       {showCharCount && maxLength && (
@@ -118,8 +125,7 @@ export const TextField = React.forwardRef(function TextField({ label, maxLength,
         </MaxLength>
       )}
       {!showCharCount && customText && (
-        <CustomText>
-          {customText}
+        <CustomText>{customText}
         </CustomText>
       )}
     </Div>
@@ -133,12 +139,14 @@ TextField.propTypes = {
   showCharCount: PropTypes.bool,
   allowedCharsType: PropTypes.oneOf(['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']),
   customText: PropTypes.string,
+  width: PropTypes.string, // width 속성 추가
 };
 
 TextField.defaultProps = {
   showCharCount: false,
   allowedCharsType: '',
   customText: '',
+  width: '321px', // 기본 너비 설정
 };
 
 export default TextField;

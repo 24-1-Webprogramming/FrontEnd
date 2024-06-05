@@ -13,6 +13,7 @@ const meta = {
       options: ['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']
     },
     customText: { control: 'text' },
+    width: { control: 'text' },  // 너비 조절을 위한 컨트롤 추가
   },
   tags: ['autodocs'],
 };
@@ -27,6 +28,7 @@ Default.args = {
   maxLength: 10,
   showCharCount: true,
   allowedCharsType: '',
+  width: '321px',  // 기본 너비 설정
 };
 
 export const WithoutCharCount = Template.bind({});
@@ -35,6 +37,7 @@ WithoutCharCount.args = {
   maxLength: 10,
   showCharCount: false,
   allowedCharsType: '',
+  width: '321px',
 };
 
 export const OnlyAlphaNumeric = Template.bind({});
@@ -43,6 +46,7 @@ OnlyAlphaNumeric.args = {
   maxLength: 10,
   showCharCount: true,
   allowedCharsType: 'alphanumeric',
+  width: '321px',
 };
 
 export const OnlyNumericWithDecimal = Template.bind({});
@@ -51,6 +55,7 @@ OnlyNumericWithDecimal.args = {
   maxLength: 10,
   showCharCount: true,
   allowedCharsType: 'numericWithDecimal',
+  width: '321px',
 };
 
 export const OnlyNumeric = Template.bind({});
@@ -59,6 +64,7 @@ OnlyNumeric.args = {
   maxLength: 10,
   showCharCount: true,
   allowedCharsType: 'numeric',
+  width: '321px',
 };
 
 export const OnlyAlphabetic = Template.bind({});
@@ -67,4 +73,5 @@ OnlyAlphabetic.args = {
   maxLength: 10,
   showCharCount: true,
   allowedCharsType: 'alphabetic',
+  width: '321px',
 };

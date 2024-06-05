@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '../../Component/Button';
 import TextField from '../../Component/TextField';
 import ProgressBar from '../../Component/ProgressBar';
-import questions from './data/question'; // Assuming you move questions to a separate file
+import {questions} from '../data/data';
 import styled from 'styled-components';
 
-//TODO : 체중 입력 안됨
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0); //단계
@@ -74,7 +73,7 @@ const SurveyPage = () => {
 };
 
 const SurveyContent = ({
-  step, intro, question, description, answers, currentWeight, onWeightChange, onSubmitWeight, onAnswerClick, loadingDots, nickname
+  step, intro, question, description, answers, currentWeight, onWeightChange, onAnswerClick, loadingDots, nickname
 }) => {
   return (
     <>
@@ -88,17 +87,16 @@ const SurveyContent = ({
       </ContainerTop>
 
       {step === 1 && (
-        <Container>
-          <TextField
-            allowedCharsType="numeric"
-            maxLength={3}
-            value={currentWeight}
-            onChange={(e) => onWeightChange(e.target.value)}
-            placeholder="Enter your weight in kg"
-            showCharCount={false}
-            customText="kg"
-          />
-        </Container>
+        <TextField
+          allowedCharsType="numeric"
+          maxLength={3}
+          value={currentWeight}
+          onChange={(e) => onWeightChange(e.target.value)}
+          placeholder=""
+          showCharCount={false}
+          customText="kg"
+          width="300px"
+        />
       )}
       {step === questions.length - 1 && (
         <>
@@ -156,9 +154,6 @@ const StepText = styled.div`
   line-height: normal;
   margin-top: 50px;
 `
-const Container = styled.div`
-  width: 324px;
-`
 
 const ContainerTop = styled.div`
   display: flex;
@@ -172,7 +167,7 @@ const TextBox = styled.div`
   height: 63px;
   color: var(--deprecated-Gray-01, #252525);
   font-size: 16px;
-  font-style: normal;
+  font-style: normal; 
 `
 
 
