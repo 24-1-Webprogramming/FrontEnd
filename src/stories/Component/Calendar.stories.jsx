@@ -1,4 +1,4 @@
-import { parameters } from '../../.storybook/preview';
+import { parameters } from '../../../.storybook/preview';
 import { Calendar } from './Calendar';
 
 const meta = {

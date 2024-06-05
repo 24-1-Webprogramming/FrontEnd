@@ -1,8 +1,8 @@
-import OnBoardingPage from './OnBoardingPage';
+import Splash from './Splash';
 
 const meta = {
-  title: 'Pages/OnBoardingPage',
-  component: OnBoardingPage,
+  title: 'Pages/Splash',
+  component: Splash,
   parameters: {
     viewport: {
       defaultViewport: 'iPhone14',

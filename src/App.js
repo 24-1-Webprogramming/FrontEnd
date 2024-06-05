@@ -1,21 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'; // Routes와 Route 추가
-import './index.css'
-import Splash from './stories/Onboarding/Splash';
-import ProfileSetupPage from './stories/ProfileSetupPage';
-import SurveyStartPage from './stories/SurveyStartPage';
-import SurveyPage from './stories/SurveyPage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './index.css';
+import Splash from './stories/Pages/Onboarding/Splash';
+import ProfileSetup from './stories/Pages/Onboarding/ProfileSetup';
+import SurveyStart from './stories/Pages/Onboarding/SurveyStart';
+import SurveyPage from './stories/Pages/Onboarding/SurveyPage';
 
 const App = () => {
   return (
     <Router>
-        <Routes> {/* Routes로 변경 */}
-          {/* 프로필 설정 페이지 */}
-          <Route path="/" element={<Splash />} exact /> {/* element 속성 추가 */}
-          <Route path="/profile-setup" element={<ProfileSetupPage />} /> {/* element 속성 추가 */}
-          <Route path="/survey-start" element={<SurveyStartPage />} /> {/* element 속성 추가 */}
-          <Route path="/survey" element={<SurveyPage />} /> {/* element 속성 추가 */}
-        </Routes> {/* 닫는 태그 추가 */}
+      <Routes>
+        <Route path="/" element={<Splash />} />
+        <Route path="/onboarding" element={<ProfileSetup/>}/>
+        <Route path="/survey" element={<SurveyStart />} />
+        <Route path="/survey/:step" element={<SurveyPage />} />
+      </Routes>
     </Router>
   );
 };

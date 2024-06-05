@@ -1,6 +1,6 @@
 import { ArgTypes } from '@storybook/blocks';
 import { Switch } from './Switch';
-import { parameters } from '../../.storybook/preview';
+import { parameters } from '../../../.storybook/preview';
 
 const meta = {
   title: 'Components/Switch',

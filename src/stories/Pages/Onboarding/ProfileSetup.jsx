@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Image from './Image';
-import TextField from './TextField';
-import { Button } from './Button';
+import Image from '../../Component/Image';
+import TextField from '../../Component/TextField';
+import { Button } from '../../Component/Button';
 
 const ProfileSetupPage = () => {
   const [nickname, setNickname] = useState('');
@@ -48,7 +48,7 @@ const ProfileSetupPage = () => {
           showCharCount={true}  // 문자 수 표시
         />
       </div>
-      <Link to='/survey-start'> {/* 링크를 survey-start 페이지로 설정 */}
+      <Link to='/survey'> {/* 링크를 survey-start 페이지로 설정 */}
         <Button 
           onClick={handleComplete} 
           disabled={!isSignUpButtonEnabled} // 버튼 활성화 여부를 isSignUpButtonEnabled 상태로 설정

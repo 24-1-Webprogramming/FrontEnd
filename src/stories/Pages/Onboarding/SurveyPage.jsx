@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './Button';
-import TextField from './TextField';
-import ProgressBar from './ProgressBar';
+import { Button } from '../../Component/Button';
+import TextField from '../../Component/TextField';
+import ProgressBar from '../../Component/ProgressBar';
 
 const questions = [
   {

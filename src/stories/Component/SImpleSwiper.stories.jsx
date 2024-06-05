@@ -1,4 +1,4 @@
-import { parameters } from '../../.storybook/preview';
+import { parameters } from '../../../.storybook/preview';
 import SimpleSwiper from './SImpleSwiper';
 
 const meta = {

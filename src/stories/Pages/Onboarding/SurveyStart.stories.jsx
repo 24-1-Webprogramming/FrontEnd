@@ -1,7 +1,7 @@
-import SurveyStartPage from './SurveyStartPage';
+import SurveyStart from './SurveyStart';
 
 const meta = {
-  title: 'Pages/SurveyStartPage',
+  title: 'Pages/SurveyStart',
   component: SurveyStartPage,
 };
 
