@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import GlobalStyle from '../GlobalStyle';
-import Logo from './assets/logo.png';
-import GoogleLogin from './assets/GoogleLogin.png';
+import GlobalStyle from '../../GlobalStyle';
+import Logo from '../assets/logo.png';
+import GoogleLogin from '../assets/GoogleLogin.png';
+
 
 const StyledContainer = styled.div`
   background-color: #495EF6;
@@ -12,7 +13,11 @@ const StyledContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative; // 컨테이너에 대해 상대적으로 위치
+  position: relative;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 `;
 
 const TextBox = styled.div`
@@ -43,11 +48,10 @@ const ImageButton = styled.div`
   }
 
   position: absolute;
-  left: 50%; // 부모 컨테이너 중앙에 위치
-  bottom: 51px; // 하단에서 51px 위
-  transform: translateX(-50%); // X축으로 자신의 50% 만큼 이동하여 완벽하게 중앙 정렬
+  left: 50%;
+  bottom: 51px;
+  transform: translateX(-50%);
 `;
-
 
 const OnboardingPage = () => {
   return (
