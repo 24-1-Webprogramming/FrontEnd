@@ -36,9 +36,21 @@ const ProfileImageContainer = styled.div`
   margin-top: 50px;
 `;
 
+const FixedButtonContainer = styled.div`
+    position: fixed;  
+    bottom: 52px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+  `;
+
 const ProfileSetupPage = () => {
   const [nickname, setNickname] = useState('');
   const [isSignUpButtonEnabled, setIsSignUpButtonEnabled] = useState(false);
+
 
   const saveNicknameToLocalStorage = (nickname) => {
     localStorage.setItem('nickname', nickname);
@@ -82,16 +94,17 @@ const ProfileSetupPage = () => {
           showCharCount={true}
         />
       </div>
-      <Link to='/survey'>
-        <Button
-          onClick={handleComplete}
-          disabled={!isSignUpButtonEnabled}
-          label="가입완료"
-          type="primary"
-          size="medium"
-          style={{ marginTop: '20px' }}
-        />
-      </Link>
+      <FixedButtonContainer>
+        <Link to='/survey'>
+          <Button
+            onClick={handleComplete}
+            disabled={!isSignUpButtonEnabled}
+            label="가입완료"
+            type="primary"
+            size="medium"
+          />
+        </Link>
+      </FixedButtonContainer>
     </Container>
   );
 };
