@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import GlobalStyle from '../../Component/GlobalStyle';
 import Logo from '../../assets/logo.png';
 import GoogleLogin from '../../assets/GoogleLogin.png';
 
@@ -56,7 +55,6 @@ const ImageButton = styled.div`
 const OnboardingPage = () => {
   return (
     <StyledContainer>
-      <GlobalStyle />
       <TextBox>성장형 헬스 기록 서비스</TextBox>
       <LogoImage src={Logo} alt="맛있다 로고" />
       <Link to="/onboarding">

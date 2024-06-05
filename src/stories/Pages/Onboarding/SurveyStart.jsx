@@ -1,6 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../Component/Button';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Image from '../../Component/Image';
+import CryImage from '../../assets/DumbbellCrying2.svg';
+
+
+const PageTitle = styled.h2`
+  color: var(--Primary, #000000);
+  font-family: 'Pretendard', sans-serif;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: -0.75px;
+  text-align: left;
+  width: 322px;
+  margin-bottom: 87px;
+`;
+
+const Container = styled.div`
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  margin-top: 100px;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+`;
+
+const FixedButtonContainer = styled.div`
+    position: fixed;  
+    bottom: 52px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+  `;
+
+const DescriptionText = styled.p`
+  color: var(--deprecated-Gray-01, #252525);
+  font-family: 'Pretendard', sans-serif; 
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500; 
+  line-height: 120%; 
+  letter-spacing: -0.42px;
+  margin-top: 10px; 
+`;
+
+const Bold = styled.span`
+  font-weight: 800;
+`;
 
 const SurveyStartPage = () => {
   const [nickname, setNickname] = useState('');
@@ -11,22 +64,30 @@ const SurveyStartPage = () => {
       setNickname(savedNickname);
     }
   }, []);
-
+  
   return (
-    <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-      <h2>{nickname}님을 더 알고 싶어요.<br /><span style={{ color: '#495EF6' }}>몇 가지 질문에 답해주실래요?</span></h2>
-      <img src="../../DumbbellCrying2.svg" alt="캐릭터 사진" style={{ width: '200px', height: '200px', marginTop: '20px' }} />
-      <p style={{ fontSize: '14px', marginTop: '10px' }}>{nickname}님의 정보 저장소에 먼지만 날리는 중...</p>
-      <Link to='/survey'> {/* 링크를 survey 페이지로 설정 */}
-      <Button
-        label="알려주기"
-        type="primary"
-        size="medium"
-        style={{ marginTop: '20px' }}
-        // 알려주기 버튼 클릭 시 동작할 함수를 여기에 추가하세요
-      />
-      </Link>
-    </div>
+
+    <Container>
+      <PageTitle>
+        {nickname}님을 더 알고 싶어요. <br /><span style={{ color: '#495EF6' }}>몇 가지 질문에 답해주실래요?</span>
+      </PageTitle>
+      <Image
+          src={CryImage}
+          alt="프로필 이미지"
+          width="144px"
+          height="240px"
+        />
+        <DescriptionText><Bold>{nickname}님</Bold>의 정보 저장소에 먼지만 날리는 중...</DescriptionText>
+      <FixedButtonContainer>
+        <Link to='/survey/question'>
+          <Button
+            label="알려주기"
+            type="primary"
+            size="medium"
+          />
+        </Link>
+      </FixedButtonContainer>
+    </Container>
   );
 };
 
