@@ -13,7 +13,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
+  width: 324px; /* Set the width of the container to 324px */
 `;
 
 const Label = styled.label`
