@@ -43,7 +43,7 @@ export const questions = [
   }
 ];
 
-export const mealsurvey = [
+export const meal = [
   {
     intro: '맛있게 드셨나봐요,',
     question: '어떤 음식을 드셨나요?',
@@ -67,5 +67,46 @@ export const mealsurvey = [
     question: '지방 정보를 알려주세요',
     unit:'g',
     allowedCharsType : 'numericWithDecimal',
+  },
+]
+
+
+export const water = [
+  {
+    intro: '피부가 탱글탱글하시네요',
+    question: '오늘 물을 얼마나 마셨나요?',
+    unit:'L',
+    allowedCharsType : 'numericWithDecimal',
+  },
+]
+
+
+export const weight = [
+  {
+    intro: '오늘은 어떤 변화를 겪었나요?',
+    question: '오늘 체중을 입력해주세요',
+    unit:'KG',
+    allowedCharsType : 'numericWithDecimal',
+  },
+]
+
+export const dday = [
+  {
+    intro: '기억해야 하는',
+    question: 'D-DAY 제목을 입력해주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+  {
+    intro: 'D-Day 날짜를',
+    question: '선택해주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+  {
+    intro: 'D-Day까지',
+    question: '어떤 목표를 이뤄야 하나요?',
+    unit:'',
+    allowedCharsType : '',
   },
 ]

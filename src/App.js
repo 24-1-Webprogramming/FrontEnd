@@ -8,6 +8,10 @@ import SurveyPage from './stories/Pages/Onboarding/SurveyPage';
 import Error from './stories/Pages/Error';
 import GlobalStyle from './stories/Component/GlobalStyle';
 import Meal from './stories/Pages/Home/entry/Meal';
+import Water from './stories/Pages/Home/entry/Water';
+import Weight from './stories/Pages/Home/entry/Weight';
+import DDay from './stories/Pages/Home/entry/DDay';
+
 
 const App = () => {
   return (
@@ -20,6 +24,9 @@ const App = () => {
           <Route path="/survey" element={<SurveyStart />} />
           <Route path="/survey/question" element={<SurveyPage/>} />
           <Route path="/entry/meal" element={<Meal/>} />
+          <Route path="/entry/water" element={<Water/>} />
+          <Route path="/entry/weight" element={<Weight/>} />
+          <Route path="/entry/DDay" element={<DDay/>} />
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>

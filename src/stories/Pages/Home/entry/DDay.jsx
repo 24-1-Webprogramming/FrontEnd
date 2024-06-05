@@ -3,11 +3,12 @@ import { Button } from '../../../Component/Button';
 import TextField from '../../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../../Component/Header';
-import { meal } from '../../data/data';
+import { dday } from '../../data/data';
 
-const Meal = () => {
+
+const DDay = () => {
     const [step, setStep] = useState(0); // 단계
-    const [responses, setResponses] = useState(Array(meal.length).fill(null)); // 답변 저장 배열
+    const [responses, setResponses] = useState(Array(dday.length).fill(null)); // 답변 저장 배열
     const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
     const [currentInput, setCurrentInput] = useState(''); // 현재 입력값
 
@@ -19,30 +20,30 @@ const Meal = () => {
     const handleNextStep = () => {
         const newResponses = responses.map((response, index) => index === step ? currentInput : response);
         setResponses(newResponses);
-        localStorage.setItem('meal', JSON.stringify(newResponses));
+        localStorage.setItem('dday', JSON.stringify(newResponses));
 
-        if (step < meal.length - 1) {
+        if (step < dday.length - 1) {
             setStep(step + 1);
             setCurrentInput(''); // 입력값 초기화
             setIsButtonEnabled(false); // 버튼 비활성화
         } else {
-            console.log('meal complete:', newResponses);
+            console.log('dday complete:', newResponses);
         }
     };
 
     return (
         <>
-            <Header text="식사 기록"/>
+            <Header text="D-Day 등록"/>
             <Container>
               <SurveyContent
                   step={step}
-                  intro={meal[step].intro}
-                  question={meal[step].question}
+                  intro={dday[step].intro}
+                  question={dday[step].question}
                   handleInputChange={handleInputChange}
                   isButtonEnabled={isButtonEnabled}
                   handleNextStep={handleNextStep}
                   currentInput={currentInput}
-                  allowedCharsType={meal[step].allowedCharsType}
+                  allowedCharsType={dday[step].allowedCharsType}
               />
             </Container>
         </>
@@ -55,7 +56,7 @@ const SurveyContent = ({
     return (
       <>
         <ContainerTop>
-          <StepText>{step + 1}/{meal.length}</StepText>
+          <StepText>{step + 1}/{dday.length}</StepText>
           <TextBox>
             <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
             <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
@@ -65,7 +66,7 @@ const SurveyContent = ({
             value={currentInput}
             allowedCharsType={allowedCharsType}
             placeholder=""
-            customText={meal[step].unit}
+            customText={dday[step].unit}
             width="321px"
           />
         </ContainerTop>
@@ -80,7 +81,7 @@ const AnswerButtons = ({ isButtonEnabled, handleNextStep }) => (
       <Button
         onClick={handleNextStep}
         disabled={!isButtonEnabled}  // 버튼 활성화/비활성화 상태에 따라
-        label={meal.length - 1 ? '완료' : '다음'}
+        label={dday.length - 1 ? '완료' : '다음'}
         type="primary"
         size="medium"
         style={{ margin: '5px 0', width: '321px' }}
@@ -137,4 +138,4 @@ const AnswerButtonContainer = styled.div`
   z-index: 1000; // Ensure it stays on top of other content
 `;
 
-export default Meal;
+export default DDay;

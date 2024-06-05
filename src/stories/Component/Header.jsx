@@ -56,7 +56,7 @@ const TopLayout = styled.div`
 
 const IconButtonWrapper = styled.div`
   position: absolute;
-  left: 20px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
 `;
@@ -64,8 +64,9 @@ const IconButtonWrapper = styled.div`
 const CenterContent = styled.div`
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  font-size: 21px;
+  transform: translateX(-65%);
+  top:35%;
+  font-size: 18px;
   font-weight: 600;
   color: black;
 `;
