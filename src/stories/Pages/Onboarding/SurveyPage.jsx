@@ -12,11 +12,17 @@ const SurveyPage = () => {
   const [responses, setResponses] = useState(Array(questions.length).fill(null)); //답변 저장 배열
   const [currentWeight, setCurrentWeight] = useState(''); //현재 몸무게
   const [loadingDots, setLoadingDots] = useState(''); //로딩
+  const [nickname, setNickname] = useState(''); //닉네임
 
   //점 로딩용
   useEffect(() => {
     const updateLoadingDots = () => {
       setLoadingDots(prev => prev.length < 3 ? prev + '.' : '');
+    };
+
+    const savedNickname = localStorage.getItem('nickname');
+    if (savedNickname) {
+      setNickname(savedNickname);
     };
 
     if (step === questions.length - 1) {
@@ -25,29 +31,29 @@ const SurveyPage = () => {
     }
   }, [step]);
 
-  //답변 제출 함수
   const handleAnswerClick = (answer) => {
-    const newResponses = [...responses, answer]; //기존 응답값에 새 응답값 추가
+    const newResponses = responses.map((response, index) => index === step ? answer : response);
     setResponses(newResponses);
     localStorage.setItem('surveyAnswers', JSON.stringify(newResponses));
-    
-    if (step < questions.length - 1) { //현재 스탭이 마지막 스탭이 아니라면
-      setStep(step + 1); //스탭 추가
-    } else { //마지막 스탭이라면
-      console.log('Survey complete:', newResponses); //응답값 제출
+
+    if (step < questions.length - 1) {
+      setStep(step + 1);
+    } else {
+      console.log('Survey complete:', newResponses);
     }
   };
+  
 
   //몸무게 제출
   const handleWeightSubmit = () => {
-    if (currentWeight.trim()) { //공백 제거 후 삽입
-      handleAnswerClick(`${currentWeight}`);
+    if (currentWeight.trim()) {
+      handleAnswerClick(currentWeight); // 현재 몸무게를 응답 배열에 추가
+      setCurrentWeight(''); // 입력 필드 초기화
     }
   };
 
 
   return (
-    //초기 세팅
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '20px', marginTop:'100px' }}>
       <ProgressBar totalSteps={questions.length} currentStep={step + 1} width="324px" height="8px" />
       <SurveyContent
@@ -61,44 +67,57 @@ const SurveyPage = () => {
         onSubmitWeight={handleWeightSubmit}
         onAnswerClick={handleAnswerClick}
         loadingDots={loadingDots}
+        nickname={nickname}
       />
     </div>
   );
 };
 
-const SurveyContent = ({ step, intro, question, description, answers, currentWeight, onWeightChanged, onSubmitWeight, onAnswerClick, loadingDots }) => (
-  <>
-    <ContainerTop>
-      <StepText>{step + 1}/{questions.length}</StepText>
-      <TextBox>
-        <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
-        <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
-        <p style={{ textAlign: 'left', fontSize:'16px', fontWeight:500}}>{description}</p>
-      </TextBox>
-    </ContainerTop>
+const SurveyContent = ({
+  step, intro, question, description, answers, currentWeight, onWeightChange, onSubmitWeight, onAnswerClick, loadingDots, nickname
+}) => {
+  return (
+    <>
+      <ContainerTop>
+        <StepText>{step + 1}/{questions.length}</StepText>
+        <TextBox>
+          <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
+          <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
+          <p style={{ textAlign: 'left', fontSize: '16px', fontWeight: 500 }}>{description}</p>
+        </TextBox>
+      </ContainerTop>
 
+      {step === 1 && (
+        <Container>
+          <TextField
+            allowedCharsType="numeric"
+            maxLength={3}
+            value={currentWeight}
+            onChange={(e) => onWeightChange(e.target.value)}
+            placeholder="Enter your weight in kg"
+            showCharCount={false}
+            customText="kg"
+          />
+        </Container>
+      )}
+      {step === questions.length - 1 && (
+        <>
+          <img src="../../DumbbellDefault.svg" style={{ width: '100px', margin: '10px auto', display: 'block' }} />
+          <p style={{ textAlign: 'center', fontSize: 'small' }}><b>{nickname}</b>님의 맞춤 아령 만드는 중{loadingDots}</p>
+        </>
+      )}
+      <AnswerButtons answers={answers} onAnswerClick={(answer) => {
+        if (step === 1 && currentWeight.trim()) {
+          onAnswerClick(currentWeight);  // 체중 데이터 처리
+        }
+        else{
+          onAnswerClick(answer); // 다음 질문으로 넘어감
+        }
+      }} />
+    </>
+  );
+};
 
-    {step === questions.length - 1 && (
-      <>
-        <img src="../../DumbbellDefault.svg" style={{ width: '100px', margin: '10px auto', display: 'block' }} />
-        <p style={{ textAlign: 'center', fontSize: 'small' }}>Customizing your dumbbell{loadingDots}</p>
-      </>
-    )}
-    {step === 1 ? (
-      <Container>
-        <TextField
-          value={currentWeight}
-          onChange={onWeightChanged} // Make sure this is the correct function name
-          maxLength={10}
-          placeholder=""
-          allowedCharsType="numericWithDecimal"
-          showCharCount={false}
-        />
-      </Container>
-    ) : (<></>)}
-    <AnswerButtons answers={answers} onAnswerClick={onAnswerClick} />
-  </>
-);
 
 const AnswerButtonContainer = styled.div`
   position: fixed;

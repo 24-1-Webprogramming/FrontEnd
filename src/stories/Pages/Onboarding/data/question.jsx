@@ -38,7 +38,7 @@ const questions = [
   {
     intro: '마지막이에요!',
     question: '맞춤형 플랜을 만들어 드릴게요',
-    description: '적절한 운동에 필요해요! 외부에 공개되지 않아요',
+    description: '꼭 맞는 계획을 제공해드릴게요!',
     answers: ['좋아요!', '직접 설정할래요!']
   }
 ];
