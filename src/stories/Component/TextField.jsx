@@ -5,7 +5,7 @@ import styled from "styled-components";
 const allowedCharsMap = {
   alphanumeric: 'a-zA-Z0-9',
   numeric: '0-9',
-  numericWithDecimal: '0-9',
+  numericWithDecimal: '0-9.',
   alphabetic: 'a-zA-Z',
 };
 
