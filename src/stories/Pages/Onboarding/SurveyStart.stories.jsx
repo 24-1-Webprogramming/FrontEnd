@@ -2,7 +2,7 @@ import SurveyStart from './SurveyStart';
 
 const meta = {
   title: 'Pages/SurveyStart',
-  component: SurveyStartPage,
+  component: SurveyStart,
 };
 
 export default meta;
