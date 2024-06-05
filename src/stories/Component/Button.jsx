@@ -5,9 +5,9 @@ import './button.css';
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ type, backgroundColor, size, label, ...props }) => {
+export const Button = ({ type, backgroundColor, size, label, width, height, ...props }) => {
   let mode = 'storybook-button--primary';
-  switch (type){
+  switch (type) {
     case 'border':
       mode = 'storybook-button--border';
       break;
@@ -15,11 +15,18 @@ export const Button = ({ type, backgroundColor, size, label, ...props }) => {
       mode = 'storybook-button--warning';
       break;
   }
+
+  const style = {
+    backgroundColor,
+    width, // Respect the width prop if provided
+    height // Respect the height prop if provided
+  };
+
   return (
     <button
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={backgroundColor && { backgroundColor }}
+      style={style}
       {...props}
     >
       {label}
@@ -28,35 +35,13 @@ export const Button = ({ type, backgroundColor, size, label, ...props }) => {
 };
 
 Button.propTypes = {
-  /**
-   * Type of Button
-   */
   type: PropTypes.oneOf(['primary', 'border', 'warning']),
-  /**
-   * Is this the principal call to action on the page?
-   */
   primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
   backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  /**
-   * Disabled status of Button
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Selection type of Button
-   */
-  selection: PropTypes.bool,
-  /**
-   * width of Button
-   */
   width: PropTypes.string,
-
+  height: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
@@ -64,6 +49,8 @@ Button.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',
+  width: '341px', // Default width as prop
+  height: '56px', // Default height as prop
   disabled: false,
   onClick: undefined,
 };

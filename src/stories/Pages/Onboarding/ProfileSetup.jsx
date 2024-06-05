@@ -52,7 +52,7 @@ const ProfileSetupPage = () => {
         <Button 
           onClick={handleComplete} 
           disabled={!isSignUpButtonEnabled} // 버튼 활성화 여부를 isSignUpButtonEnabled 상태로 설정
-          label="가입 완료"
+          label="가입완료"
           type="primary" 
           size="medium" 
           style={{ marginTop: '20px' }}

@@ -1,43 +1,47 @@
 .storybook-button {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-weight: 700;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 21.6px */
+  letter-spacing: -0.5px;
   border: 0.1px solid #495EF6;
   border-radius: 0.5em;
   cursor: pointer;
   display: inline-block;
   line-height: 1;
-  padding: 10px 20px;
-  transition: background-color 0.3s, color 0.3s;
-}
-.storybook-button--primary {
-  color: white;
-  background-color: #495EF6;
-}
-.storybook-button--border {
-  color: #495EF6;
-  background-color: #ffffff; /* 하얀색 배경색 */
-}
-.storybook-button--warning {
-  color: white;
-  background-color: #ff4d4f;
-  border-color: #ff4d4f;
+  width: 341px; /* Set the default width */
+  height: 56px; /* Set the default height */
+  transition: background-color 0.3s, color 0.3s, opacity 0.3s; /* Transition for visual effects */
 }
 
-.storybook-button--primary:hover {
-  background-color: #2915AA;
-}
-.storybook-button--border:hover {
-  background-color: #495EF6;
+.storybook-button--primary {
   color: white;
+  background-color: rgba(73, 94, 246, 1);
 }
+
+.storybook-button--border {
+  color: #495EF6;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.storybook-button--warning {
+  color: white;
+  background-color: rgba(255, 77, 79, 1);
+  border-color: rgba(255, 77, 79, 1);
+}
+
+.storybook-button--primary:hover,
+.storybook-button--border:hover,
 .storybook-button--warning:hover {
-  background-color: #ff0000;
+  opacity: 0.9; /* Slightly reduces opacity on hover */
 }
 
 .storybook-button:disabled {
-  background-color: #b2bac2;
+  background-color: #B2BAC2;
   color: white;
-  border-color: #b2bac2;
+  border-color:#B2BAC2;
   cursor: not-allowed;
 }
-
