@@ -5,7 +5,7 @@ import styled from "styled-components";
 const allowedCharsMap = {
   alphanumeric: 'a-zA-Z0-9',
   numeric: '0-9',
-  numericWithDecimal: '0-9.',
+  numericWithDecimal: '0-9',
   alphabetic: 'a-zA-Z',
 };
 
@@ -13,7 +13,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 324px; /* Set the width of the container to 324px */
+  width: 100%;
 `;
 
 const Label = styled.label`

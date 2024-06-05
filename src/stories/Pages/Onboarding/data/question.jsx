@@ -2,14 +2,14 @@ const questions = [
   {
     intro: '고마워요,',
     question: '성별이 어떻게 되시나요?',
-    description: '적절한 운동계획을 제공할 때 필요해요! 외부에 공개되지 않아요',
+    description: '외부에 절대 공개되지 않아요!',
     answers: ['남성', '여성']
   },
   {
     intro: '금고에 넣어둘게요!',
     question: '체중을 알려주세요',
-    description: '적절한 운동계획을 제공할 때 필요해요! 외부에 공개되지 않아요',
-    answers: ['입력 완료']
+    description: '적절한 운동계획을 제공할 때 필요해요!',
+    answers: ['입력완료']
   },
   {
     intro: '고마워요,',

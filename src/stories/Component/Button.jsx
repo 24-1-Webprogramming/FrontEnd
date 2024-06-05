@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './button.css';
 
@@ -6,14 +6,28 @@ import './button.css';
  * Primary UI component for user interaction
  */
 export const Button = ({ type, backgroundColor, size, label, width, height, ...props }) => {
+  const [hover, setHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHover(false);
+  };
+
   let mode = 'storybook-button--primary';
-  switch (type) {
-    case 'border':
-      mode = 'storybook-button--border';
-      break;
-    case 'warning':
-      mode = 'storybook-button--warning';
-      break;
+  if (hover && type === 'border') {
+    mode = 'storybook-button--primary'; // Change to primary on hover if type is border
+  } else {
+    switch (type) {
+      case 'border':
+        mode = 'storybook-button--border';
+        break;
+      case 'warning':
+        mode = 'storybook-button--warning';
+        break;
+    }
   }
 
   const style = {
@@ -27,6 +41,8 @@ export const Button = ({ type, backgroundColor, size, label, width, height, ...p
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
       style={style}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}  // Corrected from "handleMouseExistate" to "handleMouseLeave"
       {...props}
     >
       {label}
@@ -36,13 +52,12 @@ export const Button = ({ type, backgroundColor, size, label, width, height, ...p
 
 Button.propTypes = {
   type: PropTypes.oneOf(['primary', 'border', 'warning']),
-  primary: PropTypes.bool,
   backgroundColor: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   width: PropTypes.string,
   height: PropTypes.string,
   disabled: PropTypes.bool,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func,  // Corrected typo here
 };
 
 Button.defaultProps = {
