@@ -11,6 +11,7 @@ import Meal from './stories/Pages/Home/entry/Meal';
 import Water from './stories/Pages/Home/entry/Water';
 import Weight from './stories/Pages/Home/entry/Weight';
 import DDay from './stories/Pages/Home/entry/DDay';
+import Home from './stories/Pages/Home/Home';
 
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/entry/water" element={<Water/>} />
           <Route path="/entry/weight" element={<Weight/>} />
           <Route path="/entry/DDay" element={<DDay/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>

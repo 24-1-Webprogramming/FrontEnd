@@ -32,7 +32,7 @@ const Meal = () => {
 
     return (
         <>
-            <Header text="식사 기록"/>
+            <Header text="식사 기록"  path="/home"/>
             <Container>
               <SurveyContent
                   step={step}

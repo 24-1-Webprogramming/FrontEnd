@@ -33,7 +33,7 @@ const DDay = () => {
 
     return (
         <>
-            <Header text="D-Day 등록"/>
+            <Header text="D-Day 등록" path="/home"/>
             <Container>
               <SurveyContent
                   step={step}
