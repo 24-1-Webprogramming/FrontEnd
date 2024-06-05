@@ -70,6 +70,6 @@ const CenterContent = styled.div`
   transform: translateX(-65%);
   top:35%;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: black;
 `;

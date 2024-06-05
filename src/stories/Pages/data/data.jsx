@@ -45,7 +45,7 @@ export const questions = [
 
 export const meal = [
   {
-    intro: '맛있게 드셨나봐요,',
+    intro: '맛있게 드셨나봐요',
     question: '어떤 음식을 드셨나요?',
     unit:'',
     allowedCharsType : '',
