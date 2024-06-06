@@ -5,6 +5,10 @@ import OnboardingPage from './stories/OnBoardingPage';
 import ProfileSetupPage from './stories/ProfileSetupPage';
 import SurveyStartPage from './stories/SurveyStartPage';
 import SurveyPage from './stories/SurveyPage';
+import MyPageProfileEdit from './stories/MypageEdit';
+import MypageLeave from './stories/MypageLeave';
+import MypageEdit from './MypageEdit';
+import MyPageCondition from './MyPageCondition';
 
 const App = () => {
   return (
@@ -16,6 +20,17 @@ const App = () => {
           <Route path="/survey-start" element={<SurveyStartPage />} /> {/* element 속성 추가 */}
           <Route path="/survey" element={<SurveyPage />} /> {/* element 속성 추가 */}
         </Routes> {/* 닫는 태그 추가 */}
+        <Route>
+          <Route path='/MypageEdit'>
+            <MypageEdit />
+          </Route>
+          <Route path='/MypageLeave'>
+            <MypageLeave />
+          </Route>
+          <Route path='/MyPageCondition'>
+            <MyPageCondition />
+          </Route>
+        </Route>
     </Router>
   );
 };

@@ -1,5 +1,5 @@
 import NavBar from './NavBar';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import Image from './Image'; // 프로필 이미지 임포트
 
@@ -31,12 +31,16 @@ const MyPageProfileEdit = () => {
           <div style={{ marginBottom: '40px' }}>
             <h3 style={{ fontSize: '16px' }}>계정관리</h3>
             <p>로그아웃</p>
-            <p>계정탈퇴</p>
+            <Link to="/MypageLeave" style={{ textDecoration: 'none', color: 'black' }}>
+              <p>계정탈퇴</p>
+            </Link>
           </div>
           <div style={{ marginBottom: '40px' }}>
           <div>
             <h3 style={{ fontSize: '16px' }}>서비스 정보</h3>
-            <p>이용약관</p>
+            <Link to="/MyPageCondition" style={{ textDecoration: 'none', color: 'black' }}>
+              <p>이용약관</p>
+            </Link>
           </div>
           </div>
         </div>

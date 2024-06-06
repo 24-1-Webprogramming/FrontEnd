@@ -6,11 +6,18 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+<<<<<<< HEAD
+=======
+    "chromatic": "^11.5.0",
+>>>>>>> origin/Daun
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+<<<<<<< HEAD
     "styled-component": "^2.8.0",
+=======
+>>>>>>> origin/Daun
     "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
   },
@@ -20,7 +27,12 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
+<<<<<<< HEAD
     "build-storybook": "storybook build"
+=======
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_30a86293439b3d3"
+>>>>>>> origin/Daun
   },
   "eslintConfig": {
     "extends": [
@@ -43,7 +55,10 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.4.0",
+<<<<<<< HEAD
     "@storybook/addon-actions": "^8.1.5",
+=======
+>>>>>>> origin/Daun
     "@storybook/addon-docs": "^8.1.1",
     "@storybook/addon-essentials": "^8.1.1",
     "@storybook/addon-interactions": "^8.1.1",
