@@ -1,0 +1,21 @@
+/* Pretendard-Light 폰트 불러오기 */
+@font-face {
+  font-family: 'Pretendard';
+  src: url(../../65372b5df865e8aa758a.otf) format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: 'Pretendard', sans-serif; /* Pretendard 폰트로 변경 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+
+/*# sourceMappingURL=main.ee0d4587.css.map*/
