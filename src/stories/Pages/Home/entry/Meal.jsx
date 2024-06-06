@@ -32,18 +32,18 @@ const Meal = () => {
 
     return (
         <>
-            <Header text="식사 기록"  path="/home"/>
+            <Header text="식사 기록" path="/home" />
             <Container>
-              <SurveyContent
-                  step={step}
-                  intro={meal[step].intro}
-                  question={meal[step].question}
-                  handleInputChange={handleInputChange}
-                  isButtonEnabled={isButtonEnabled}
-                  handleNextStep={handleNextStep}
-                  currentInput={currentInput}
-                  allowedCharsType={meal[step].allowedCharsType}
-              />
+                <SurveyContent
+                    step={step}
+                    intro={meal[step].intro}
+                    question={meal[step].question}
+                    handleInputChange={handleInputChange}
+                    isButtonEnabled={isButtonEnabled}
+                    handleNextStep={handleNextStep}
+                    currentInput={currentInput}
+                    allowedCharsType={meal[step].allowedCharsType}
+                />
             </Container>
         </>
     );
@@ -51,40 +51,40 @@ const Meal = () => {
 
 const SurveyContent = ({
     step, intro, question, allowedCharsType, handleInputChange, currentInput, isButtonEnabled, handleNextStep
-  }) => {
+}) => {
     return (
-      <>
-        <ContainerTop>
-          <StepText>{step + 1}/{meal.length}</StepText>
-          <TextBox>
-            <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
-            <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
-          </TextBox>
-          <TextField 
-            onChange={(e) => handleInputChange(e.target.value)}
-            value={currentInput}
-            allowedCharsType={allowedCharsType}
-            placeholder=""
-            customText={meal[step].unit}
-            width="321px"
-          />
-        </ContainerTop>
+        <>
+            <ContainerTop>
+                <StepText>{step + 1}/{meal.length}</StepText>
+                <TextBox>
+                    <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
+                    <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
+                </TextBox>
+                <TextField
+                    onChange={(e) => handleInputChange(e.target.value)}
+                    value={currentInput}
+                    allowedCharsType={allowedCharsType}
+                    placeholder=""
+                    customText={meal[step].unit}
+                    width="321px"
+                />
+            </ContainerTop>
 
-        <AnswerButtons isButtonEnabled={isButtonEnabled} handleNextStep={handleNextStep} />
-      </>
+            <AnswerButtons isButtonEnabled={isButtonEnabled} handleNextStep={handleNextStep} isLastStep={step === meal.length - 1} />
+        </>
     );
 };
 
-const AnswerButtons = ({ isButtonEnabled, handleNextStep }) => (
+const AnswerButtons = ({ isButtonEnabled, handleNextStep, isLastStep }) => (
     <AnswerButtonContainer>
-      <Button
-        onClick={handleNextStep}
-        disabled={!isButtonEnabled}  // 버튼 활성화/비활성화 상태에 따라
-        label={meal.length - 1 ? '완료' : '다음'}
-        type="primary"
-        size="medium"
-        style={{ margin: '5px 0', width: '321px' }}
-      />
+        <Button
+            onClick={handleNextStep}
+            disabled={!isButtonEnabled}  // 버튼 활성화/비활성화 상태에 따라
+            label={isLastStep ? '완료' : '다음'}
+            type="primary"
+            size="medium"
+            style={{ margin: '5px 0', width: '321px' }}
+        />
     </AnswerButtonContainer>
 );
 
@@ -98,30 +98,30 @@ const StepText = styled.div`
   margin-top: 50px;
   align-items: start;
   justify-content: start;
-`
+`;
 const Container = styled.div`
   background-color: '#fff';
   display: 'flex';
   flex-direction: 'column';
   align-items: 'center';
   justify-content: 'center'; // 가운데 정렬
-`
+`;
 
 const ContainerTop = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom:70px;
+  margin-bottom: 70px;
   margin-top: 50px;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const TextBox = styled.div`
   width: 322px;
   color: var(--deprecated-Gray-01, #252525);
   font-size: 16px;
-  font-style: normal; 
-`
+  font-style: normal;
+`;
 
 const AnswerButtonContainer = styled.div`
   position: fixed;
