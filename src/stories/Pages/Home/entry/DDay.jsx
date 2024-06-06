@@ -4,7 +4,8 @@ import TextField from '../../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../../Component/Header';
 import { dday } from '../../data/data';
-
+import { DatePicker } from 'ios-style-picker';
+import '../../../Component/ios-style-picker.css';
 
 const DDay = () => {
     const [step, setStep] = useState(0); // 단계
@@ -15,6 +16,15 @@ const DDay = () => {
     const handleInputChange = (value) => {
         setCurrentInput(value);
         setIsButtonEnabled(value.trim() !== ''); // 입력값이 비어 있지 않으면 버튼 활성화
+    };
+
+    const handleDateChange = (y, m, d) => {
+        const dateValue = `${y}-${m}-${d}`;
+        const newResponses = responses.map((response, index) => index === step ? dateValue : response);
+        setResponses(newResponses);
+        setCurrentInput(dateValue);
+        setIsButtonEnabled(true); // 날짜가 선택되면 버튼 활성화
+        localStorage.setItem('dday', JSON.stringify(newResponses));
     };
 
     const handleNextStep = () => {
@@ -40,6 +50,7 @@ const DDay = () => {
                   intro={dday[step].intro}
                   question={dday[step].question}
                   handleInputChange={handleInputChange}
+                  handleDateChange={handleDateChange}
                   isButtonEnabled={isButtonEnabled}
                   handleNextStep={handleNextStep}
                   currentInput={currentInput}
@@ -51,7 +62,7 @@ const DDay = () => {
 };
 
 const SurveyContent = ({
-    step, intro, question, allowedCharsType, handleInputChange, currentInput, isButtonEnabled, handleNextStep
+    step, intro, question, allowedCharsType, handleInputChange, handleDateChange, currentInput, isButtonEnabled, handleNextStep
   }) => {
     return (
       <>
@@ -61,17 +72,24 @@ const SurveyContent = ({
             <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
             <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
           </TextBox>
-          <TextField 
-            onChange={(e) => handleInputChange(e.target.value)}
-            value={currentInput}
-            allowedCharsType={allowedCharsType}
-            placeholder=""
-            customText={dday[step].unit}
-            width="321px"
-          />
+          {step === 1 ? (
+            <DatePicker
+              infinite
+              onChange={handleDateChange}
+            />
+          ) : (
+            <TextField 
+              onChange={(e) => handleInputChange(e.target.value)}
+              value={currentInput}
+              allowedCharsType={allowedCharsType}
+              placeholder=""
+              customText={dday[step].unit}
+              width="321px"
+            />
+          )}
         </ContainerTop>
 
-        <AnswerButtons isButtonEnabled={isButtonEnabled} handleNextStep={handleNextStep} />
+        <AnswerButtons isButtonEnabled={isButtonEnabled || step === 1} handleNextStep={handleNextStep} />
       </>
     );
 };
@@ -81,7 +99,7 @@ const AnswerButtons = ({ isButtonEnabled, handleNextStep }) => (
       <Button
         onClick={handleNextStep}
         disabled={!isButtonEnabled}  // 버튼 활성화/비활성화 상태에 따라
-        label={dday.length - 1 ? '완료' : '다음'}
+        label={isButtonEnabled && dday.length - 1 ? '완료' : '다음'}
         type="primary"
         size="medium"
         style={{ margin: '5px 0', width: '321px' }}
