@@ -12,6 +12,8 @@ import Water from './stories/Pages/Home/entry/Water';
 import Weight from './stories/Pages/Home/entry/Weight';
 import DDay from './stories/Pages/Home/entry/DDay';
 import Home from './stories/Pages/Home/Home';
+import GroupEmpty from './stories/Pages/Group/GroupEmpty';
+import DashBoard from './stories/Pages/DashBoard/DashBoard';
 
 
 const App = () => {
@@ -24,11 +26,13 @@ const App = () => {
           <Route path="/onboarding" element={<ProfileSetup/>}/>
           <Route path="/survey" element={<SurveyStart />} />
           <Route path="/survey/question" element={<SurveyPage/>} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/entry/meal" element={<Meal/>} />
           <Route path="/entry/water" element={<Water/>} />
           <Route path="/entry/weight" element={<Weight/>} />
           <Route path="/entry/DDay" element={<DDay/>} />
-          <Route path="/home" element={<Home/>} />
+          <Route path="/group/empty" element={<GroupEmpty/>} />
+          <Route path="/dashboard" element={<DashBoard/>} />
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>
