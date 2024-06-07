@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 
 // 그룹 데이터 배열
 const groupData = [
-    { name: "회원님여덟개만더하조", members: 10 },
-    { name: "아무것도하기싫조", members: 8 },
-    { name: "으아ㅏ앙아아아아악", members: 12 },
+    { name: "회원님여덟개만더하조", members: 10, groupid:1231 },
+    { name: "아무것도하기싫조", members: 8, groupid:1233},
+    { name: "으아ㅏ앙아아아아악", members: 12, groupid:1235 },
 ];
 
 const Group = () => {
@@ -28,12 +28,14 @@ const Group = () => {
 
             <Container>
                 {groupData.map((group, index) => (
-                    <GroupCard key={index}>
-                        <GroupTextBox>
-                            <GroupTitle>{group.name}</GroupTitle>
-                            <GroupSub>{group.members}명의 그룹원</GroupSub>
-                        </GroupTextBox>
-                    </GroupCard>
+                    <StyledLink to={`/group/${group.groupid}`} key={index}>
+                        <GroupCard>
+                            <GroupTextBox>
+                                <GroupTitle>{group.name}</GroupTitle>
+                                <GroupSub>{group.members}명의 그룹원</GroupSub>
+                            </GroupTextBox>
+                        </GroupCard>
+                    </StyledLink>
                 ))}
                 <Button
                     label="+"
@@ -49,21 +51,21 @@ const Group = () => {
                     <ModalBox onClick={(e) => e.stopPropagation()}>
                         <ModalContent>
                             <ButtonContainer>
-                                <Link to="/group/create">
+                                <StyledLink to="/group/create">
                                     <Button
                                         label="개설하기"
                                         width={350}
                                         height={60}
                                     />
-                                </Link>
-                                <Link to="/group/join">
+                                </StyledLink>
+                                <StyledLink to="/group/join">
                                     <Button
                                         label="가입하기"
                                         type="border"
                                         width={350}
                                         height={60}
                                     />
-                                </Link>
+                                </StyledLink>
                             </ButtonContainer>
                         </ModalContent>
                     </ModalBox>
@@ -72,6 +74,11 @@ const Group = () => {
         </>
     );
 };
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
+`;
 
 const HeaderContainer = styled.div`
     position: relative;
