@@ -13,12 +13,14 @@ import Weight from './stories/Pages/Home/entry/Weight';
 import DDay from './stories/Pages/Home/entry/DDay';
 import Home from './stories/Pages/Home/Home';
 import GroupEmpty from './stories/Pages/Group/GroupEmpty';
-import DashBoard from './stories/Pages/DashBoard/DashBoard';
+import Statistic from './stories/Pages/Statistic/statistic';
 
 import GroupPage from './stories/Pages/Group/GroupPage';
 import GroupJoin from './stories/Pages/Group/GroupJoin';
 import GroupCreate from './stories/Pages/Group/GroupCreate';
 import Group from './stories/Pages/Group/Group';
+
+import Mypage from './stories/Pages/mypage/mypage';
 
 const App = () => {
   return (
@@ -44,7 +46,10 @@ const App = () => {
           <Route path="/group/create" element={<GroupCreate/>} />
           <Route path="/group/:" element={<GroupPage/>} />
 
-          <Route path="/dashboard" element={<DashBoard/>} />
+          <Route path="/statistic" element={<Statistic/>} />
+
+          <Route path="/mypage" element={<Mypage/>} />
+
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>

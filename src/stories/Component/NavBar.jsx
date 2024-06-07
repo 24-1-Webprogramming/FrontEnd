@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState }) => {
   // NavBar의 너비를 계산
@@ -19,66 +20,71 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
       paddingBottom={paddingBottom}
     >
       <NavBarContainer>
-        <IconButton
-          src="/Icons/Icon_Home.svg"
-          text="홈"
-          borderRadius="0%"
-          width={width}
-          height={height}
-          disabled={activeState === 'Home'}
-          disabledIcon="/Icons/Icon_Home_c.svg"
-          currentBackgroundColor="transparent"
-          hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          onClick={() => handleButtonClick('Home')}
-        />
-        <IconButton
-          src="/Icons/Icon_exercise.svg"
-          text="운동"
-          borderRadius="0%"
-          width={width}
-          height={height}
-          disabled={activeState === 'Exercise'}
-          disabledIcon="/Icons/Icon_exercise_c.svg"
-          currentBackgroundColor="transparent"
-          hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          onClick={() => handleButtonClick('Exercise')}
-        />
-        <IconButton
-          src="/Icons/Icon_statistic.svg"
-          text="통계"
-          borderRadius="0%"
-          width={width}
-          height={height}
-          disabled={activeState === 'Statistic'}
-          disabledIcon="/Icons/Icon_statistic_c.svg"
-          currentBackgroundColor="transparent"
-          hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          onClick={() => handleButtonClick('Statistic')}
-        />
-        <IconButton
-          src="/Icons/Icon_group.svg"
-          text="그룹"
-          borderRadius="0%"
-          width={width}
-          height={height}
-          disabled={activeState === 'Group'}
-          disabledIcon="/Icons/Icon_group_c.svg"
-          currentBackgroundColor="transparent"
-          hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          onClick={() => handleButtonClick('Group')}
-        />
-        <IconButton
-          src="/Icons/Icon_mypage.svg"
-          text="마이페이지"
-          borderRadius="0%"
-          width={width}
-          height={height}
-          disabled={activeState === 'MyPage'}
-          disabledIcon="/Icons/Icon_mypage_c.svg"
-          currentBackgroundColor="transparent"
-          hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          onClick={() => handleButtonClick('MyPage')}
-        />
+        <StyledLink to="/home" onClick={() => handleButtonClick('Home')}>
+          <IconButton
+            src="/Icons/Icon_Home.svg"
+            text="홈"
+            borderRadius="0%"
+            width={width}
+            height={height}
+            disabled={activeState === 'Home'}
+            disabledIcon="/Icons/Icon_Home_c.svg"
+            currentBackgroundColor="transparent"
+            hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
+          />
+        </StyledLink>
+        <StyledLink to="/exercise" onClick={() => handleButtonClick('Exercise')}>
+          <IconButton
+            src="/Icons/Icon_exercise.svg"
+            text="운동"
+            borderRadius="0%"
+            width={width}
+            height={height}
+            disabled={activeState === 'Exercise'}
+            disabledIcon="/Icons/Icon_exercise_c.svg"
+            currentBackgroundColor="transparent"
+            hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
+          />
+        </StyledLink>
+        <StyledLink to="/statistic" onClick={() => handleButtonClick('Statistic')}>
+          <IconButton
+            src="/Icons/Icon_statistic.svg"
+            text="통계"
+            borderRadius="0%"
+            width={width}
+            height={height}
+            disabled={activeState === 'Statistic'}
+            disabledIcon="/Icons/Icon_statistic_c.svg"
+            currentBackgroundColor="transparent"
+            hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
+          />
+        </StyledLink>
+        <StyledLink to="/group" onClick={() => handleButtonClick('Group')}>
+          <IconButton
+            src="/Icons/Icon_group.svg"
+            text="그룹"
+            borderRadius="0%"
+            width={width}
+            height={height}
+            disabled={activeState === 'Group'}
+            disabledIcon="/Icons/Icon_group_c.svg"
+            currentBackgroundColor="transparent"
+            hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
+          />
+        </StyledLink>
+        <StyledLink to="/mypage" onClick={() => handleButtonClick('MyPage')}>
+          <IconButton
+            src="/Icons/Icon_mypage.svg"
+            text="마이페이지"
+            borderRadius="0%"
+            width={width}
+            height={height}
+            disabled={activeState === 'MyPage'}
+            disabledIcon="/Icons/Icon_mypage_c.svg"
+            currentBackgroundColor="transparent"
+            hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
+          />
+        </StyledLink>
       </NavBarContainer>
     </BottomLayout>
   );
@@ -102,13 +108,13 @@ NavBar.defaultProps = {
 export default NavBar;
 
 const BottomLayout = styled.div`
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: ${(props) => props.bgColor};
-    display: flex;
-    justify-content: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  background-color: ${(props) => props.bgColor};
+  display: flex;
+  justify-content: center;
 `;
 
 const NavBarContainer = styled.div`
@@ -117,3 +123,6 @@ const NavBarContainer = styled.div`
   width: 100%;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
