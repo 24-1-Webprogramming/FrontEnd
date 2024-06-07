@@ -120,3 +120,18 @@ export const create = [
     allowedCharsType : '',
   },
 ]
+
+export const join = [
+  {
+    intro: '함께할 그룹을 찾고계시는군요!',
+    question: '그룹명을 입력해주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+  {
+    intro: '국가급 보안 유지를 위해',
+    question: '초대코드를 입력해주세요',
+    unit:'',
+    allowedCharsType : 'numericWithDecimal',
+  },
+]

@@ -28,7 +28,7 @@ const PageTitle = styled.h2`
 `;
 
 
-const GroupCreateSuccess = () => {
+const GroupJoinSuccess = () => {
   const [groupname, setGroupname] = useState('');
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const GroupCreateSuccess = () => {
           height="240px"
         />
         <PageTitle>
-        <span style={{ color: '#495EF6' }}>{groupname} </span><br />그룹이 생성되었습니다.
+        <span style={{ color: '#495EF6' }}>{groupname} </span><br />가입이 완료되었습니다!
         </PageTitle>
       </Container>
       <FixedButtonContainer>
@@ -71,4 +71,4 @@ const GroupCreateSuccess = () => {
   );
 };
 
-export default GroupCreateSuccess;
+export default GroupJoinSuccess;
