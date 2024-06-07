@@ -15,6 +15,10 @@ import Home from './stories/Pages/Home/Home';
 import GroupEmpty from './stories/Pages/Group/GroupEmpty';
 import DashBoard from './stories/Pages/DashBoard/DashBoard';
 
+import GroupPage from './stories/Pages/Group/GroupPage';
+import GroupJoin from './stories/Pages/Group/GroupJoin';
+import GroupCreate from './stories/Pages/Group/GroupCreate';
+import Group from './stories/Pages/Group/Group';
 
 const App = () => {
   return (
@@ -26,12 +30,20 @@ const App = () => {
           <Route path="/onboarding" element={<ProfileSetup/>}/>
           <Route path="/survey" element={<SurveyStart />} />
           <Route path="/survey/question" element={<SurveyPage/>} />
+
           <Route path="/home" element={<Home/>} />
+
           <Route path="/entry/meal" element={<Meal/>} />
           <Route path="/entry/water" element={<Water/>} />
           <Route path="/entry/weight" element={<Weight/>} />
           <Route path="/entry/DDay" element={<DDay/>} />
+
           <Route path="/group/empty" element={<GroupEmpty/>} />
+          <Route path="/group" element={<Group/>} />
+          <Route path="/group/join" element={<GroupJoin/>} />
+          <Route path="/group/create" element={<GroupCreate/>} />
+          <Route path="/group/:" element={<GroupPage/>} />
+
           <Route path="/dashboard" element={<DashBoard/>} />
           <Route path="/*" element={<Error/>} />
         </Routes>

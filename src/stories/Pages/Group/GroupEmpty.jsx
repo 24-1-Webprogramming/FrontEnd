@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CryImage from '../../assets/DumbbellCrying2.svg';
 import Image from '../../Component/Image';
 import { Button } from '../../Component/Button';
+import { Link } from 'react-router-dom';
 
 const GroupEmpty = () => {
     return (
@@ -21,20 +22,21 @@ const GroupEmpty = () => {
                 </TopBox>
 
                 <BottomBox>
-                    <Button
-                        label="개설하기"
-                        type="pri          mary"
-                        width={350}
-                        height={60}
-                        path="/group/create"
-                    />
-                    <Button
-                        label="가입하기"
-                        type="border"
-                        width={350}
-                        height={60}
-                        path="/group/join"
-                    />
+                    <Link to="/group/create">
+                        <Button
+                            label="개설하기"
+                            width={350}
+                            height={60}
+                        />
+                    </Link>
+                    <Link to="/group/join">
+                        <Button
+                            label="가입하기"
+                            type="border"
+                            width={350}
+                            height={60}
+                        />
+                    </Link> 
                 </BottomBox>
             </Container>
             <NavBar activeState="Group" />
