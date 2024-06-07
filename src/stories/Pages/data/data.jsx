@@ -110,3 +110,13 @@ export const dday = [
     allowedCharsType : '',
   },
 ]
+
+
+export const create = [
+  {
+    intro: '새로운 그룹이 필요하신가요?',
+    question: '멋진 그룹 이름을 지어주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+]

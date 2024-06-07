@@ -19,6 +19,7 @@ import GroupPage from './stories/Pages/Group/GroupPage';
 import GroupJoin from './stories/Pages/Group/GroupJoin';
 import GroupCreate from './stories/Pages/Group/GroupCreate';
 import Group from './stories/Pages/Group/Group';
+import GroupCreateSuccess from './stories/Pages/Group/GroupCreateSuccess';
 
 import Mypage from './stories/Pages/mypage/mypage';
 
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/group" element={<Group/>} />
           <Route path="/group/join" element={<GroupJoin/>} />
           <Route path="/group/create" element={<GroupCreate/>} />
+          <Route path="/group/create/success" element={<GroupCreateSuccess/>} />
           <Route path="/group/:" element={<GroupPage/>} />
 
           <Route path="/statistic" element={<Statistic/>} />
