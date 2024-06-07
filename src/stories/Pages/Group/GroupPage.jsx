@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import Header from '../../Component/Header';
 import styled from 'styled-components';
 import Card from '../../Component/Card';
@@ -7,7 +8,7 @@ import NavBar from '../../Component/NavBar';
 import { Button } from '../../Component/Button';
 
 const groupData = {
-    name: "회원님여덟개만더하조",
+    name: "회원님여덑개만더하조",
     ranking: 2,
     currentUser: "편유나"
 };
@@ -18,11 +19,10 @@ const rankingData = [
     { rank: 3, name: '전윤서', profileImg: 'https://via.placeholder.com/50' },
     { rank: 4, name: '이동현', profileImg: 'https://via.placeholder.com/50' },
     { rank: 5, name: '정다운', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 6, name: '김난슬', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 7, name: '김연서', profileImg: 'https://via.placeholder.com/50' },
 ];
 
 const GroupPage = () => {
+    const { id } = useParams(); // Get the id from the URL
     const totalPlayers = rankingData.length;
     const percentage = ((groupData.ranking / totalPlayers) * 100).toFixed(1); // 상위 몇 퍼센트인지 계산
     console.log(percentage);
@@ -70,13 +70,15 @@ const GroupPage = () => {
                             </MemberBox>
                         ))}
                         <PlusIconContainer>
-                            <PlusIcon />
+                            <Link to={`/group/${id}/invite`}>
+                                <PlusIcon />
+                            </Link>
                         </PlusIconContainer>
                     </MembersContainer>
                 </Content>
                 <ButtonBox>
                     <Button
-                        label = "그룹 나가기"
+                        label="그룹 나가기"
                         type="warning"
                         onClick={() => {}}
                     />
@@ -90,8 +92,8 @@ const GroupPage = () => {
 };
 
 const ButtonBox = styled.div`
-    margin-top:30%;
-`
+    margin-top: 30%;
+`;
 
 const Container = styled.div`
     display: flex;
@@ -154,7 +156,7 @@ const RankingContainer = styled.div`
     margin-left: 10%;
     width: 80%;
     max-width: 80%;
-    max-height: 250px;
+    max-height: 220px;
     overflow-y: scroll;
     border-radius: 10px;
     padding: 10px;

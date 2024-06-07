@@ -23,6 +23,7 @@ import GroupCreateSuccess from './stories/Pages/Group/GroupCreateSuccess';
 import GroupJoinSuccess from './stories/Pages/Group/GroupJoinSuccess';
 
 import Mypage from './stories/Pages/mypage/mypage';
+import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/group/create/success" element={<GroupCreateSuccess/>} />
           <Route path="/group/join/success" element={<GroupJoinSuccess/>} />
           <Route path="/group/:id" element={<GroupPage/>} />
+          <Route path="/group/:id/invite" element={<GroupInvite/>} />
 
           <Route path="/statistic" element={<Statistic/>} />
 
