@@ -2,6 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import ProfileHeader from './Hbar2';
+import MySVGIcon from './Leave_check'; // import the SVG component
+
+const ProfileSection = ({ onSave, onCancel }) => {
+  return (
+    <ProfileHeader onSave={onSave} onCancel={onCancel} />
+  );
+};
 
 const SurveyStartPage = () => {
   const [nickname, setNickname] = useState('');
@@ -35,44 +42,63 @@ const SurveyStartPage = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-      <ProfileHeader onSave={handleComplete} onCancel={handleCancel} />
-      <h2 style={{ marginTop: '40px', textAlign: 'center' }}>
-        {nickname}님과 헤어지기 싫어요<br />
-        <span style={{ color: '#495EF6' }}>정말 떠나실 건가요?</span>
-      </h2>
-      <img src="../../DumbbellCrying2.svg" alt="캐릭터 사진" style={{ width: '200px', height: '200px', marginTop: '40px' }} />
-      <p style={{ fontSize: '14px', marginTop: '10px' }}>{nickname}님과의 추억 정리 중...</p>
-      <p
-        style={{
-          fontSize: '14px',
-          color: agreementChecked ? '#FF3C3C' : '#535353',
-          marginTop: '40px',
-          display: 'flex',
-          alignItems: 'center',
-          cursor: 'pointer'
-        }}
-        onClick={handleAgreementClick}
-      >
-        <img src="../Leave_check.svg" alt="체크표시" style={{ marginRight: '10px', width: '20px', height: '20px' }} />
-        안내 사항을 확인하였으며, 이에 동의합니다.
-      </p>
-      <Link to={agreementChecked ? '/survey' : '#'}>
-        <Button
-          label="탈퇴하기"
-          type="primary"
-          size="medium"
+    <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', minHeight: '100vh', backgroundColor: '#f0f0f0' }}>
+      <div style={{ backgroundColor: '#fff', width: '393px', height: '852px', display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px', border: '1px solid #ddd', boxSizing: 'border-box', position: 'relative' }}>
+        <ProfileSection onSave={handleComplete} onCancel={handleCancel} />
+        <h2 style={{ marginTop: '60px', textAlign: 'left', width: '322px', height: '63px', fontFamily: 'Pretendard Variable', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '120%', letterSpacing: '-0.75px', color: 'var(--deprecated-Gray-01, #252525)' }}>
+          {nickname}님과 헤어지기 싫어요<br />
+          <span style={{ color: 'var(--Primary, #5467F5)', fontFamily: 'Pretendard Variable', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '120%', letterSpacing: '-0.75px' }}>
+            정말 떠나실 건가요?
+          </span>
+        </h2>
+        <img src="../../DumbbellCrying2.svg" alt="캐릭터 사진" style={{ width: '156px', height: '309px', marginTop: '30px' }} />
+        <p style={{ fontSize: '14px', marginTop: '10px' }}>{nickname}님과의 추억 정리 중...</p>
+        <div
           style={{
-            marginTop: '20px',
-            backgroundColor: agreementChecked ? '#FF3C3C' : '#fff',
-            color: agreementChecked ? '#fff' : '#FF3C3C',
+            fontFamily: 'Pretendard Variable',
+            fontStyle: 'normal',
+            fontSize: '14px',
+            color: agreementChecked ? '#FF3C3C' : '#535353',
+            marginTop: '100px',
+            display: 'flex',
+            alignItems: 'left',
+            cursor: 'pointer',
+            textAlign: 'left',
             width: '100%',
-            border: '1px solid #FF3C3C'
+            justifyContent: 'left',
+            padding: '10px 0'
           }}
-          onClick={handleButtonClick}
-          disabled={!agreementChecked}
-        />
-      </Link>
+          onClick={handleAgreementClick}
+        >
+          <div style={{ display: 'flex', alignItems: 'left', gap: '5px' }}>
+            <MySVGIcon style={{ width: '20px', height: '20px',bottom:'15px' }} />
+            안내 사항을 확인하였으며, 이에 동의합니다.
+          </div>
+        </div>
+        <Link to={agreementChecked ? '/survey' : '#'} style={{ textDecoration: 'none', position: 'absolute', bottom: '49px' }}>
+          <Button
+            label="탈퇴하기"
+            type="primary"
+            size="medium"
+            style={{
+              display: 'flex',
+              width: '341px',
+              height: '56px',
+              padding: '10px',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+              backgroundColor: agreementChecked ? 'var(--Red-500, #FF3C3C)' : '#fff',
+              color: agreementChecked ? '#fff' : '#FF3C3C',
+              border: '1px solid #FF3C3C',
+              borderRadius: '12px',
+              textDecoration: 'none' // 밑줄 제거
+            }}
+            onClick={handleButtonClick}
+            disabled={!agreementChecked}
+          />
+        </Link>
+      </div>
     </div>
   );
 };

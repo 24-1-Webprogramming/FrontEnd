@@ -41,17 +41,18 @@ Header.defaultProps = {
 export default Header;
 
 const TopLayout = styled.div`
+  display: flex;
+  width: 390px;
+  height: 45px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   background-color: ${(props) => props.bgColor};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 49px;
   z-index: 1000;
-  padding: 10px 10px 20px 10px;
 `;
 
 const IconButtonWrapper = styled.div`

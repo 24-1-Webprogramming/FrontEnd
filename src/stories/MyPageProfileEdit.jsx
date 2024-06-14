@@ -37,7 +37,7 @@ const ProfileSetupPage = () => {
           onClick={() => alert('편집 기능 구현 필요')} 
         />
       </div>
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: '200px' }}>
         <TextBox 
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
@@ -46,18 +46,31 @@ const ProfileSetupPage = () => {
           showCharCount={true}  // 문자 수 표시
         />
       </div>
-      <Link to='/survey-start'> {/* 링크를 survey-start 페이지로 설정 */}
-        <Button 
-          onClick={handleComplete} 
-          disabled={!isSignUpButtonEnabled} // 버튼 활성화 여부를 isSignUpButtonEnabled 상태로 설정
+      <Link to='/survey-start' style={{ textDecoration: 'none', position: 'absolute', bottom: '49px' }}>
+        <Button
           label="수정 완료"
-          type="primary" 
-          size="medium" 
-          style={{ 
-            marginTop: '20px', 
-            backgroundColor: isSignUpButtonEnabled ? '#5467F5' : '#fff', 
-            color: isSignUpButtonEnabled ? '#fff' : '#000' // 닉네임 입력 여부에 따라 텍스트 색상 변경
-          }} 
+          type="primary"
+          size="medium"
+          style={{
+            display: 'flex',
+            width: '341px',
+            height: '56px',
+            padding: '10px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '10px',
+            flexShrink: 0,
+            borderRadius: '12px',
+            background: 'var(--deactive, #B2BAC2)',
+            color: isSignUpButtonEnabled ? '#fff' : '#000',
+            border: '1px solid #FF3C3C',
+            textDecoration: 'none',
+            cursor: isSignUpButtonEnabled ? 'pointer' : 'default',
+            fontSize: '18px',
+            fontWeight: 'bold'
+          }}
+          onClick={handleComplete}
+          disabled={!isSignUpButtonEnabled}
         />
       </Link>
     </div>

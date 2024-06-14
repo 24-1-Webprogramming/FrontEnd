@@ -5,6 +5,7 @@ import TextBox from './TextBox';
 import { Button } from './Button';
 import ProfileHeader from './Hbar'; // ProfileHeader 컴포넌트 임포트
 
+
 const ProfileSetupPage = () => {
   const [nickname, setNickname] = useState('');
   const [isSignUpButtonEnabled, setIsSignUpButtonEnabled] = useState(false);
@@ -31,7 +32,7 @@ const ProfileSetupPage = () => {
     <div style={{ backgroundColor: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
       <ProfileHeader onSave={handleComplete} onCancel={handleCancel} /> 
       <div style={{ marginTop: '5px' }}></div>
-      <div style={{ position: 'relative', width: '100px', height: '100px', marginBottom: '49px', marginTop: '79px' }}> {/* marginTop 수정 */}
+      <div style={{ position: 'relative', width: '100px', height: '100px', marginBottom: '49px', marginTop: '60px' }}> {/* marginTop 수정 */}
         <Image 
           src="../../status=view.svg"
           alt="프로필 이미지"
@@ -54,7 +55,7 @@ const ProfileSetupPage = () => {
           showCharCount={true}  // 문자 수 표시
         />
       </div>
-      <Link to='/survey-start'> {/* 링크를 survey-start 페이지로 설정 */}
+      <Link to='/survey-start' style={{ textDecoration: 'none', marginBottom: '24px' }}> {/* 링크를 survey-start 페이지로 설정 */}
         <Button 
           onClick={handleComplete} 
           disabled={!isSignUpButtonEnabled} // 버튼 활성화 여부를 isSignUpButtonEnabled 상태로 설정
@@ -62,9 +63,19 @@ const ProfileSetupPage = () => {
           type="primary" 
           size="medium" 
           style={{ 
-            marginTop: '300px', 
-            backgroundColor: isSignUpButtonEnabled ? '#5467F5' : '#fff', 
-            color: isSignUpButtonEnabled ? '#fff' : '#000' // 닉네임 입력 여부에 따라 텍스트 색상 변경
+            display: 'flex',
+            width: '341px',
+            height: '56px',
+            padding: '10px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '10px',
+            flexShrink: 0,
+            borderRadius: '12px',
+            background: isSignUpButtonEnabled ? '#5467F5' : 'var(--deactive, #B2BAC2)',
+            color:'fff', // 닉네임 입력 여부에 따라 텍스트 색상 변경
+            textDecoration: 'none',
+            cursor: isSignUpButtonEnabled ? 'pointer' : 'default'
           }} 
         />
       </Link>
