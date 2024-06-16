@@ -102,18 +102,21 @@ NavBar.defaultProps = {
 export default NavBar;
 
 const BottomLayout = styled.div`
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background-color: ${(props) => props.bgColor};
-    display: flex;
-    justify-content: center;
+  position: fixed;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 393px; // 부모 컨테이너의 최대 너비를 설정
+  background-color: ${(props) => props.bgColor};
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box; // 패딩과 보더를 포함한 전체 너비와 높이 설정
 `;
 
 const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
+  box-sizing: border-box; // 패딩과 보더를 포함한 전체 너비와 높이 설정
 `;
-

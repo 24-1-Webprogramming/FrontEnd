@@ -73,8 +73,9 @@ const ProfileSetupPage = () => {
             flexShrink: 0,
             borderRadius: '12px',
             background: isSignUpButtonEnabled ? '#5467F5' : 'var(--deactive, #B2BAC2)',
-            color:'fff', // 닉네임 입력 여부에 따라 텍스트 색상 변경
+            color:'#fff', // 닉네임 입력 여부에 따라 텍스트 색상 변경
             textDecoration: 'none',
+            fontWeight: 'bold',
             cursor: isSignUpButtonEnabled ? 'pointer' : 'default'
           }} 
         />

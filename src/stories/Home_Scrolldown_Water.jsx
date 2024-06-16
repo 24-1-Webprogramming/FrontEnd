@@ -2,35 +2,44 @@ import React from 'react';
 
 const Home_Scrolldown_Water = () => {
   return (
-    <div style={styles.waterManagement}>
-      <h2>물 섭취량 관리</h2>
-      <div style={styles.waterBox}>
-        <p>오늘의 물 섭취량</p>
-        <p>0.0L</p>
-        <button style={styles.button}>기록하기</button>
-      </div>
+    <div style={styles.waterBox}>
+      <p style={styles.text}>오늘의 물 섭취량</p>
+      <p style={styles.water}>0.0L</p>
+      <button style={styles.button}>기록하기</button>
     </div>
   );
 };
 
 const styles = {
-  waterManagement: {
-    width: '90%',
-    padding: '20px',
-    margin: '20px 0',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-  },
   waterBox: {
-    padding: '20px',
-    textAlign: 'center',
+    display: 'flex',
+    width: '270px',
+    height: '241px',
+    padding: '26px 22px',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '4px',
     backgroundColor: '#EEF0FF',
     borderRadius: '10px',
   },
+  text: {
+    fontSize: '18px', // 기본 텍스트 크기
+    color: '#333', // 텍스트 색상
+    marginBottom: '16px', // 텍스트와 체중 간의 간격
+    fontWeight: 'bold',
+  },
+  water: {
+    fontSize: '38px', // 체중 텍스트 크기
+    fontWeight: 'bold', // 체중 텍스트 굵기
+    color: '#000', // 체중 텍스트 색상
+    marginTop: '-20px',
+  },
   button: {
-    marginTop: '10px',
-    padding: '10px 20px',
+    fontSize: '18px', // 기본 텍스트 크기
+    marginTop: '-4px',
+    fontWeight: 'bold',
+    padding: '10px 70px',
     border: 'none',
     borderRadius: '5px',
     backgroundColor: '#5467F5',

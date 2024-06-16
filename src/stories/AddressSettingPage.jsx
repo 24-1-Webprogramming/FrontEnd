@@ -1,8 +1,9 @@
+// src/stories/AddressSettingPage.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ArrowIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Icon_arrow.svg';
-import { ReactComponent as LocationIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/location.svg';
 import { ReactComponent as SearchIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Search.svg';
+import AddressItem from './AddressItem';
 
 const AddressSettingPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,13 +43,7 @@ const AddressSettingPage = () => {
         </div>
         <div style={styles.addressList}>
           {addresses.map((item, index) => (
-            <div key={index} style={styles.addressItem}>
-              <LocationIcon width={20} height={20} style={styles.icon} />
-              <div>
-                <div style={styles.addressName}>{item.name}</div>
-                <div style={styles.addressDetail}>{item.address}</div>
-              </div>
-            </div>
+            <AddressItem key={index} name={item.name} address={item.address} />
           ))}
         </div>
       </div>
@@ -63,7 +58,7 @@ const styles = {
     alignItems: 'center',
     minHeight: '100vh',
     backgroundColor: '#f0f0f0',
-    
+    paddingTop: '40px',  // 헤더 부분 위에서 40px 띄움
   },
   innerContainer: {
     width: '393px',
@@ -75,6 +70,7 @@ const styles = {
     padding: '20px',
     boxSizing: 'border-box',
     border: '1px solid #ddd',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
   },
   header: {
     display: 'flex',
@@ -82,7 +78,6 @@ const styles = {
     width: '100%',
     paddingBottom: '10px',
     marginBottom: '20px',
-    marginTop: '35px',
   },
   backButton: {
     marginRight: '10px',
@@ -98,7 +93,7 @@ const styles = {
   },
   searchContainer: {
     width: '100%',
-    marginBottom: '20px',
+    marginBottom: '10px',  // 검색창과 주소 목록 사이의 간격 10px
   },
   searchBox: {
     display: 'flex',
@@ -120,26 +115,7 @@ const styles = {
   },
   addressList: {
     width: '100%',
-    marginTop: '20px',
-  },
-  addressItem: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '10px 0',
-    borderBottom: '1px solid #ddd',
-    marginBottom: '15px',
-  },
-  icon: {
-    marginRight: '10px',
-    color: '#5467F5',
-  },
-  addressName: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-  },
-  addressDetail: {
-    fontSize: '14px',
-    color: '#aaa',
+    marginTop: '10px',  // 검색창과 주소 목록 사이의 간격 10px
   },
 };
 
