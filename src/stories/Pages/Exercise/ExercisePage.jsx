@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../../Component/Button';
 import styled from 'styled-components';
@@ -10,8 +10,95 @@ import ProgressBar from '../../Component/ProgressBar';
 import CircularProgressBar from '../../Component/CircularProgressBar';
 import GymButton from '../../Component/GymButton';
 import { ChangeR } from '../../Component/ButtonS';
+import Xset from '../../Component/Xset';
 
 const ExercisePage = () => {
+    const [nickname, setNickname] = useState('');
+    const [exerciseData, setExerciseData] = useState([]);
+  
+    useEffect(() => {
+      const savedNickname = localStorage.getItem('nickname');
+      if (savedNickname) {
+        setNickname(savedNickname);
+      }
+      // Simulate fetching data from an API
+      const suggestionData = [
+        {
+          id: 1,
+          number: 1,
+          bodyPart: '하체',
+          exercise: '스쿼트',
+          sets: 4,
+          weight: 20,
+          reps: 12,
+        },
+        {
+          id: 2,
+          number: 2,
+          bodyPart: '상체',
+          exercise: '벤치 프레스',
+          sets: 3,
+          weight: 30,
+          reps: 10,
+        },
+        {
+          id: 3,
+          number: 3,
+          bodyPart: '하체',
+          exercise: '레그 프레스',
+          sets: 5,
+          weight: 50,
+          reps: 15,
+        },
+        {
+          id: 4,
+          number: 4,
+          bodyPart: '상체',
+          exercise: '숄더 프레스',
+          sets: 3,
+          weight: 25,
+          reps: 12,
+        },
+        {
+          id: 5,
+          number: 5,
+          bodyPart: '하체',
+          exercise: '데드리프트',
+          sets: 4,
+          weight: 40,
+          reps: 8,
+        },
+        {
+          id: 6,
+          number: 6,
+          bodyPart: '상체',
+          exercise: '풀업',
+          sets: 3,
+          weight: 0,
+          reps: 8,
+        },
+        {
+          id: 7,
+          number: 7,
+          bodyPart: '하체',
+          exercise: '레그 컬',
+          sets: 4,
+          weight: 15,
+          reps: 12,
+        },
+        {
+          id: 8,
+          number: 8,
+          bodyPart: '상체',
+          exercise: '바벨 로우',
+          sets: 3,
+          weight: 35,
+          reps: 10,
+        },
+      ];
+      setExerciseData(suggestionData);
+    }, []);
+
     return (
         <div>
             <Container>
@@ -41,10 +128,22 @@ const ExercisePage = () => {
                     </CardContentCenter>
                 </Card>
 
-                <ButtonContainer>
-                    <Button width='45%' height='45px' label='운동 직접 선택' type='border' />
-                    <Button width='45%' height='45px' label='루틴 추천 받기' type='primary' />
-                </ButtonContainer>
+                <XsetContainer>
+                    <XsetList>
+                    {exerciseData.map((exercise) => (
+                        <XsetItem key={exercise.id}>
+                        <Xset
+                            number={exercise.number}
+                            bodyPart={exercise.bodyPart}
+                            exercise={exercise.exercise}
+                            sets={exercise.sets}
+                            weight={exercise.weight}
+                            reps={exercise.reps}
+                        />
+                        </XsetItem>
+                    ))}
+                    </XsetList>
+                </XsetContainer>
 
                 <Card>
                     <TitleSection>
@@ -177,4 +276,45 @@ const Day = styled.div`
     font-size: 14px;
     font-weight: 400;
     margin-top: 5px;
+`;
+
+const XsetContainer = styled.div`
+  align-self: flex-start;
+  margin-left: 10%;
+  width: 80%;
+  max-width: 80%;
+  max-height: 220px;
+  overflow-y: scroll;
+  border-radius: 10px;
+  padding: 10px;
+  background: #fff;
+  border: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #5467f5;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+`;
+
+const XsetList = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const XsetItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px;
+  border-bottom: 1px solid #eee;
 `;
