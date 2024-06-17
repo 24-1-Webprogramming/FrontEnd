@@ -18,5 +18,4 @@ const CalendarIcon = () => (
     </svg>
 );
 
-
 export { TrophyIcon, PlusIcon, CalendarIcon };
