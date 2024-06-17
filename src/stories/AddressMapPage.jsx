@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import NaverMap from './NaverMap'; // NaverMap 컴포넌트를 import
+import NaverMap from '/Users/daun/Desktop/React_rp/FrontEnd/src/stories/NaverMap.js'; // NaverMap 컴포넌트를 import
 import { ReactComponent as ArrowIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Icon_arrow.svg';
 
 const AddressSettingPage = () => {

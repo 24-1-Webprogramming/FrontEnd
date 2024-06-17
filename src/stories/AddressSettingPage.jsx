@@ -1,24 +1,34 @@
-// src/stories/AddressSettingPage.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { ReactComponent as ArrowIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Icon_arrow.svg';
 import { ReactComponent as SearchIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Search.svg';
-import AddressItem from './AddressItem';
 
-const AddressSettingPage = () => {
+const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    // API를 호출하여 데이터를 가져옵니다.
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://soongitglwebp8.site/api/gym/search');
+        setAddresses(response.data);
+      } catch (error) {
+        console.error('Error fetching the gym data', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const addresses = [
-    { name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층' },
-    { name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층' },
-    { name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층' },
-    { name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층' },
-    { name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층' },
-  ];
+  const filteredAddresses = addresses.filter((item) =>
+    item.address.includes(searchTerm) || item.name.includes(searchTerm)
+  );
 
   return (
     <div style={styles.container}>
@@ -34,7 +44,7 @@ const AddressSettingPage = () => {
             <SearchIcon style={styles.searchIcon} />
             <input
               type="text"
-              placeholder="도로명, 건물명 또는 지번으로 검색"
+              placeholder="헬스장 이름 또는 지번으로 검색"
               value={searchTerm}
               onChange={handleSearchChange}
               style={styles.searchInput}
@@ -42,8 +52,23 @@ const AddressSettingPage = () => {
           </div>
         </div>
         <div style={styles.addressList}>
-          {addresses.map((item, index) => (
-            <AddressItem key={index} name={item.name} address={item.address} />
+          {filteredAddresses.map((item, index) => (
+            <div key={index} style={styles.addressItem}>
+              <img src={item.image} alt={item.name} style={styles.image} />
+              <div style={styles.info}>
+                <div style={styles.name}>{item.name}</div>
+                <div style={styles.address}>{item.address}</div>
+                <div style={styles.details}>
+                  <span style={styles.distance}>{item.distance}</span>
+                  <div style={styles.price}>{item.price}</div>
+                </div>
+                <div style={styles.tags}>
+                  {item.tags.map((tag, index) => (
+                    <span key={index} style={styles.tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -54,15 +79,15 @@ const AddressSettingPage = () => {
 const styles = {
   container: {
     display: 'flex',
-    justifyContent: 'center',
+    flexDirection: 'column',
     alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#f0f0f0',
-    paddingTop: '40px',  // 헤더 부분 위에서 40px 띄움
+    width: '393px',
+    backgroundColor: '#fff',
+    boxSizing: 'border-box',
   },
   innerContainer: {
-    width: '393px',
-    height: '852px',
+    width: '100%',
+    height: '100%',
     backgroundColor: '#fff',
     display: 'flex',
     flexDirection: 'column',
@@ -87,19 +112,19 @@ const styles = {
   title: {
     flex: 1,
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: '17px',
     fontWeight: 'bold',
-    marginLeft: '-32px',  // 화살표 아이콘과의 균형을 맞추기 위해 사용
+    marginLeft: '-32px',
   },
   searchContainer: {
     width: '100%',
-    marginBottom: '10px',  // 검색창과 주소 목록 사이의 간격 10px
+    marginBottom: '10px',
   },
   searchBox: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'rgba(217, 217, 217, 0.50)',  // 배경 색상
-    borderRadius: '10px',  // 테두리 둥글게
+    backgroundColor: 'rgba(217, 217, 217, 0.50)',
+    borderRadius: '10px',
     padding: '10px',
   },
   searchIcon: {
@@ -110,12 +135,75 @@ const styles = {
     flex: 1,
     border: 'none',
     outline: 'none',
-    backgroundColor: 'transparent',  // 배경색 투명하게
-    fontSize: '14px',
+    backgroundColor: 'transparent',
+    fontSize: '16px',
   },
   addressList: {
     width: '100%',
-    marginTop: '10px',  // 검색창과 주소 목록 사이의 간격 10px
+    marginTop: '11px',
+  },
+  addressItem: {
+    display: 'flex',
+    width: 'calc(100% - 10px)', // 전체 너비에서 10px을 뺌
+    padding: '20px 14px',
+    alignItems: 'flex-start',
+    gap: '11px',
+    borderBottom: '1px solid #ddd',
+    marginLeft: '-8px', // 왼쪽으로 5px 이동
+  },
+  image: {
+    width: '115px',
+    height: '119px',
+    borderRadius: '9px',
+  },
+  info: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginBottom: '5px',
+  },
+  name: {
+    fontSize: '16px',
+    fontWeight: 'bold',
+    marginTop: '4px',
+  },
+  address: {
+    fontSize: '14px',
+    color: '#888',
+    marginTop: '4px',
+  },
+  details: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: '0px',
+  },
+  distance: {
+    fontSize: '12px',
+    color: '#888',
+    marginTop: '-30px',
+  },
+  tags: {
+    display: 'flex',
+    marginTop: '-18px',
+    bottom: '-10px',
+  },
+  tag: {
+    fontSize: '12px',
+    color: '#5467F5',
+    backgroundColor: '#E0E7FF',
+    borderRadius: '5px',
+    padding: '2px 5px',
+    marginRight: '5px',
+  },
+  price: {
+    fontSize: '14px',
+    fontWeight: 'bold',
+    color: '#000',
+    alignSelf: 'flex-end',
+    bottom: '100px',
+    marginTop: '45px',
   },
 };
 

@@ -1,10 +1,9 @@
-// src/stories/AddressItem.stories.jsx
+import React from 'react';
 import AddressItem from './AddressItem';
 
 export default {
-  title: 'Components/AddressItem',
+  title: 'AddressItem',
   component: AddressItem,
-  tags: ['autodocs'],  // CSF3 형식 사용
 };
 
 const Template = (args) => <AddressItem {...args} />;

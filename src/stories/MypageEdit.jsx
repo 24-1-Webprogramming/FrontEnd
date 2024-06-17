@@ -2,41 +2,53 @@ import NavBar from './NavBar';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import Image from './Image'; // 프로필 이미지 임포트
+import { ReactComponent as LogoIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Logo-color.svg';
+import { ReactComponent as ArrowIcon } from '/Users/daun/Desktop/React_rp/FrontEnd/public/Icons/Myarrow.svg';
 
 const MyPageProfileEdit = () => {
+  const [nickname, setNickname] = useState('');
   const [activeState, setActiveState] = useState('MyPage');
 
   return (
-    <div style={{ backgroundColor: '#fff', minHeight: '100vh', fontFamily: 'Arial, sans-serif', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, padding: '20px' }}>
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ width: '100px', height: '180px' }}>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <LogoIcon style={styles.logo} />
+      </div>
+      <div style={styles.content}>
+        <div style={{ textAlign: 'center', marginTop: '-40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ width: '100px', height: '100px', borderRadius: '50%', overflow: 'hidden' }}>
               <Image 
                 src="../../status=view.svg" // 이미지 경로 수정
                 alt="프로필 이미지"
                 width="100px"
-                height="220px"
+                height="100px"
                 style={{ display: 'block', margin: '0 auto' }}
               />
             </div>
           </div>
           <h2 style={{ margin: '10px 0', fontSize: '18px' }}>개미는 뚠뚠</h2>
           <p style={{ fontSize: '14px', color: '#666' }}>newnya@gmail.com</p>
-          <button style={{ padding: '10px 20px', border: '1px solid #ccc', borderRadius: '5px', background: 'none', cursor: 'pointer', fontSize: '14px', marginTop: '10px' }}>프로필 편집</button>
+          <Link to="/mypage-profile-edit-page" style={styles.editProfileButton}> {/* Add Link here */}
+            <button style={styles.editProfileButtonInner}>프로필 편집</button>
+          </Link>
         </div>
         <div style={{ padding: '20px', fontSize: '14px' }}>
           <div style={{ marginBottom: '40px' }}>
             <h3 style={{ fontSize: '16px', marginBottom: '10px' }}>계정관리</h3>
             <p style={{ marginBottom: '10px', cursor: 'pointer' }}>로그아웃</p>
-            <Link to="/MypageLeave" style={{ textDecoration: 'none', color: 'black' }}>
-              <p style={{ marginBottom: '10px', cursor: 'pointer' }}>계정탈퇴</p>
+            <Link to="/MypageLeave" style={styles.link}>
+              <div style={styles.linkContainer}>
+                계정탈퇴 <ArrowIcon style={styles.arrowIcon} />
+              </div>
             </Link>
           </div>
           <div style={{ marginBottom: '40px' }}>
             <h3 style={{ fontSize: '16px', marginBottom: '10px' }}>서비스 정보</h3>
-            <Link to="/MyPageCondition" style={{ textDecoration: 'none', color: 'black' }}>
-              <p style={{ marginBottom: '10px', cursor: 'pointer' }}>이용약관</p>
+            <Link to="/MyPageCondition" style={styles.link}>
+              <div style={styles.linkContainer}>
+                이용약관 <ArrowIcon style={styles.arrowIcon} />
+              </div>
             </Link>
           </div>
         </div>
@@ -48,6 +60,66 @@ const MyPageProfileEdit = () => {
       />
     </div>
   );
+};
+
+const styles = {
+  container: {
+    width: '393px',
+    height: '852px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  header: {
+    width: '100%',
+    height: '111px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    zIndex: 1000,
+    padding: '10px',
+    boxSizing: 'border-box',
+  },
+  logo: {
+    width: '50px',
+    height: '50px',
+  },
+  content: {
+    width: '100%',
+    flex: 1,
+    overflowY: 'auto',
+    padding: '20px',
+    boxSizing: 'border-box',
+    paddingTop: '50px', // Ensure content starts below the fixed header
+  },
+  editProfileButton: {
+    textDecoration: 'none', // Remove underline from Link
+  },
+  editProfileButtonInner: {
+    padding: '10px 130px',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    background: 'none',
+    cursor: 'pointer',
+    fontSize: '14px',
+    marginTop: '10px',
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+  linkContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  arrowIcon: {
+    marginLeft: 'auto', // Ensures the arrow icon is aligned to the right
+  },
 };
 
 export default MyPageProfileEdit;
