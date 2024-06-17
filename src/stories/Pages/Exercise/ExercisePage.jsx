@@ -4,29 +4,27 @@ import { Button } from '../../Component/Button';
 import styled from 'styled-components';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import NavBar from '../../Component/NavBar';
-import Header from '../../Component/Header';
 import Card from '../../Component/Card';
 import IconButton from '../../Component/IconButton';
 import ProgressBar from '../../Component/ProgressBar';
 import CircularProgressBar from '../../Component/CircularProgressBar';
+import GymButton from '../../Component/GymButton';
+import { ChangeR } from '../../Component/ButtonS';
 
 const ExercisePage = () => {
     return (
         <div>
-            <Header text='회사 헬스장' backButton={false} />
             <Container>
-                <Card
-                    height="40%"
-                    shadow={false}
-                >
-                    <CardContentCenter>
-                        <IconButton width='48px' height='67px' src='/FaceIcons/Blue100.svg' text='짱맛도리' disabledFontcolor='#000' textSize='10px' disabled={true} />
+                
+                <HeadContainer>
+                    <Titles>
                         <div>
-                            <Title>오늘의 운동</Title>
-                            <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle>
-                        </div>
-                    </CardContentCenter>
-                </Card>
+                            <Title>여긴루틴이름임</Title>
+                            <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle> </div>
+                        <ChangeR/>
+                    </Titles>
+                    <img src='/Characters/Sunglasses1_Black.svg'/>
+                </HeadContainer>
 
                 <Card
                     height="102px"
@@ -65,6 +63,7 @@ const ExercisePage = () => {
                     </ProgressContainer>
                 </Card>
             </Container>
+            <GymButton/>
             <FixedButtonContainer>
                 <NavBar activeState='Exercise' />
             </FixedButtonContainer>
@@ -83,6 +82,16 @@ const Container = styled.div`
     gap: 45px; /* Ensure 45px space between each Card */
 `;
 
+const HeadContainer = styled.div`
+    width: 332px;
+    height: 127px;
+    padding-right: 21px;
+    padding-left: 21px;
+    gap: 28px;
+    display: flex;
+
+`;
+
 const CardContentCenter = styled.div`
     display: flex;
     align-items: center;
@@ -93,19 +102,34 @@ const CardContentCenter = styled.div`
     gap: 15px;
 `;
 
+const Titles = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    width: 163px;
+    height: 84px;
+    padding-top: 21px;
+`;
+
 const Title = styled.div`
-    font-size: 20px;
-    font-weight: 700;
-    color: #495ef6;
-    margin: 0;
+    color: var(--Active, #495EF6);
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    letter-spacing: -0.096px;
 `;
 
 const Subtitle = styled.div`
+    color: #404040;
+    font-family: Pretendard;
     font-size: 16px;
-    font-weight: 400;
-    color: #000; /* 검은색 */
-    margin: 0;
-    margin-top: 8px; /* 줄바꿈을 위한 간격 */
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.48px;
 `;
 
 const ButtonContainer = styled.div`
