@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState }) => {
-  // NavBar의 너비를 계산
-  const width = `${(100 / 5)}%`;
+  const [navBarWidth, setNavBarWidth] = useState(0);
+
+  // NavBar의 레퍼런스를 생성합니다.
+  const navBarRef = useRef(null);
+
+  // NavBar의 너비를 계산하는 함수
+  const calculateNavBarWidth = () => {
+    if (navBarRef.current) {
+      setNavBarWidth(navBarRef.current.offsetWidth);
+    }
+  };
+
+  // 컴포넌트가 마운트될 때와 창 크기가 변경될 때 NavBar의 너비를 계산합니다.
+  useEffect(() => {
+    calculateNavBarWidth();
+    window.addEventListener('resize', calculateNavBarWidth);
+    return () => {
+      window.removeEventListener('resize', calculateNavBarWidth);
+    };
+  }, []);
+
+  // NavBar의 너비를 기준으로 아이콘 버튼의 너비를 계산합니다.
+  const iconButtonWidth = `${navBarWidth / 5}px`;
 
   // 클릭 이벤트 핸들러
   const handleButtonClick = (newState) => {
@@ -19,13 +40,13 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
     >
-      <NavBarContainer>
+      <NavBarContainer ref={navBarRef}>
         <StyledLink to="/home" onClick={() => handleButtonClick('Home')}>
           <IconButton
             src="/Icons/Icon_Home.svg"
             text="홈"
             borderRadius="0%"
-            width={width}
+            width={iconButtonWidth}
             height={height}
             disabled={activeState === 'Home'}
             disabledIcon="/Icons/Icon_Home_c.svg"
@@ -38,7 +59,7 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             src="/Icons/Icon_exercise.svg"
             text="운동"
             borderRadius="0%"
-            width={width}
+            width={iconButtonWidth}
             height={height}
             disabled={activeState === 'Exercise'}
             disabledIcon="/Icons/Icon_exercise_c.svg"
@@ -51,7 +72,7 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             src="/Icons/Icon_statistic.svg"
             text="통계"
             borderRadius="0%"
-            width={width}
+            width={iconButtonWidth}
             height={height}
             disabled={activeState === 'Statistic'}
             disabledIcon="/Icons/Icon_statistic_c.svg"
@@ -64,7 +85,7 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             src="/Icons/Icon_group.svg"
             text="그룹"
             borderRadius="0%"
-            width={width}
+            width={iconButtonWidth}
             height={height}
             disabled={activeState === 'Group'}
             disabledIcon="/Icons/Icon_group_c.svg"
@@ -77,7 +98,7 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             src="/Icons/Icon_mypage.svg"
             text="마이페이지"
             borderRadius="0%"
-            width={width}
+            width={iconButtonWidth}
             height={height}
             disabled={activeState === 'MyPage'}
             disabledIcon="/Icons/Icon_mypage_c.svg"

@@ -5,7 +5,7 @@ import './button.css';
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ type, backgroundColor, size, label, width, height, ...props }) => {
+export const Button = ({ type, backgroundColor, color, size, label, width, height, ...props }) => {
   const [hover, setHover] = useState(false);
 
   const handleMouseEnter = () => {
@@ -32,6 +32,7 @@ export const Button = ({ type, backgroundColor, size, label, width, height, ...p
 
   const style = {
     backgroundColor,
+    color,
     width, // Respect the width prop if provided
     height // Respect the height prop if provided
   };
@@ -53,6 +54,7 @@ export const Button = ({ type, backgroundColor, size, label, width, height, ...p
 Button.propTypes = {
   type: PropTypes.oneOf(['primary', 'border', 'warning']),
   backgroundColor: PropTypes.string,
+  color: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   width: PropTypes.string,
   height: PropTypes.string,
@@ -62,6 +64,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   backgroundColor: null,
+  color: null,
   primary: false,
   size: 'medium',
   width: '341px', // Default width as prop

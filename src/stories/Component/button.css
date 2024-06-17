@@ -12,6 +12,7 @@
   width: 341px; /* Default width */
   height: 56px; /* Default height */
   transition: background-color 0.3s, color 0.3s, opacity 0.3s; /* Smooth transitions for hover effects */
+  white-space: nowrap;
 }
 
 .storybook-button--primary {
