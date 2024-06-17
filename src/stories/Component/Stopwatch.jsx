@@ -11,8 +11,12 @@ const StopwatchContainer = styled.div`
 `;
 
 const TimeDisplay = styled.div`
-  font-size: 2em;
-  margin-bottom: 20px;
+  color: #404040;
+    font-family: Pretendard;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 `;
 
 const ButtonContainer = styled.div`
@@ -22,7 +26,6 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   padding: 10px;
-  font-size: 1em;
   cursor: pointer;
   border: none;
   border-radius: 5px;

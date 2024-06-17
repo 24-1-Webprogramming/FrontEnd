@@ -6,6 +6,7 @@ import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import Header from '../../Component/Header';
 import Card from '../../Component/Card';
 import IconButton from '../../Component/IconButton';
+import Stopwatch from '../../Component/Stopwatch';
 
 const ExerciseSuggestion = () => {
 
@@ -22,7 +23,7 @@ const ExerciseSuggestion = () => {
         <Container>
             <Header text = '루틴 운동'/>
 
-            <h1>Stop Watch</h1>
+            <Stopwatch />
 
             <Card
             height="102px"
@@ -42,7 +43,8 @@ const ExerciseSuggestion = () => {
 
 
             <FixedButtonContainer>
-                <Button width='100%' height='45px' label='일시정지' type='primary'/>
+                <Button width='100%' height='45px' label='운동추가' type='border'/>
+                <Button width='100%' height='45px' label='운동완료' type='primary'/>
             </FixedButtonContainer>
         </Container>
     );
@@ -56,7 +58,7 @@ const Container = styled.div`
     align-items: center;
     padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
     padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
-    gap: 45px; /* Ensure 45px space between each Card */
+    gap: 36px; /* Ensure 45px space between each Card */
 `;
 
 const CardContentCenter = styled.div`
