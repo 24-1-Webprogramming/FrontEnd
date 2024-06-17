@@ -68,8 +68,8 @@ IconButton.defaultProps = {
   borderRadius: '50%',
   width: '40px',
   height: '40px',
-  iconWidth: 24, // 기본 아이콘 너비
-  iconHeight: 24, // 기본 아이콘 높이
+  iconWidth: '60%', // 기본 아이콘 너비
+  iconHeight: '60%', // 기본 아이콘 높이
   iconTextSpacing: 6, // 기본 아이콘과 텍스트 사이의 간격
   disabled: false,
   currentBackgroundColor: 'transparent',

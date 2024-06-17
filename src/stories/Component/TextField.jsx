@@ -32,7 +32,7 @@ const StyledTextField = styled.input`
   border: none;
   padding: 8px;
   border-radius: 0px;
-  font-size: 20px;
+  font-size: ${props => props.fontSize || '20px'}; // 폰트 크기를 props에서 받거나 기본값으로 20px 사용
   background-color: transparent;
   transition: 200ms;
   border-bottom: 2px solid gray;
@@ -65,9 +65,7 @@ const CustomText = styled.div`
   margin-bottom: 10px;
 `;
 
-
-
-export const TextField = React.forwardRef(function TextField({ label, maxLength, allowedCharsType, customText, showCharCount, width, ...props }, ref) {
+const TextField = React.forwardRef(function TextField({ label, maxLength, allowedCharsType, customText, showCharCount, width, fontSize, ...props }, ref) {
   const inputRef = useRef(null);
   useImperativeHandle(ref, () => inputRef.current);
 
@@ -117,6 +115,7 @@ export const TextField = React.forwardRef(function TextField({ label, maxLength,
         ref={inputRef}
         maxLength={maxLength}
         width={width} // 너비 prop 전달
+        fontSize={fontSize} // 폰트 크기 prop 전달
         {...props}
       />
       {showCharCount && maxLength && (
@@ -125,8 +124,7 @@ export const TextField = React.forwardRef(function TextField({ label, maxLength,
         </MaxLength>
       )}
       {!showCharCount && customText && (
-        <CustomText>{customText}
-        </CustomText>
+        <CustomText>{customText}</CustomText>
       )}
     </Div>
   );
@@ -139,7 +137,8 @@ TextField.propTypes = {
   showCharCount: PropTypes.bool,
   allowedCharsType: PropTypes.oneOf(['alphanumeric', 'numeric', 'numericWithDecimal', 'alphabetic', '']),
   customText: PropTypes.string,
-  width: PropTypes.string, // width 속성 추가
+  width: PropTypes.string, // 너비 속성 추가
+  fontSize: PropTypes.string, // 폰트 크기 속성 추가
 };
 
 TextField.defaultProps = {
@@ -147,6 +146,7 @@ TextField.defaultProps = {
   allowedCharsType: '',
   customText: '',
   width: '321px', // 기본 너비 설정
+  fontSize: '20px', // 기본 폰트 크기 설정
 };
 
 export default TextField;

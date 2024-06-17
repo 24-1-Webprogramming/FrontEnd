@@ -81,10 +81,10 @@ CircularProgressBar.propTypes = {
 };
 
 CircularProgressBar.defaultProps = {
-  radius: 50, // 기본 반지름
-  strokeWidth: 10, // 기본 선의 두께
-  showPercentage: false, // 기본값은 false
-  Text: '', // 기본값은 빈 문자열
+  radius: 53, // 기본 반지름
+  strokeWidth: 8, // 기본 선의 두께
+  showPercentage: true, 
+  Text: '이번주 목표', 
 };
 
 export default CircularProgressBar;

@@ -9,7 +9,6 @@ export default {
     width: { control: 'text' },
     height: { control: 'text' },
     borderRadius: { control: 'text' },
-    backgroundColor: { control: 'color' },
     background: { control: 'text' }, // Add control for background
     color: { control: 'color' },
     shadow: { control: 'boolean' },
@@ -26,7 +25,6 @@ Default.args = {
   width: '100%',
   height: 'auto',
   borderRadius: '8px',
-  backgroundColor: 'white',
   color: 'black',
   shadow: true,
   children: 'This is a card',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const CalendarDays = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(6, 1fr); /* 6개의 행으로 고정 */
+  grid-template-rows: repeat(6, 1fr);
   background-color: transparent;
 `;
 
@@ -44,21 +44,20 @@ const CalendarDate = styled.div`
 `;
 
 // Helper Functions
-const getDaysInMonth = (year, month) => {
-  return new Date(year, month + 1, 0).getDate();
-};
+const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
 
-const getFirstDayOfMonth = (year, month) => {
-  return new Date(year, month, 1).getDay();
+const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
+
+// 오늘인지 여부를 판단하는 함수
+const isToday = (date) => {
+  const today = new Date();
+  return date && date.toDateString() === today.toDateString();
 };
 
 // Calendar Component
 export const Calendar = React.forwardRef(function Calendar({ year, month, ...props }, ref) {
-  const currentDate = new Date(year, month);
   const daysInMonth = getDaysInMonth(year, month);
   const firstDayOfMonth = getFirstDayOfMonth(year, month);
-
-  const today = new Date(); // 오늘의 날짜
 
   const days = [];
   for (let i = 0; i < firstDayOfMonth; i++) {
@@ -93,10 +92,4 @@ Calendar.propTypes = {
 Calendar.defaultProps = {
   year: new Date().getFullYear(),
   month: new Date().getMonth(),
-};
-
-// 오늘인지 여부를 판단하는 함수
-const isToday = (date) => {
-  const today = new Date(); // 오늘의 날짜
-  return date && date.toDateString() === today.toDateString();
 };
