@@ -100,7 +100,7 @@ CharacterSector.defaultProps = {
 
 const Line = styled.div`
   width: 100%;
-  height: 51px;
+  height: 53px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,7 +112,7 @@ const Line = styled.div`
 const LeftContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   margin-left: 20px;
 `;
 
@@ -120,29 +120,33 @@ const BodyProfileLabel = styled.button`
   border-radius: 7px;
   background: #fff;
   display: flex;
-  padding: 4px 20px;
+  padding: 5px 20px;
   justify-content: center;
   align-items: center;
   border: none;
   color: #2f4bf7;
-  font-family: 'Pretendard Variable';
+  font-family: Pretendard;
   font-size: 17px;
   font-weight: 800;
 `;
 
-const DDay = styled.span`
+const DDay = styled.div`
   color: #fff;
-  font-family: 'Pretendard Variable';
-  font-size: 17px;
-  font-weight: 800;
-`;
-
-const Date = styled.span`
-  color: #fff;
-  font-family: 'Pretendard Variable';
-  font-size: 17px;
+  font-family: Pretendard;
+  font-size: 19px;
   font-weight: 500;
+  letter-spacing: 0.4px;
+  justify-content: center;
+  padding-top: 2px;
+`;
+
+const Date = styled.div`
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 17px;
+  font-weight: 400;
   margin-right: 20px;
+  letter-spacing: 0.4px;
 `;
 
 const CharacterSection = styled.div`
@@ -151,6 +155,7 @@ const CharacterSection = styled.div`
   justify-content: center;
   width: 100%;
   margin-top: 140px;
+  margin-left: 30px;
 `;
 
 const CharacterContainer = styled.div`
@@ -167,23 +172,23 @@ const CharacterMessageContainer = styled.div`
 `;
 
 const CharacterMessage = styled.span`
-  font-family: 'Pretendard Variable';
+  font-family: Pretendard;
   font-size: 12px;
   font-weight: 700;
   color: #4f46e5;
 `;
 
 const ExerciseInfo = styled.div`
-  margin-left: 20px;
+  margin-left: 50px;
   width: 50%;
 `;
 
 const ExerciseDaysText = styled.span`
-  font-family: 'Pretendard Variable';
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #000;
+  font-family: Pretendard;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #404040;
 `;
 
 const Spacer = styled.div`
@@ -191,10 +196,11 @@ const Spacer = styled.div`
 `;
 
 const ExerciseCountText = styled.span`
-  font-family: 'Pretendard Variable';
+  font-family: Pretendard;
   font-size: 30px;
   font-weight: 800;
   margin-bottom: 10px;
+  letter-spacing: 0.2px;
   color: #4d61f5;
 `;
 
@@ -218,9 +224,9 @@ const ProgressBarContainer = styled.div`
 `;
 
 const ProgressLabel = styled.span`
-  font-family: 'Pretendard Variable';
-  font-size: 12px;
-  font-weight: 500;
-  color: #000;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 700;
+  color: #404040;
   width: 50px;
 `;

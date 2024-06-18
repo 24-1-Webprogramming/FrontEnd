@@ -23,7 +23,7 @@ const Home_Scrolldown = () => {
         <Section style={{ marginTop: '50px' }}>
           <Home_Scrolldown_Meal />
         </Section>
-        <Section style={{ marginTop: '-330px' }}>
+        <Section style={{ marginTop: '0px' }}>
           <Home_Scrolldown_Weight />
         </Section>
         <Section>

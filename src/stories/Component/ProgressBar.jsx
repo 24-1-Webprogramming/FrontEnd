@@ -43,7 +43,7 @@ ProgressBar.propTypes = {
 ProgressBar.defaultProps = {
   direction: 'horizontal',
   width: '100%',
-  height: '8px',
+  height: '10px',
   color: '#495EF6',
 };
 

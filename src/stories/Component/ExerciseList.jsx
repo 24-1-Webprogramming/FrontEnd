@@ -87,10 +87,22 @@ const SearchInput = styled.input`
 `;
 
 const CategoryFilterContainer = styled.div`
-  margin-bottom: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: row; // Ensure filters are in a row
   gap: 5px;
+  margin-bottom: 20px;
+  overflow-x: auto; // Enable horizontal scrolling
+  white-space: nowrap; // Prevent filters from wrapping
+
+  // This will hide the scrollbar visually but will still be functional
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 390px) {
+    width: 100%; // Full width of the parent container
+    scrollbar-width: none; // For Firefox
+  }
 `;
 
 const CategoryFilter = styled.button`
@@ -98,7 +110,10 @@ const CategoryFilter = styled.button`
   padding: ${props => props.active ? '5px 17px' : '4px 17px'};
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 00;
   border-radius: 15px;
   border: 1px solid #5467F5;
   background: ${props => props.active ? '#495EF6' : 'none'};
