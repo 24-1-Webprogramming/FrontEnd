@@ -3,48 +3,59 @@ import styled from 'styled-components';
 
 const HomeScrollDownWater = () => {
   return (
-    <WaterBox>
-      <Text>오늘의 물 섭취량</Text>
-      <WaterAmount>0.0L</WaterAmount>
+    <Box>
+      <TextBox>
+        <Text>오늘의 물 섭취량</Text>
+        <WaterAmount>0.0L</WaterAmount>
+      </TextBox>
       <Button>기록하기</Button>
-    </WaterBox>
+    </Box>
   );
 };
 
-const WaterBox = styled.div`
+const Box = styled.div`
   display: flex;
-  width: 270px;
+  width: 60%;
   height: 241px;
-  padding: 26px 22px;
+  padding: 26px 30px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
   background-color: #eef0ff;
   border-radius: 10px;
 `;
 
 const Text = styled.p`
+  font-family: Pretendard;
   font-size: 18px;
-  color: #333;
+  color: #4A4A4A;
   margin-bottom: 16px;
   font-weight: bold;
 `;
 
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content : center;
+  align-items: center;
+  gap: 16px;
+`
 const WaterAmount = styled.p`
+  font-family: Pretendard;
   font-size: 38px;
   font-weight: bold;
-  color: #000;
+  color: #4A4A4A;
   margin-top: -20px;
 `;
 
 const Button = styled.button`
   font-size: 18px;
-  margin-top: -4px;
-  font-weight: bold;
-  padding: 10px 70px;
+  font-family: Pretendard;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  padding: 12px 90px;
   border: none;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: #5467f5;
   color: #fff;
 `;

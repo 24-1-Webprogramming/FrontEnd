@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import CharacterIcon from '../../../Icon/Crying2.svg';
+import CharacterIcon from '../../assets/DumbbellCrying2.svg';
 import ProgressBar from '../../Component/ProgressBar';
 
 export const HeadLine = () => {
@@ -167,19 +167,19 @@ const CharacterContainer = styled.div`
 const CharacterMessageContainer = styled.div`
   background-color: #e0e7ff;
   border-radius: 20px;
-  padding: 5px 10px;
+  padding: 2px 14px;
   margin-bottom: 10px;
 `;
 
 const CharacterMessage = styled.span`
   font-family: Pretendard;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: #4f46e5;
 `;
 
 const ExerciseInfo = styled.div`
-  margin-left: 50px;
+  margin-left: 30px;
   width: 50%;
 `;
 
@@ -205,7 +205,7 @@ const ExerciseCountText = styled.span`
 `;
 
 const Divider = styled.div`
-  width: 100%;
+  width: 80%;
   height: 1px;
   background-color: #e0e0e0;
   margin: 10px 0;
