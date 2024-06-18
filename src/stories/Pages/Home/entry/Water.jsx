@@ -32,7 +32,7 @@ const Water = () => {
 
     return (
         <>
-            <Header text="물 섭취량"/>
+            <Header text="물 섭취량"  path="/home"/>
             <Container>
               <SurveyContent
                   step={step}

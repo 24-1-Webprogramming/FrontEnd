@@ -32,7 +32,10 @@ const Weight = () => {
 
     return (
         <>
-            <Header text="체중"/>
+            <Header
+                text="체중"
+                path="/home"
+                />
             <Container>
               <SurveyContent
                   step={step}

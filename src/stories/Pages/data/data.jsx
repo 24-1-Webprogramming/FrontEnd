@@ -45,7 +45,7 @@ export const questions = [
 
 export const meal = [
   {
-    intro: '맛있게 드셨나봐요,',
+    intro: '맛있게 드셨나봐요',
     question: '어떤 음식을 드셨나요?',
     unit:'',
     allowedCharsType : '',
@@ -108,5 +108,30 @@ export const dday = [
     question: '어떤 목표를 이뤄야 하나요?',
     unit:'',
     allowedCharsType : '',
+  },
+]
+
+
+export const create = [
+  {
+    intro: '새로운 그룹이 필요하신가요?',
+    question: '멋진 그룹 이름을 지어주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+]
+
+export const join = [
+  {
+    intro: '함께할 그룹을 찾고계시는군요!',
+    question: '그룹명을 입력해주세요',
+    unit:'',
+    allowedCharsType : '',
+  },
+  {
+    intro: '국가급 보안 유지를 위해',
+    question: '초대코드를 입력해주세요',
+    unit:'',
+    allowedCharsType : 'numericWithDecimal',
   },
 ]

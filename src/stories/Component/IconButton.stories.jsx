@@ -102,7 +102,7 @@ export const Expressions = () => {
   };
 
   const icons = [
-    { src: '/FaceIcons/Blue20.svg', width: '48px', height: '67px', text: '퉤퉤', disabled: true, textsize: '10px', textcolor: 'black'},  
+    { src: '/FaceIcons/Blue20.svg', width: '67px', height: '67px', text: '퉤퉤', disabled: true, textsize: '10px'},  
     { src: '/FaceIcons/Blue40.svg', text: '맛있..나?', disabled: true},
     { src: '/FaceIcons/Blue60.svg', text: '맛있다', disabled: true},
     { src: '/FaceIcons/Blue80.svg', text: '맛도리', disabled: true},

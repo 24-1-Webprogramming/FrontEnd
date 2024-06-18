@@ -9,6 +9,7 @@ const FixedButtonContainer = styled.div`
   justify-content: center;
   padding: 0 20px;
   box-sizing: border-box;
+  gap: 20px;
 `;
 
 export default FixedButtonContainer;

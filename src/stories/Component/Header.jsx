@@ -2,19 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Header = ({ showIcon, text, backButton }) => {
+const Header = ({ showIcon, text, backButton, path }) => {
   return (
     <TopLayout bgColor="white">
       {backButton && (
         <IconButtonWrapper>
-          <IconButton
-            src="/Icons/Icon_arrow.svg"
-            width="40px"
-            height="40px"
-          />
+          <Link to={path}>
+            <IconButton
+              src="/Icons/Icon_arrow.svg"
+              width="40px"
+              height="40px"
+            />
+          </Link>
         </IconButtonWrapper>
       )}
+      
       <CenterContent>
         {showIcon ? (
           <img src="/Logo-color.svg" alt="로고" />
@@ -30,6 +34,8 @@ Header.propTypes = {
   showIcon: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   backButton: PropTypes.bool.isRequired,
+  leftButton: PropTypes.string,
+  rightButton: PropTypes.string,
 };
 
 Header.defaultProps = {
@@ -67,6 +73,6 @@ const CenterContent = styled.div`
   transform: translateX(-65%);
   top:35%;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   color: black;
 `;
