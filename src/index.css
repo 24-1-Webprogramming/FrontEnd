@@ -6,10 +6,9 @@
   font-style: normal;
 }
 
-
 body {
   margin: 0;
-  font-family: 'Pretendard Variable', sans-serif; /* Pretendard Variable 폰트로 변경 */
+  font-family: 'Pretendard', sans-serif; /* Pretendard 폰트로 변경 */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

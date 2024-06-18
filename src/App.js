@@ -1,37 +1,65 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './index.css';
-import OnboardingPage from './stories/OnBoardingPage';
-import ProfileSetupPage from './stories/ProfileSetupPage';
-import SurveyStartPage from './stories/SurveyStartPage';
-import SurveyPage from './stories/SurveyPage';
-import MyPageProfileEdit from './stories/MyPageProfileEdit';
-import MypageLeave from './stories/MypageLeave';
-import MyPageCondition from './stories/MyPageConditions';
-import AddressSettingPage from './stories/AddressSettingPage';
-// import GymInfoPage from './GymInfoPage';
-import MyPageProfileEditPage from './stories/MyPageProfileEditPage'; // import MyPageProfileEditPage
-// import Home_DDayAdd from './Home_DDayAdd';
-// import Home_Scrolldown from './Home_Scrolldown';
-// import GymDetailPage from './GymDetailPage';
+import Splash from './stories/Pages/Onboarding/Splash';
+import ProfileSetup from './stories/Pages/Onboarding/ProfileSetup';
+import SurveyStart from './stories/Pages/Onboarding/SurveyStart';
+import SurveyPage from './stories/Pages/Onboarding/SurveyPage';
+import Error from './stories/Pages/Error';
+import GlobalStyle from './stories/Component/GlobalStyle';
+import Meal from './stories/Pages/Home/entry/Meal';
+import Water from './stories/Pages/Home/entry/Water';
+import Weight from './stories/Pages/Home/entry/Weight';
+import DDay from './stories/Pages/Home/entry/DDay';
+import Home from './stories/Pages/Home/Home';
+import GroupEmpty from './stories/Pages/Group/GroupEmpty';
+import Statistic from './stories/Pages/Statistic/statistic';
+
+import GroupPage from './stories/Pages/Group/GroupPage';
+import GroupJoin from './stories/Pages/Group/GroupJoin';
+import GroupCreate from './stories/Pages/Group/GroupCreate';
+import Group from './stories/Pages/Group/Group';
+import GroupCreateSuccess from './stories/Pages/Group/GroupCreateSuccess';
+import GroupJoinSuccess from './stories/Pages/Group/GroupJoinSuccess';
+
+import Mypage from './stories/Pages/mypage/mypage';
+import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<OnboardingPage />} />
-        <Route path="/profile-setup" element={<ProfileSetupPage />} />
-        <Route path="/survey-start" element={<SurveyStartPage />} />
-        <Route path="/survey" element={<SurveyPage />} />
-        <Route path="/mypage-edit" element={<MyPageProfileEdit />} />
-        <Route path="/mypage-leave" element={<MypageLeave />} />
-        <Route path="/mypage-conditions" element={<MyPageCondition />} />
-        <Route path="/address-setting" element={<AddressSettingPage />} />
-        <Route path="/" element={<AddressSettingPage />} />
-        {/* <Route path="/gym/:gymId" element={<GymDetailPage />} />
-        <Route path="/mypage-profile-edit-page" element={<MyPageProfileEditPage />} /> Add new route */}
-      </Routes>
-    </Router>
+    <>
+      <GlobalStyle />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Splash />} />
+          <Route path="/onboarding" element={<ProfileSetup/>}/>
+          <Route path="/survey" element={<SurveyStart />} />
+          <Route path="/survey/question" element={<SurveyPage/>} />
+
+          <Route path="/home" element={<Home/>} />
+
+          <Route path="/entry/meal" element={<Meal/>} />
+          <Route path="/entry/water" element={<Water/>} />
+          <Route path="/entry/weight" element={<Weight/>} />
+          <Route path="/entry/DDay" element={<DDay/>} />
+
+          <Route path="/group/empty" element={<GroupEmpty/>} />
+          <Route path="/group" element={<Group/>} />
+          <Route path="/group/join" element={<GroupJoin/>} />
+          <Route path="/group/create" element={<GroupCreate/>} />
+          <Route path="/group/create/success" element={<GroupCreateSuccess/>} />
+          <Route path="/group/join/success" element={<GroupJoinSuccess/>} />
+          <Route path="/group/:id" element={<GroupPage/>} />
+          <Route path="/group/:id/invite" element={<GroupInvite/>} />
+
+          <Route path="/statistic" element={<Statistic/>} />
+
+          <Route path="/mypage" element={<Mypage/>} />
+
+          <Route path="/*" element={<Error/>} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 
