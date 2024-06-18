@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import NavBar from '../../Component/NavBar';
 import Card from '../../Component/Card';
-import IconButton from '../../Component/IconButton';
 import ProgressBar from '../../Component/ProgressBar';
 import CircularProgressBar from '../../Component/CircularProgressBar';
 import GymButton from '../../Component/GymButton';
 import { ChangeR } from '../../Component/ButtonS';
 import Xset from '../../Component/Xset';
+import { ExerciseCard } from '../../Component/CardS';
 
 const ExercisePage = () => {
     const [nickname, setNickname] = useState('');
@@ -113,20 +113,7 @@ const ExercisePage = () => {
                     <img src='/Characters/Sunglasses1_Black.svg'/>
                 </HeadContainer>
 
-                <Card
-                    height="102px"
-                    shadow={false}
-                    borderRadius="10px"
-                    background='#EEF0FF'
-                >
-                    <CardContentCenter>
-                        <IconButton width='36px' height='51px' src='/Icons/Icon_time_c.svg' text='40분' disabledFontcolor='#495ef6' textSize='16px' disabled={true} />
-                        <Divider />
-                        <IconButton width='36px' height='51px' src='/Icons/Icon_exercise_c.svg' text='5개' disabledFontcolor='#495ef6' textSize='16px' disabled={true} />
-                        <Divider />
-                        <IconButton width='36px' height='51px' src='/Icons/Icon_muscle_c.svg' text='300cal' disabledFontcolor='#495ef6' textSize='16px' disabled={true} />
-                    </CardContentCenter>
-                </Card>
+                <ExerciseCard />
 
                 <XsetContainer>
                     <XsetList>
@@ -191,16 +178,6 @@ const HeadContainer = styled.div`
 
 `;
 
-const CardContentCenter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 13px 30px;
-    gap: 15px;
-`;
-
 const Titles = styled.div`
     display: flex;
     flex-direction: column;
@@ -229,18 +206,6 @@ const Subtitle = styled.div`
     font-weight: 600;
     line-height: normal;
     letter-spacing: -0.48px;
-`;
-
-const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-`;
-
-const Divider = styled.div`
-    width: 0.5px;
-    height: 34px;
-    background-color: #9BC3FF;
 `;
 
 const TitleSection = styled.div`
