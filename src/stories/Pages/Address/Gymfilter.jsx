@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Arrow from '../../../Icon/Arrow2.svg'; // 경로 수정 확인
+import Search from '../../../Icon/Search2.svg'; // 경로 수정 확인
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css'; // Swiper 스타일 가져오기
 import 'swiper/css/navigation';
@@ -30,10 +30,10 @@ const Gymfilter = () => {
   return (
     <Container>
       <Header>
-        <Link to="/" style={styles.backButton}>
-          <img src={Arrow} alt="back" />
+        <Title>{district}</Title>
+        <Link to="/gym" style={styles.backButton}>
+          <StyledSearchIcon src={Search} alt="back" />
         </Link>
-        <Title>{district}의 헬스장</Title>
       </Header>
       <TagContainer>
         {tags.map(tag => (
@@ -84,16 +84,18 @@ const Container = styled.div`
 const Header = styled.header`
   display: flex;
   align-items: center;
+  justify-content: space-between; /* 변경된 부분 */
   width: 100%;
   padding-bottom: 10px;
   margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
-  flex: 1;
-  text-align: center;
   font-size: 17px;
   font-weight: bold;
+  flex: 1;
+  text-align: center; /* 텍스트를 중앙에 위치 */
+  margin-left: 30px; /* 아이콘이 15px 오른쪽으로 이동했으므로 그에 맞춰서 텍스트도 왼쪽으로 조정 */
 `;
 
 const TagContainer = styled.div`
@@ -105,9 +107,9 @@ const TagContainer = styled.div`
 const TagButton = styled.button`
   padding: 10px 20px;
   margin: 0 5px;
-  border: none;
+  border: ${({ selected }) => (selected ? 'none' : '2px solid #5467F5')}; /* 선택되지 않은 경우 외곽선 */
   border-radius: 20px;
-  background-color: ${({ selected }) => (selected ? '#5467F5' : '#E0E7FF')};
+  background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
   cursor: pointer;
 `;
@@ -174,9 +176,14 @@ const Tag = styled.span`
   margin-right: 5px;
 `;
 
+const StyledSearchIcon = styled.img`
+  position: relative;
+  top: 5px; /* 아래로 5px 이동 */
+  right: 55px; /* 왼쪽으로 15px 이동 */
+`;
+
 const styles = {
   backButton: {
-    marginRight: '10px',
     textDecoration: 'none',
     color: '#000',
   },
