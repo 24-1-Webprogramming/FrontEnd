@@ -7,8 +7,6 @@ export const parameters = {
 };
 
 
-// After
-import { fn } from '@storybook/test';  // Ensure to import 'fn'
 
 export const decorators = [
   (Story) => (
