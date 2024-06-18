@@ -99,7 +99,7 @@ const ExerciseWrite = () => {
                     />
                 </RateContainer>
                 <Text>한 줄 일기:</Text>
-                <TextField width='100%' height='45px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='14px' />
+                <TextField width='100%' height='45px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='10px' />
                 <Text>오늘의 루틴: <Description>탄탄한 하체 프로젝트 DAY1</Description></Text>
                 <Text>칼로리: <Description>300 kcal</Description></Text>
             </SubContainer>
@@ -154,8 +154,7 @@ const Text = styled.div`
 const RateContainer = styled.div`
     display: flex;
     align-items: center;
-    gap: 5px;
-    justify-content: space-around;
+    gap: 22px;
 `;
 
 const Description = styled.span`

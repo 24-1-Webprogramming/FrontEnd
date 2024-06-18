@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types'; // 수정: propTypes 대신 PropTypes 사용
 import styled from 'styled-components';
 import { Switch } from './Switch';
 import TextField from './TextField';
@@ -114,7 +115,7 @@ const Text = styled.div`
     line-height: normal;
 `;
 
-const ExerciseStop = () => {
+const ExerciseStop = ({ name }) => { // 수정: props를 구조 분해하여 name 사용
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [rows, setRows] = useState([{ id: 1 }]); // 초기에 하나의 Row를 가지고 시작
@@ -170,7 +171,7 @@ const ExerciseStop = () => {
     return (
         <Container>
             <WatchContainer>
-                <ExerciseText>원레그 익스텐션</ExerciseText>
+                <ExerciseText>{name}</ExerciseText> {/* 수정: props로 전달받은 name 사용 */}
                 <TimeDisplay>{formatTime(time)}</TimeDisplay>
                 <ButtonContainer>
                     {time === 0 ? (
@@ -194,7 +195,7 @@ const ExerciseStop = () => {
                 </ButtonContainer>
             </WatchContainer>
             <RowContainer>
-              <Row>
+                <Row>
                     <Sub>SET</Sub>
                     <Sub>
                         <Text>KG</Text>
@@ -212,10 +213,10 @@ const ExerciseStop = () => {
                             <Text>{row.id}</Text>
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength={3} /> {/* 수정: 숫자 값으로 설정 */}
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength={3} /> {/* 수정: 숫자 값으로 설정 */}
                         </Sub>
                         <SwitchContainer>
                             <Switch />
@@ -232,3 +233,11 @@ const ExerciseStop = () => {
 };
 
 export default ExerciseStop;
+
+ExerciseStop.propTypes = {
+    name: PropTypes.string.isRequired, // 수정: propTypes로 설정
+};
+
+ExerciseStop.defaultProps = {
+    name: '원레그 익스텐션',
+};
