@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
@@ -16,7 +16,7 @@ const CalendarWrapper = styled.div`
 const CalendarHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
   padding: 10px;
   background-color: transparent;
   font-size: 20px;
@@ -30,6 +30,19 @@ export function CalendarSlides() {
 
   // Calendar 컴포넌트의 ref를 저장할 배열
   const calendarRefs = useRef([]);
+
+  // CalendarSlides.js 수정 부분
+  useEffect(() => {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const newSlides = [
+      { id: -1, year, month: month - 1 },
+      { id: 0, year, month },
+      { id: 1, year, month: month + 1 }
+    ];
+    setSlideData(newSlides);
+  }, [currentDate]);  // currentDate 변경 시 슬라이드 데이터 갱신
+
 
   // 최적화된 슬라이드 데이터 설정
   useMemo(() => {

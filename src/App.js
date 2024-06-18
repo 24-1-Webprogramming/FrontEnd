@@ -25,6 +25,8 @@ import GroupJoinSuccess from './stories/Pages/Group/GroupJoinSuccess';
 import Mypage from './stories/Pages/mypage/mypage';
 import GroupInvite from './stories/Pages/Group/GroupInvite';
 
+import ExerciseSuggestionAdd from './stories/Pages/Exercise/ExerciseSuggestionAdd';
+
 const App = () => {
   return (
     <>
@@ -54,7 +56,13 @@ const App = () => {
 
           <Route path="/statistic" element={<Statistic/>} />
 
-          <Route path="/mypage" element={<Mypage/>} />
+          <Route path="/Exercise/main" element={<Mypage/>} />
+          <Route path="/Exercise/routine/list" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/add" element={<ExerciseSuggestionAdd/>} />
+          <Route path="/Exercise/routine/:id/detail" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/play" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/edit" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/success" element={<Mypage/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>

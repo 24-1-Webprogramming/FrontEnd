@@ -32,17 +32,15 @@ const Text = styled.span`
   text-align: left;
 `;
 
-const Xtab = ({ exercise }) => {
-  const [mark, setMark] = useState(false);
-  const [check, setCheck] = useState(false);
+const Xtab = ({ exercise, check, mark, onMarkClick, onCheckClick }) => {
 
   const handleMarkClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    setMark(prev => !prev);
+    onMarkClick();
   };
 
   const handleCheckClick = () => {
-    setCheck(prev => !prev);
+    onCheckClick();
   };
 
   return (
@@ -61,10 +59,16 @@ const Xtab = ({ exercise }) => {
 // PropTypes and DefaultProps
 Xtab.propTypes = {
   exercise: PropTypes.string.isRequired,
+  mark: PropTypes.bool.isRequired,
+  check: PropTypes.bool.isRequired,
+  onMarkClick: PropTypes.func.isRequired,
+  onCheckClick: PropTypes.func.isRequired,
 };
 
 Xtab.defaultProps = {
   exercise: '컨벤셔널 데드리프트',
+  mark : false,
+  check : false,
 };
 
 export default Xtab;
