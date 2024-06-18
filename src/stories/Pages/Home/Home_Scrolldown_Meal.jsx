@@ -60,7 +60,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
   background-color: #fff;
 `;
 
@@ -97,7 +96,9 @@ const Tabs = styled.div`
 
 const TabButton = styled.button`
   margin: 0 5px;
-  padding: 5px 10px;
+  padding: 5px 14px;
+  font-family: Pretendard;
+  font-size: 16px;
   border-radius: 20px;
   border: 1px solid ${props => (props.active ? '#5467F5' : '#ddd')};
   background-color: #fff;
@@ -124,9 +125,9 @@ const MealCard = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
-  width: 110px;
-  height: 130px;
-  padding: 15px 15px;
+  width: 120px;
+  height: 140px;
+  padding: 25px 25px;
   border-radius: 10px;
   background-color: ${props => (props.isInputted ? '#5467F5' : '#EEF0FF')};
 `;
@@ -137,14 +138,17 @@ const IconContainer = styled.div`
 
 const MealName = styled.p`
   font-size: 19px;
-  font-weight: bold;
+  font-weight: 600;
+  letter-spacing: 0.4px;
   margin: 0;
   color: ${props => (props.isInputted ? '#fff' : '#5467F5')};
 `;
 
 const MealKcal = styled.p`
-  font-size: 12px;
-  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  margin-top:5px;
+  font-weight: 400;
   color: ${props => (props.isInputted ? '#fff' : '#5467F5')};
 `;
 

@@ -81,7 +81,7 @@ const ProfileSetupPage = () => {
             disabled={!isSignUpButtonEnabled}
             label="가입완료"
             type="primary"
-            size="medium"
+            style={{ margin: '5px 0', width: '321px' }}
           />
         </Link>
       </FixedButtonContainer>

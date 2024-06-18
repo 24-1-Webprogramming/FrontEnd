@@ -60,7 +60,7 @@ const SurveyStartPage = () => {
           <Button
             label="알려주기"
             type="primary"
-            size="medium"
+            style={{ margin: '5px 0', width: '321px' }}
           />
         </Link>
       </FixedButtonContainer>

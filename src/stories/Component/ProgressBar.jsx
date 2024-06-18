@@ -5,13 +5,14 @@ const ProgressBar = ({ totalSteps, currentStep, direction, width, height, color 
   const progress = (currentStep / totalSteps) * 100; // 현재 진행 상태 계산
   const isHorizontal = direction === 'horizontal';
   const isReversed = direction === 'vertical' && progress !== 0;
+  
   const containerStyles = {
     width: width,
     height: height,
     backgroundColor: '#d9d9d9',
     flexShrink: '0',
     display: 'flex',
-    borderRadius: isHorizontal ? `${parseInt(height) / 2}px` : `${parseInt(width) / 2}px`,
+    borderRadius: isHorizontal ? `${parseInt(height) / 2}px` : `${parseInt(width) / 2}px`, // 컨테이너에 둥근 모서리 적용
     overflow: 'hidden',
     flexDirection: isHorizontal ? 'row' : 'column-reverse', // Vertical일 때 역방향으로 변경
   };
@@ -22,6 +23,7 @@ const ProgressBar = ({ totalSteps, currentStep, direction, width, height, color 
     backgroundColor: color,
     transition: 'width 0.5s ease-in-out, height 0.5s ease-in-out',
     alignSelf: isReversed ? 'flex-end' : 'flex-start',
+    borderRadius: isHorizontal ? `${parseInt(height) / 2}px` : `${parseInt(width) / 2}px`, // 진행 막대에도 둥근 모서리 적용
   };
 
   return (
@@ -43,7 +45,7 @@ ProgressBar.propTypes = {
 ProgressBar.defaultProps = {
   direction: 'horizontal',
   width: '100%',
-  height: '8px',
+  height: '10px',
   color: '#495EF6',
 };
 

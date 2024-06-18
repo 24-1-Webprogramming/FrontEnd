@@ -71,4 +71,10 @@ const StarIconDeactive = () => (
   </svg>
 );
 
-export { TrophyIcon, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon, MySVGIcon, StarIconActive, StarIconDeactive};
+const DownArrow = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="8" viewBox="0 0 23 8" fill="none">
+  <path d="M1 1L11.5 7L22 1" stroke="#B2BAC2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+)
+
+export { TrophyIcon, DownArrow, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon, MySVGIcon, StarIconActive, StarIconDeactive};

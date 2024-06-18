@@ -5,8 +5,6 @@ import '../src/index.css';
 
 
 
-// After
-import { fn } from '@storybook/test';  // Ensure to import 'fn'
 
 export const decorators = [
   (Story) => (
