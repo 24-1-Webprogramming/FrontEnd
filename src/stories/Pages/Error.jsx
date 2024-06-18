@@ -22,7 +22,7 @@ const Error = () => {
               <Button
                 label="돌아가기"
                 type="primary"
-                size="medium"
+                style={{ width: '321px' }}
               />
             </Link>
           </FixedButtonContainer>
