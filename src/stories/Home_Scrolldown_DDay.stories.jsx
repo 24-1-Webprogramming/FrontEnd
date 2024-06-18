@@ -1,4 +1,4 @@
-import HomeScrolldownDDay from './Home_Scrolldown_D-Day';
+import HomeScrolldownDDay from './Home_Scrolldown_DDay';
 
 const meta = {
   component: HomeScrolldownDDay,

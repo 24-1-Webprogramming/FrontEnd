@@ -11,9 +11,9 @@ const Template = (args) => <Home_DDayAdd {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  continuousExerciseDays: 0,
+  continuousExerciseDays: 5,
   progressBarsData: [
-    { totalSteps: 30, currentStep: 0, color: '#495EF6' },
-    { totalSteps: 30, currentStep: 15, color: '#72BBFF' },
+    { totalSteps: 10, currentStep: 3, color: '#4CAF50' },
   ],
+  characterMessage: '작디작은 1kg 아령',
 };

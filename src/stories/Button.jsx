@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './button.css';
 
 /**
  * Primary UI component for user interaction
  */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+export const Button = ({ type, backgroundColor, size, label, width, height, ...props }) => {
+  const [hover, setHover] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHover(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHover(false);
+  };
+
+  let mode = 'storybook-button--primary';
+  if (hover && type === 'border') {
+    mode = 'storybook-button--primary'; // Change to primary on hover if type is border
+  } else {
+    switch (type) {
+      case 'border':
+        mode = 'storybook-button--border';
+        break;
+      case 'warning':
+        mode = 'storybook-button--warning';
+        break;
+    }
+  }
+
+  const style = {
+    backgroundColor,
+    width, // Respect the width prop if provided
+    height // Respect the height prop if provided
+  };
+
   return (
     <button
       type="button"
       className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      style={backgroundColor && { backgroundColor }}
+      style={style}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...props}
     >
       {label}
@@ -20,25 +51,12 @@ export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
 };
 
 Button.propTypes = {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
+  type: PropTypes.oneOf(['primary', 'border', 'warning']),
   backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
   size: PropTypes.oneOf(['small', 'medium', 'large']),
-  /**
-   * Button contents
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
+  width: PropTypes.string,
+  height: PropTypes.string,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
@@ -46,5 +64,8 @@ Button.defaultProps = {
   backgroundColor: null,
   primary: false,
   size: 'medium',
+  width: '341px', // Default width as prop
+  height: '56px', // Default height as prop
+  disabled: false,
   onClick: undefined,
 };
