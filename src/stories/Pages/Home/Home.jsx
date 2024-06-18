@@ -7,12 +7,17 @@ import {HeadLine, CharacterSector} from './HomeS';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 
 const Home = () => {
+    const currentSteps = [70, 50, 90, 30];
     return (
         <>
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
                 <HeadLine/>
-                <CharacterSector/>
+                <CharacterSector
+                    continuousExerciseDays={5}
+                    characterMessage="작디작은 1kg 아령"
+                    currentSteps={currentSteps}
+                />
 
             </Container>
 

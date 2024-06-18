@@ -44,7 +44,7 @@ export const CharacterSector = ({ continuousExerciseDays, characterMessage, curr
             currentStep={currentSteps[0]}
             direction="horizontal"
             width="130px"
-            height="8px"
+            height="10px"
             color="#72BBFF"
           />
         </ProgressBarContainer>
@@ -55,7 +55,7 @@ export const CharacterSector = ({ continuousExerciseDays, characterMessage, curr
             currentStep={currentSteps[1]}
             direction="horizontal"
             width="130px"
-            height="8px"
+            height="10px"
             color="#4D61F5"
           />
         </ProgressBarContainer>
@@ -66,7 +66,7 @@ export const CharacterSector = ({ continuousExerciseDays, characterMessage, curr
             currentStep={currentSteps[2]}
             direction="horizontal"
             width="130px"
-            height="8px"
+            height="10px"
             color="#4D61F5"
           />
         </ProgressBarContainer>
@@ -77,7 +77,7 @@ export const CharacterSector = ({ continuousExerciseDays, characterMessage, curr
             currentStep={currentSteps[3]}
             direction="horizontal"
             width="130px"
-            height="8px"
+            height="10px"
             color="#4D61F5"
           />
         </ProgressBarContainer>
@@ -214,7 +214,7 @@ const Divider = styled.div`
 const ProgressBars = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
 `;
 
 const ProgressBarContainer = styled.div`
