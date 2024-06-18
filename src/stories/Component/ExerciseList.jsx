@@ -1,0 +1,216 @@
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import SearchIcon from '../assets/search.svg';
+import { StarIconActive } from './icon';
+import { StarIconDeactive } from './icon';
+
+// Styled components
+const Container = styled.div`
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+`;
+
+const StarIconContainer = styled.span`
+  display: flex;
+  align-items: center;  // Center align vertically
+  justify-content: center; // Center align horizontally
+  width: 24px;  // Adjust width as necessary
+  height: 24px; // Adjust height to maintain aspect ratio
+  margin-right: 10px;  // Add some space between the icon and the text
+`;
+
+const ExerciseItem = styled.div`
+  display: flex;
+  align-items: center;  // Aligns items vertically in the center
+  justify-content: space-between;  // Distributes space between and around content items
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+`;
+const ExerciseContent = styled.span`
+  display: flex;
+  align-items: center;  // Ensure vertical alignment in the center
+  flex-grow: 1;  // Allows the container to take up all available space
+
+  color: #000;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 00;
+  line-height: normal;
+`;
+
+const Checkbox = styled.input`
+  margin-left: auto;  // Pushes the checkbox to the right
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 7px 11px;
+  align-items: center;
+  gap: 9px;
+  border-radius: 10px;
+  background: rgba(217, 217, 217, 0.50);
+  margin-bottom : 20px;
+`;
+
+const Icon = styled.img`
+  margin-left: 10px;
+  width: 16px;
+  height: 17px;
+  flex-shrink: 0;
+`;
+
+const Star = styled.div`
+  width: 10px;
+  height: 10px;
+`
+
+const SearchInput = styled.input`
+  flex: 1; // Ensures the input takes the full space
+  padding: 10px;
+  border: none; // Removes the border
+  outline: none; // Removes the outline on focus
+  background-color: transparent; // Makes the background transparent
+
+  color: var(--deactive, #B2BAC2);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  &::placeholder {
+    color: #B2BAC2;
+  }
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+`;
+
+
+
+const CategoryFilterContainer = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+`;
+
+const CategoryFilter = styled.button`
+  display: flex;
+  padding: ${props => props.active ? '5px 17px' : '4px 17px'};
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 15px;
+  border: 1px solid #5467F5;
+  background: ${props => props.active ? '#495EF6' : 'none'};
+  cursor: pointer;
+  transition: background-color 0.3s, padding 0.3s; /* Smooth transition for visual feedback */
+  color: ${props => props.active ? '#FFFFFF' : '#5467F5'}; /* Text color change for better visibility */
+`;
+
+
+const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [exerciseList, setExerciseList] = useState(exercises || []);
+  const [filterCategory, setFilterCategory] = useState('전체');
+  const [checkedNames, setCheckedNames] = useState(new Set());
+  const [favoriteNames, setFavoriteNames] = useState(new Set());
+
+  useEffect(() => {
+    const initialFavorites = new Set();
+    exercises.forEach(exercise => {
+      if (exercise.mark) {
+        initialFavorites.add(exercise.exercise);
+      }
+    });
+    setFavoriteNames(initialFavorites);
+  }, [exercises]); // Ensure this runs only once when exercises prop is set initially
+
+  useEffect(() => {
+    const filtered = (exercises || [])
+      .filter(e => 
+        e.exercise.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (filterCategory === '전체' || 
+         (filterCategory === '즐겨찾기' && favoriteNames.has(e.exercise)) || 
+         e.category === filterCategory)
+      )
+      .sort((a, b) => (b.mark === a.mark ? 0 : b.mark ? 1 : -1));
+    setExerciseList(filtered);
+  }, [searchTerm, filterCategory, exercises, favoriteNames]);
+
+  const toggleMark = (exerciseName) => {
+    setFavoriteNames(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(exerciseName)) {
+        newFavorites.delete(exerciseName);
+      } else {
+        newFavorites.add(exerciseName);
+      }
+      return newFavorites;
+    });
+  };
+
+  const toggleCheck = (exerciseName) => {
+    setCheckedNames(prev => {
+      const newNames = new Set(prev);
+      if (newNames.has(exerciseName)) {
+        newNames.delete(exerciseName);
+      } else {
+        newNames.add(exerciseName);
+      }
+      onSelectedExercisesChange(Array.from(newNames));
+      return newNames;
+    });
+  };
+
+  return (
+    <Container>
+      <SearchContainer>
+        <Icon src={SearchIcon} alt="Search" />
+        <SearchInput
+          type="text"
+          placeholder="운동 검색하기"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </SearchContainer>
+  
+      <CategoryFilterContainer>
+        {['즐겨찾기', '전체', '하체', '가슴', '등', '어깨', '팔'].map(category => (
+          <CategoryFilter
+            key={category}
+            active={filterCategory === category}
+            onClick={() => setFilterCategory(category)}
+          >
+            {category}
+          </CategoryFilter>
+        ))}
+      </CategoryFilterContainer>
+  
+      {exerciseList.map((exercise, index) => (
+        <ExerciseItem key={index}>
+          <ExerciseContent onClick={() => toggleMark(exercise.exercise)}>
+            <StarIconContainer>
+              {favoriteNames.has(exercise.exercise) ? <StarIconActive /> : <StarIconDeactive />}
+            </StarIconContainer>
+            {exercise.exercise}
+          </ExerciseContent>
+          <Checkbox
+            type="checkbox"
+            checked={checkedNames.has(exercise.exercise)}
+            onChange={() => toggleCheck(exercise.exercise)}
+          />
+        </ExerciseItem>
+      ))}
+
+    </Container>
+    
+  );
+};  
+
+export default ExerciseList;

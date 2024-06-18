@@ -6,6 +6,10 @@ export const parameters = {
   controls: { expanded: true },
 };
 
+
+// After
+import { fn } from '@storybook/test';  // Ensure to import 'fn'
+
 export const decorators = [
   (Story) => (
     <MemoryRouter initialEntries={['/']}>

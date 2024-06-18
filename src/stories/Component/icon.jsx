@@ -50,4 +50,16 @@ const StopIcon = () => (
 </svg>
 );
 
-export { TrophyIcon, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon};
+const StarIconActive = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="19" viewBox="0 0 20 19" fill="none">
+    <path d="M3.825 19L5.45 11.975L0 7.25L7.2 6.625L10 0L12.8 6.625L20 7.25L14.55 11.975L16.175 19L10 15.275L3.825 19Z" fill="#495EF6"/>
+  </svg>
+);
+
+const StarIconDeactive = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="19" viewBox="0 0 20 21" fill="none">
+    <path d="M4.56588 19.8252L5.93923 13.3167L5.99689 13.0434L5.79445 12.851L1.1401 8.42747L7.24737 7.84631L7.55527 7.81701L7.66653 7.52842L10 1.47588L12.3335 7.52842L12.4447 7.81701L12.7526 7.84631L18.8599 8.42747L14.2055 12.851L14.0031 13.0434L14.0608 13.3167L15.4341 19.8252L10.2758 16.414L10 16.2316L9.7242 16.414L4.56588 19.8252Z" stroke="#5467F5"/>
+  </svg>
+);
+
+export { TrophyIcon, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon, StarIconActive, StarIconDeactive};
