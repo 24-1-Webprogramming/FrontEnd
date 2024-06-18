@@ -18,6 +18,7 @@ const Header = ({ showIcon, text, backButton, path }) => {
           </Link>
         </IconButtonWrapper>
       )}
+      
       <CenterContent>
         {showIcon ? (
           <img src="/Logo-color.svg" alt="로고" />
@@ -33,6 +34,8 @@ Header.propTypes = {
   showIcon: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   backButton: PropTypes.bool.isRequired,
+  leftButton: PropTypes.string,
+  rightButton: PropTypes.string,
 };
 
 Header.defaultProps = {

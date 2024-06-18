@@ -7,6 +7,7 @@ import Header from '../../Component/Header';
 import Card from '../../Component/Card';
 import IconButton from '../../Component/IconButton';
 import Stopwatch from '../../Component/Stopwatch';
+import ExerciseStop from '../../Component/ExerciseStop';
 
 const ExerciseSuggestion = () => {
 
@@ -21,26 +22,13 @@ const ExerciseSuggestion = () => {
 
     return (
         <Container>
-            <Header text = '루틴 운동'/>
+            <Header text = ''>
+                <Button label='운동완료' type='primary' />
+            </Header>
 
             <Stopwatch />
 
-            <Card
-            height="102px"
-            shadow={false}
-            borderRadius="10px"
-            background='#5467F5'
-            >
-
-            </Card>
-
-            <Card
-            height="152px"
-            shadow={true}
-            >
-                원레그 익스텐션
-            </Card>
-
+            <ExerciseStop />
 
             <FixedButtonContainer>
                 <Button width='100%' height='45px' label='운동추가' type='border'/>

@@ -7,7 +7,7 @@ import { SetPlus, SetMinus } from './ButtonS';
 
 const Container = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     padding: 30px var(--FormSm-FormSmVerticalPadding, 0px);
     flex-direction: column;
     justify-content: center;
@@ -194,16 +194,28 @@ const ExerciseStop = () => {
                 </ButtonContainer>
             </WatchContainer>
             <RowContainer>
+              <Row>
+                    <Sub>SET</Sub>
+                    <Sub>
+                        <Text>KG</Text>
+                    </Sub>
+                    <Sub>
+                        <Text>횟수</Text>
+                    </Sub>
+                    <Sub>
+                        <Text>완료</Text>
+                    </Sub>
+                </Row>
                 {rows.map((row, index) => (
                     <Row key={index}>
                         <Sub>
                             <Text>{row.id}</Text>
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" />
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" />
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
                         </Sub>
                         <SwitchContainer>
                             <Switch />
