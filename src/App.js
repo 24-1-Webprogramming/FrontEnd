@@ -15,6 +15,9 @@ import Home from './stories/Pages/Home/Home';
 import GroupEmpty from './stories/Pages/Group/GroupEmpty';
 import Statistic from './stories/Pages/Statistic/statistic';
 
+import AddressSettingPage from './stories/Pages/Address/GymInfoPage';
+import Gymfilter from './stories/Pages/Address/Gymfilter';
+
 import GroupPage from './stories/Pages/Group/GroupPage';
 import GroupJoin from './stories/Pages/Group/GroupJoin';
 import GroupCreate from './stories/Pages/Group/GroupCreate';
@@ -44,6 +47,9 @@ const App = () => {
           <Route path="/entry/water" element={<Water/>} />
           <Route path="/entry/weight" element={<Weight/>} />
           <Route path="/entry/DDay" element={<DDay/>} />
+
+          <Route path="/gym" element={<AddressSettingPage />} />
+          <Route path="/gymfilter/:district" element={<Gymfilter />} />
 
           <Route path="/group/empty" element={<GroupEmpty/>} />
           <Route path="/group" element={<Group/>} />

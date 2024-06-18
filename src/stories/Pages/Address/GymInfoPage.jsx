@@ -1,70 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import ArrowIcon from '../../../Icon/Icon_Arrow.svg';
 import SearchIcon from '../../../Icon/Search.svg';
 import LocationIcon from '../../../Icon/Location.svg';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [addresses, setAddresses] = useState([]);
-  const [uniqueDistricts, setUniqueDistricts] = useState([]);
-
-  useEffect(() => {
-    if (searchTerm) {
-      fetchAddresses(searchTerm);
-    }
-  }, [searchTerm]);
-
-  const fetchAddresses = async (query) => {
-    const apiKey = 'AIzaSyA0Z_Mh6chElhD5SsL8fvWyY0bRje58bPA';
-
-    try {
-      const response = await axios.get('https://maps.googleapis.com/maps/api/place/textsearch/json', {
-        params: {
-          query: query,
-          key: apiKey,
-        },
-      });
-
-      const fetchedAddresses = response.data.results.map((item) => ({
-        id: item.place_id,
-        name: item.name,
-        address: item.formatted_address,
-        lat: item.geometry.location.lat,
-        lng: item.geometry.location.lng,
-      }));
-
-      setAddresses(fetchedAddresses);
-      const districts = [...new Set(fetchedAddresses.map(address => address.address.split(' ')[1]))];
-      setUniqueDistricts(districts);
-
-    } catch (error) {
-      console.error('Error fetching addresses:', error);
-    }
-  };
+  const [searchResults, setSearchResults] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(null);
+  const navigate = useNavigate(); // useNavigate hook 사용
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    if (e.target.value.length > 1) {
+      fetchDistricts(e.target.value);
+    } else {
+      setSearchResults([]);
+    }
   };
 
-  const filteredAddresses = addresses.filter((item) =>
-    item.address.includes(searchTerm) || item.name.includes(searchTerm)
-  );
+  const fetchDistricts = async (query) => {
+    const apiKey = '269e4e6c16b5fc9f85c45991d5bb1f58';
+    const url = `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}`;
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `KakaoAK ${apiKey}`
+        }
+      });
+      const districts = response.data.documents
+        .map(doc => ({
+          name: doc.address_name,
+          district: `${doc.address_name.split(' ')[0]} ${doc.address_name.split(' ')[1]}`
+        }))
+        .filter((value, index, self) => 
+          index === self.findIndex((t) => (
+            t.district === value.district
+          ))
+        )
+        .filter(district => district.district.includes(query)); // 특정 구 필터링
+      setSearchResults(districts);
+    } catch (error) {
+      console.error('Error fetching districts:', error);
+    }
+  };
+
+  const addresses = [
+    { id: 1, image: 'https://via.placeholder.com/150', name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층', price: '11,000원', distance: '2.7km', tags: ['OT무료'] },
+    { id: 2, image: 'https://via.placeholder.com/150', name: '상도 이공고휘트니스', address: '서울 동작구 상도로 95 2층', price: '15,000원', distance: '2.3km', tags: ['OT무료', '인바디'] },
+    { id: 3, image: 'https://via.placeholder.com/150', name: '신대방삼거리 OS GYM', address: '서울 동작구 상도로 95 2층', price: '15,000원', distance: '2.7km', tags: ['OT무료', '인바디'] },
+    { id: 4, image: 'https://via.placeholder.com/150', name: '신림 유앤아이점', address: '서울 관악구 신림동', price: '13,500원', distance: '2.9km', tags: ['인바디'] },
+    { id: 5, image: 'https://via.placeholder.com/150', name: '신대방삼거리 브라매휘트니스', address: '서울 동작구 상도로 95 2층', price: '12,000원', distance: '2.5km', tags: ['정기권'] },
+  ];
+
+  const filteredAddresses = selectedDistrict 
+    ? addresses.filter(item => item.address.includes(selectedDistrict))
+    : [];
+
+  const handleDistrictClick = (district) => {
+    setSelectedDistrict(district);
+    navigate(`/gymfilter/${district}`); // 페이지 이동
+  };
 
   return (
     <Container>
       <InnerContainer>
         <Header>
           <Link to="/" style={styles.backButton}>
-            <img src={ArrowIcon} alt="Back" />
+            <img src={ArrowIcon} alt="back" />
           </Link>
           <Title>주소 설정</Title>
         </Header>
         <SearchContainer>
           <SearchBox>
-            <img src={SearchIcon} alt="Search" />
+            <img src={SearchIcon} alt="search" />
             <SearchInput
               type="text"
               placeholder="헬스장 이름 또는 지번으로 검색"
@@ -73,21 +84,33 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
             />
           </SearchBox>
         </SearchContainer>
-        <DistrictList>
-          {uniqueDistricts.map((district, index) => (
-            <DistrictItem key={index}>
-              <img src={LocationIcon} alt="Location" />
-              <span>{district}</span>
-            </DistrictItem>
-          ))}
-        </DistrictList>
+        {!selectedDistrict && (
+          <DistrictList>
+            {searchResults.map((district, index) => (
+              <DistrictItem key={index} onClick={() => handleDistrictClick(district.district)}>
+                <img src={LocationIcon} alt="location" />
+                <span>{district.district}</span>
+              </DistrictItem>
+            ))}
+          </DistrictList>
+        )}
         <AddressList>
           {filteredAddresses.map((item, index) => (
             <Link to={`/gym/${item.id}`} key={index} style={styles.link}>
               <AddressItem>
+                <img src={item.image} alt={item.name} style={styles.image} />
                 <Info>
                   <Name>{item.name}</Name>
                   <Address>{item.address}</Address>
+                  <Details>
+                    <Distance>{item.distance}</Distance>
+                    <Price>{item.price}</Price>
+                  </Details>
+                  <Tags>
+                    {item.tags.map((tag, index) => (
+                      <Tag key={index}>{tag}</Tag>
+                    ))}
+                  </Tags>
                 </Info>
               </AddressItem>
             </Link>
@@ -98,11 +121,12 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   );
 };
 
+// styled-components 정의 추가
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 393px;
+  width: 100%;
   background-color: #fff;
   box-sizing: border-box;
 `;
@@ -162,8 +186,7 @@ const DistrictList = styled.div`
 
 const DistrictItem = styled.div`
   display: flex;
-  width: 377px;
-  height: 50px;
+  width: 100%;
   padding: 10px;
   align-items: center;
   gap: 10px;
@@ -205,19 +228,47 @@ const Address = styled.div`
   margin-top: 4px;
 `;
 
+const Details = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Distance = styled.span`
+  font-size: 12px;
+  color: #888;
+`;
+
+const Price = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+`;
+
+const Tags = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+
+const Tag = styled.span`
+  font-size: 12px;
+  color: #5467F5;
+  background-color: #E0E7FF;
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin-right: 5px;
+`;
+
 const styles = {
   backButton: {
     marginRight: '10px',
     textDecoration: 'none',
     color: '#000',
   },
-  searchIcon: {
-    marginRight: '10px',
-    color: '#5467F5',
-  },
-  locationIcon: {
-    marginRight: '10px',
-    color: '#5467F5',
+  image: {
+    width: '115px',
+    height: '119px',
+    borderRadius: '9px',
   },
   link: {
     textDecoration: 'none',
