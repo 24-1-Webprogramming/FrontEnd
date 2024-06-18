@@ -1,3 +1,4 @@
+// .storybook/main.js
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 const config = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -8,13 +9,11 @@ const config = {
     "@storybook/addon-essentials",
     "@chromatic-com/storybook",
     "@storybook/addon-interactions",
-    '@storybook/addon-viewport', // 뷰포트 애드온 추가
   ],
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
   },
-  staticDirs: ["..\\public"],
+  staticDirs: ["../public"],
 };
-
 export default config;
