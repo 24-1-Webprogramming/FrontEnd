@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import NavBar from '../../Component/NavBar';
 import Header from '../../Component/Header';
 import { HeadLine, CharacterSector } from './HomeS';
+import { DDay } from './HomeS2';
 
 const Home_DDayAdd = ({}) => {
   // Sample currentSteps values
@@ -18,6 +19,7 @@ const Home_DDayAdd = ({}) => {
         currentSteps={currentSteps}
       />
       <NavBar />
+      <DDay/>
     </Container>
   );
 };
