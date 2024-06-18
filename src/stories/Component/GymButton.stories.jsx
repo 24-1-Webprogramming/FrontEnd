@@ -1,6 +1,7 @@
 import GymButton from './GymButton';
 
 const meta = {
+  title: 'Component/GymButton',
   component: GymButton,
 };
 

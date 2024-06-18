@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '../assets/search.svg';
-import { StarIconActive } from './icon';
-import { StarIconDeactive } from './icon';
+import { StarIconActive, StarIconDeactive } from './icon';
+import { Button } from './Button';
+import FixedButtonContainer from './FixedButtonContainer';
 
 // Styled components
 const Container = styled.div`
@@ -13,35 +14,35 @@ const Container = styled.div`
 
 const StarIconContainer = styled.span`
   display: flex;
-  align-items: center;  // Center align vertically
-  justify-content: center; // Center align horizontally
-  width: 24px;  // Adjust width as necessary
-  height: 24px; // Adjust height to maintain aspect ratio
-  margin-right: 10px;  // Add some space between the icon and the text
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
 `;
 
 const ExerciseItem = styled.div`
   display: flex;
-  align-items: center;  // Aligns items vertically in the center
-  justify-content: space-between;  // Distributes space between and around content items
+  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #ccc;
 `;
+
 const ExerciseContent = styled.span`
   display: flex;
-  align-items: center;  // Ensure vertical alignment in the center
-  flex-grow: 1;  // Allows the container to take up all available space
-
+  align-items: center;
+  flex-grow: 1;
   color: #000;
   font-family: Pretendard;
   font-size: 14px;
   font-style: normal;
-  font-weight: 00;
+  font-weight: 500;
   line-height: normal;
 `;
 
 const Checkbox = styled.input`
-  margin-left: auto;  // Pushes the checkbox to the right
+  margin-left: auto;
 `;
 
 const SearchContainer = styled.div`
@@ -52,7 +53,7 @@ const SearchContainer = styled.div`
   gap: 9px;
   border-radius: 10px;
   background: rgba(217, 217, 217, 0.50);
-  margin-bottom : 20px;
+  margin-bottom: 20px;
 `;
 
 const Icon = styled.img`
@@ -62,18 +63,12 @@ const Icon = styled.img`
   flex-shrink: 0;
 `;
 
-const Star = styled.div`
-  width: 10px;
-  height: 10px;
-`
-
 const SearchInput = styled.input`
-  flex: 1; // Ensures the input takes the full space
+  flex: 1;
   padding: 10px;
-  border: none; // Removes the border
-  outline: none; // Removes the outline on focus
-  background-color: transparent; // Makes the background transparent
-
+  border: none;
+  outline: none;
+  background-color: transparent;
   color: var(--deactive, #B2BAC2);
   font-family: Pretendard;
   font-size: 16px;
@@ -90,8 +85,6 @@ const SearchInput = styled.input`
     outline: none;
   }
 `;
-
-
 
 const CategoryFilterContainer = styled.div`
   margin-bottom: 20px;
@@ -110,10 +103,9 @@ const CategoryFilter = styled.button`
   border: 1px solid #5467F5;
   background: ${props => props.active ? '#495EF6' : 'none'};
   cursor: pointer;
-  transition: background-color 0.3s, padding 0.3s; /* Smooth transition for visual feedback */
-  color: ${props => props.active ? '#FFFFFF' : '#5467F5'}; /* Text color change for better visibility */
+  transition: background-color 0.3s, padding 0.3s;
+  color: ${props => props.active ? '#FFFFFF' : '#5467F5'};
 `;
-
 
 const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -130,7 +122,7 @@ const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
       }
     });
     setFavoriteNames(initialFavorites);
-  }, [exercises]); // Ensure this runs only once when exercises prop is set initially
+  }, [exercises]);
 
   useEffect(() => {
     const filtered = (exercises || [])
@@ -168,6 +160,8 @@ const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
       return newNames;
     });
   };
+
+  const buttonLabel = checkedNames.size > 0 ? `${checkedNames.size}개 선택` : '선택';
 
   return (
     <Container>
@@ -207,10 +201,19 @@ const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
           />
         </ExerciseItem>
       ))}
-
+      <FixedButtonContainer>
+        {checkedNames.size > 0 && (
+          <Button
+            width={'90%'}
+            label={buttonLabel}
+            onClick={() => {}}
+            primary
+          />
+        )}
+      </FixedButtonContainer>
     </Container>
-    
   );
 };  
 
 export default ExerciseList;
+
