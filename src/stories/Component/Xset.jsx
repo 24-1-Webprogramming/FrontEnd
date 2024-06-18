@@ -81,7 +81,7 @@ const ExerciseKg = styled(ExerciseText)`
 
 // Xset Component
 const Xset = ({ number, bodyPart, exercise, sets, weight, reps }) => {
-  const totalWeight = sets * weight;
+  const totalWeight = reps * weight;
   return (
     <XsetContainer>
       <ExerciseInfo>
