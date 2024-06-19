@@ -31,7 +31,8 @@ import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 import ExercisePage from './stories/Pages/Exercise/ExercisePage';
 import ExerciseRoutineList from './stories/Pages/Exercise/ExerciseRoutineList';
-
+import ExerciseSuggestionDetail from './stories/Pages/Exercise/ExerciseSuggestionDetailDefault';
+import ExerciseSuggestions from './stories/Pages/Exercise/ExerciseSuggestionDefault';
 import ExerciseSuggestionAdd from './stories/Pages/Exercise/ExerciseSuggestionAdd';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
@@ -71,7 +72,7 @@ const App = () => {
           <Route path="/Exercise/main" element={<ExercisePage/>} />
           <Route path="/Exercise/routine/list" element={<ExerciseRoutineList/>} />
           <Route path="/Exercise/routine/:id/add" element={<ExerciseSuggestionAdd/>} />
-          <Route path="/Exercise/routine/:id/detail" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/detail" element={<ExerciseSuggestionDetail/>} />
           <Route path="/Exercise/routine/:id/play" element={<Mypage/>} />
           <Route path="/Exercise/routine/:id/edit" element={<Mypage/>} />
           <Route path="/Exercise/routine/:id/success" element={<Mypage/>} />

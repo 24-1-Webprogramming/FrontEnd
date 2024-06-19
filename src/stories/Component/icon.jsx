@@ -50,6 +50,20 @@ const StopIcon = () => (
 </svg>
 );
 
+const XIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <g clip-path="url(#clip0_979_10048)">
+    <path d="M25 7L7 25" stroke="#5467F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M25 25L7 7" stroke="#5467F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_979_10048">
+      <rect width="32" height="32" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
+);
+
 const MySVGIcon = () => {
   return (
     <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,4 +91,4 @@ const DownArrow = () => (
 </svg>
 )
 
-export { TrophyIcon, DownArrow, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon, MySVGIcon, StarIconActive, StarIconDeactive};
+export { TrophyIcon, DownArrow, PlusIcon, CalendarIcon, PlayIcon, ResetIcon, StopIcon, XIcon, MySVGIcon, StarIconActive, StarIconDeactive};
