@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HomeScrolldownWeight = () => {
-  const [weightAmount, setWeightAmount] = useState('00.0kg'); // This state could be updated based on an API call
+  const [weightAmount, setWeightAmount] = useState(''); // This state could be updated based on an API call
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate('/entry/weight'); // Update with the actual path you want to navigate to
   };
+
+  useEffect(() => {
+    const storedWeightAmount = localStorage.getItem('weightAmount');
+    if (storedWeightAmount) {
+      setWeightAmount(storedWeightAmount);
+    }
+  }
+  , []);
 
   return (
     <Container>
@@ -16,7 +24,7 @@ const HomeScrolldownWeight = () => {
       <Box>
         <TextBox>
           <Text>오늘의 내 체중</Text>
-          <WaterAmount>{weightAmount}</WaterAmount>
+          <WaterAmount>{weightAmount ? weightAmount : '00.0'}kg</WaterAmount>
         </TextBox>
         <Button onClick={handleButtonClick}>기록하기</Button>
       </Box>

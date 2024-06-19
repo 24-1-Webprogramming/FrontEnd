@@ -4,12 +4,14 @@ import TextField from '../../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../../Component/Header';
 import { meal } from '../../data/data';
+import { useNavigate } from 'react-router-dom';
 
 const Meal = () => {
     const [step, setStep] = useState(0); // 단계
     const [responses, setResponses] = useState(Array(meal.length).fill(null)); // 답변 저장 배열
     const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
     const [currentInput, setCurrentInput] = useState(''); // 현재 입력값
+    const navigate = useNavigate();
 
     const handleInputChange = (value) => {
         setCurrentInput(value);
@@ -27,6 +29,7 @@ const Meal = () => {
             setIsButtonEnabled(false); // 버튼 비활성화
         } else {
             console.log('meal complete:', newResponses);
+            navigate('/home');
         }
     };
 

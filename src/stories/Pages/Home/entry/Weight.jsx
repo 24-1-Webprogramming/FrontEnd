@@ -4,12 +4,14 @@ import TextField from '../../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../../Component/Header';
 import { weight } from '../../data/data';
+import { useNavigate } from 'react-router-dom';
 
 const Weight = () => {
     const [step, setStep] = useState(0); // 단계
     const [responses, setResponses] = useState(Array(weight.length).fill(null)); // 답변 저장 배열
     const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
     const [currentInput, setCurrentInput] = useState(''); // 현재 입력값
+    const navigate = useNavigate();
 
     const handleInputChange = (value) => {
         setCurrentInput(value);
@@ -26,7 +28,10 @@ const Weight = () => {
             setCurrentInput(''); // 입력값 초기화
             setIsButtonEnabled(false); // 버튼 비활성화
         } else {
+            const [weightAmount] = newResponses;
+            localStorage.setItem('weightAmount', weightAmount);
             console.log('weight complete:', newResponses);
+            navigate('/home');
         }
     };
 

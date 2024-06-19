@@ -4,19 +4,33 @@ import styled from 'styled-components';
 import CharacterIcon from '../../assets/DumbbellCrying2.svg';
 import ProgressBar from '../../Component/ProgressBar';
 
-export const HeadLine = () => {
+const calculateDDay = (targetDate) => {
+  const today = new window.Date();
+  const target = new window.Date(targetDate);
+  const diffTime = target - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return `D-${diffDays}`;
+};
+
+export const HeadLine = ({ dDayLabel, targetDate }) => {
   const [currentDate, setCurrentDate] = React.useState('');
+  const [dDay, setDDay] = React.useState('');
+
   React.useEffect(() => {
     const today = new window.Date();
     const formattedDate = today.toISOString().slice(0, 10).replace(/-/g, '.');
     setCurrentDate(formattedDate);
-  }, []);
+
+    if (targetDate) {
+      setDDay(calculateDDay(targetDate));
+    }
+  }, [targetDate]);
 
   return (
     <Line>
       <LeftContainer>
-        <BodyProfileLabel>바디프로필</BodyProfileLabel>
-        <DDay>D-16</DDay>
+        <DDayLabel>{dDayLabel}</DDayLabel>
+        <DDay>{dDay}</DDay>
       </LeftContainer>
       <Date>{currentDate}</Date>
     </Line>
@@ -131,7 +145,7 @@ const LeftContainer = styled.div`
   margin-left: 30px;
 `;
 
-const BodyProfileLabel = styled.button`
+const DDayLabel = styled.button`
   border-radius: 7px;
   background: #fff;
   display: flex;
