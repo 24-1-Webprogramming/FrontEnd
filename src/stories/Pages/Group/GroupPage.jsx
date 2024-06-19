@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Header from '../../Component/Header';
 import styled from 'styled-components';
@@ -7,28 +7,26 @@ import { TrophyIcon, PlusIcon } from '../../Component/icon';
 import NavBar from '../../Component/NavBar';
 import { Button } from '../../Component/Button';
 
-const groupData = {
-    name: "회원님여덑개만더하조",
-    ranking: 2,
-    currentUser: "편유나"
-};
-
-const rankingData = [
-    { rank: 1, name: '편유나', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 2, name: '박호건', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 3, name: '전윤서', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 4, name: '이동현', profileImg: 'https://via.placeholder.com/50' },
-    { rank: 5, name: '정다운', profileImg: 'https://via.placeholder.com/50' },
-];
-
 const GroupPage = () => {
-    const { id } = useParams(); // Get the id from the URL
-    const totalPlayers = rankingData.length;
-    const percentage = ((groupData.ranking / totalPlayers) * 100).toFixed(1); // 상위 몇 퍼센트인지 계산
-    console.log(percentage);
+    const { id } = useParams();
+    const [groupData, setGroupData] = useState([]);
+
+    useEffect(() => {
+        // Load group data from localStorage
+        const loadedGroupData = localStorage.getItem('groupData');
+        if (loadedGroupData) {
+            setGroupData(JSON.parse(loadedGroupData));
+        }
+    }, []);
+
+    // Find current group using the ID from the URL
+    const currentGroup = groupData.find(group => group.groupid === parseInt(id));
+    const totalPlayers = currentGroup ? currentGroup.members.length : 0;
+    const rankingData = currentGroup ? currentGroup.members : [];
+
     return (
         <div>
-            <Header showIcon={false} text={groupData.name} backButton={true} />
+            <Header showIcon={false} text={currentGroup ? currentGroup.name : 'Loading...'} backButton={true} />
             <Container>
                 <Content>
                     <Card
@@ -41,7 +39,7 @@ const GroupPage = () => {
                         <CardContent>
                             <TrophyIcon />
                             <CardTextBox>
-                                <CardPercent>상위 {percentage}%</CardPercent>
+                                <CardPercent>상위 {totalPlayers ? ((rankingData.findIndex(member => member.name === "편유나") + 1) / totalPlayers * 100).toFixed(1) : '...'}%</CardPercent>
                                 <CardDescription>(총 {totalPlayers}명의 플레이어)</CardDescription>
                             </CardTextBox>
                         </CardContent>
@@ -52,7 +50,7 @@ const GroupPage = () => {
                             {rankingData.map((player, index) => (
                                 <RankingItem 
                                     key={index} 
-                                    isCurrentUser={groupData.currentUser === player.name}
+                                    isCurrentUser={"편유나" === player.name}
                                 >
                                     <ProfileImg src={player.profileImg} alt={`${player.name}'s profile`} />
                                     <Rank>{player.rank}위</Rank>
@@ -80,7 +78,7 @@ const GroupPage = () => {
                     <Button
                         label="그룹 나가기"
                         type="warning"
-                        onClick={() => {}}
+                        onClick={() => console.log('Leaving group...')}
                     />
                 </ButtonBox>
             </Container>

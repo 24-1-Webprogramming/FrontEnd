@@ -27,7 +27,7 @@ const GroupInvite = () => {
                 <InviteCode>1028</InviteCode>
             </CenteredText>
             <FixedButtonContainer>
-                <Link to='/'>
+                <Link to='/group'>
                     <Button
                         label="확인완료"
                         type="primary"

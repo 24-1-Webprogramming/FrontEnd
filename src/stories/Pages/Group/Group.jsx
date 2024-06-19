@@ -1,79 +1,79 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import NavBar from '../../Component/NavBar';
 import Header from '../../Component/Header';
 import { Button } from '../../Component/Button';
 import { Link } from 'react-router-dom';
 
-// 그룹 데이터 배열
-const groupData = [
-    { name: "회원님여덟개만더하조", members: 10, groupid:1231 },
-    { name: "아무것도하기싫조", members: 8, groupid:1233},
-    { name: "으아ㅏ앙아아아아악", members: 12, groupid:1235 },
+// 그룹 데이터 정의
+const initialGroupData = [
+    {
+        name: "체육대회 준비팀",
+        groupid: 1,
+        members: [
+            { rank: 1, name: '김준호', profileImg: 'https://via.placeholder.com/50', nickname: 'Junho' },
+            { rank: 2, name: '이승기', profileImg: 'https://via.placeholder.com/50', nickname: 'Seunggi' },
+            { rank: 3, name: '정소민', profileImg: 'https://via.placeholder.com/50', nickname: 'Somin' },
+            { rank: 4, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' }
+        ]
+    },
+    {
+        name: "주말 등산 클럽",
+        groupid: 2,
+        members: [
+            { rank: 1, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' },
+            { rank: 2, name: '박지성', profileImg: 'https://via.placeholder.com/50', nickname: 'Jisung' },
+            { rank: 3, name: '이영표', profileImg: 'https://via.placeholder.com/50', nickname: 'Youngpyo' },
+            { rank: 4, name: '황희찬', profileImg: 'https://via.placeholder.com/50', nickname: 'Heechan' },
+            { rank: 5, name: '구자철', profileImg: 'https://via.placeholder.com/50', nickname: 'Jacheol' }
+        ]
+    },
+    {
+        name: "매일 요가 도전",
+        groupid: 3,
+        members: [
+            { rank: 1, name: '유재석', profileImg: 'https://via.placeholder.com/50', nickname: 'Jaeseok' },
+            { rank: 2, name: '지석진', profileImg: 'https://via.placeholder.com/50', nickname: 'Seokjin' },
+            { rank: 3, name: '김종국', profileImg: 'https://via.placeholder.com/50', nickname: 'Jongkook' },
+            { rank: 4, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' },
+            { rank: 5, name: '송지효', profileImg: 'https://via.placeholder.com/50', nickname: 'Jihyo' },
+            { rank: 6, name: '양세찬', profileImg: 'https://via.placeholder.com/50', nickname: 'Sechan' }
+        ]
+    }
 ];
 
 const Group = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [groupData, setGroupData] = useState([]);
 
-    const toggleModal = () => {
-        setIsModalOpen(!isModalOpen);
-    };
+    useEffect(() => {
+        // 로컬 스토리지에서 그룹 데이터 로드 또는 초기화
+        const storedGroupData = localStorage.getItem('groupData');
+        if (!storedGroupData) {
+            localStorage.setItem('groupData', JSON.stringify(initialGroupData));
+            setGroupData(initialGroupData);
+        } else {
+            setGroupData(JSON.parse(storedGroupData));
+        }
+    }, []);
 
     return (
-        <>
-            {isModalOpen && <DarkOverlay />}
-            <HeaderContainer isModalOpen={isModalOpen}>
-                <Header showIcon={true} text="홈" backButton={false} />
-            </HeaderContainer>
-
-            <Container>
-                {groupData.map((group, index) => (
-                    <StyledLink to={`/group/${group.groupid}`} key={index}>
-                        <GroupCard>
-                            <GroupTextBox>
-                                <GroupTitle>{group.name}</GroupTitle>
-                                <GroupSub>{group.members}명의 그룹원</GroupSub>
-                            </GroupTextBox>
-                        </GroupCard>
-                    </StyledLink>
-                ))}
-                <Button
-                    label="+"
-                    type="border"
-                    width={405}
-                    height={60}
-                    onClick={toggleModal}
-                />
-            </Container>
+        <Container>
+            {groupData.map((group, index) => (
+                <StyledLink to={`/group/${group.groupid}`} key={index}>
+                    <GroupCard>
+                        <GroupTextBox>
+                            <GroupTitle>{group.name}</GroupTitle>
+                            <GroupSub>{group.members.length}명의 그룹원</GroupSub>
+                        </GroupTextBox>
+                    </GroupCard>
+                </StyledLink>
+            ))}
             <NavBar activeState="Group" />
-            {isModalOpen && (
-                <ModalBackground onClick={toggleModal}>
-                    <ModalBox onClick={(e) => e.stopPropagation()}>
-                        <ModalContent>
-                            <ButtonContainer>
-                                <StyledLink to="/group/create">
-                                    <Button
-                                        label="개설하기"
-                                        width={350}
-                                        height={60}
-                                    />
-                                </StyledLink>
-                                <StyledLink to="/group/join">
-                                    <Button
-                                        label="가입하기"
-                                        type="border"
-                                        width={350}
-                                        height={60}
-                                    />
-                                </StyledLink>
-                            </ButtonContainer>
-                        </ModalContent>
-                    </ModalBox>
-                </ModalBackground>
-            )}
-        </>
+        </Container>
     );
 };
+
+export default Group;
 
 const StyledLink = styled(Link)`
     text-decoration: none;
@@ -188,5 +188,3 @@ const ButtonContainer = styled.div`
     flex-direction: column;
     gap: 10px;
 `;
-
-export default Group;
