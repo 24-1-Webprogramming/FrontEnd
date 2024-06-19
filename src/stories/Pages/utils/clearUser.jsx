@@ -9,28 +9,31 @@ const ClearUserPage = () => {
 
   useEffect(() => {
     const userEmail = localStorage.getItem('userEmail');
+    
     if (!userEmail) {
-        console.error("No user email found in local storage.");
-        navigate('/Error'); // Appropriately handling the lack of critical information
-        return;
+      console.error("No user email found in local storage.");
+      navigate('/Error');
+      return;
     }
 
+    axios.delete('http://soongitglwebp8.site/auth/secession', {
+      data: { user_id: userEmail } // DELETE 요청에서 본문을 사용해야 할 경우
+    })
+    .then(response => {
+      if (response.status === 200) {
+        console.log('User data deletion successful:', response.data);
+        setUserData(response.data);
+        localStorage.clear();
+      } else {
+        throw new Error('Failed to delete user data');
+      }
+    })
+    .catch(err => {
+      console.error('Error deleting user data:', err);
+      setError(err.message);
+      navigate('/Error');
+    });
 
-    axios.post('http://soongitglwebp8.site/auth/secession', { user_id: userEmail })
-        .then(response => {
-            if (response.status === 200) {
-                console.log('User data deletion successful:', response.data);
-                setUserData(response.data);
-                localStorage.clear(); // Clearing local storage is a good touch here
-            } else {
-                throw new Error('Failed to delete user data');
-            }
-        })
-        .catch(err => {
-            console.error('Error deleting user data:', err);
-            setError(err.message);
-            navigate('/Error'); // Proper error handling and navigation
-        });
   }, [navigate]);
 
   return (
