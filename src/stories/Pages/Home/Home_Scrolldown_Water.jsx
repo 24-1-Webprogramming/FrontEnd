@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const HomeScrollDownWater = () => {
-  const [waterAmount, setWaterAmount] = useState('0.0L'); // This state could be updated based on an API call
+  const [waterAmount, setWaterAmount] = useState(''); // This state could be updated based on an API call
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate('/entry/water'); // Update with the actual path you want to navigate to
   };
 
+  useEffect(() => {
+    const storedWaterAmount = localStorage.getItem('waterAmount');
+    if (storedWaterAmount) {
+      setWaterAmount(storedWaterAmount);
+    }
+  }, []);
+
   return (
     <Container>
       <Box>
         <TextBox>
           <Text>오늘의 물 섭취량</Text>
-          <WaterAmount>{waterAmount}</WaterAmount>
+          <WaterAmount>{waterAmount ? waterAmount : '0.0'}L</WaterAmount>
         </TextBox>
         <Button onClick={handleButtonClick}>기록하기</Button>
       </Box>
