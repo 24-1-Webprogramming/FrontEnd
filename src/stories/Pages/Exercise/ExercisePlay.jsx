@@ -7,7 +7,7 @@ import Header from '../../Component/Header';
 import Stopwatch from '../../Component/Stopwatch';
 import ExerciseStop from '../../Component/ExerciseStop';
 
-const ExerciseSuggestion = () => {
+const ExercisePlay = () => {
 
     const [nickname, setNickname] = useState('');
 
@@ -34,7 +34,7 @@ const ExerciseSuggestion = () => {
     );
 };
 
-export default ExerciseSuggestion;
+export default ExercisePlay;
 
 const Container = styled.div`
     display: flex;
@@ -43,20 +43,4 @@ const Container = styled.div`
     padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
     padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
     gap: 36px; /* Ensure 45px space between each Card */
-`;
-
-const CardContentCenter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 13px 30px;
-    gap: 15px;
-`;
-
-const Divider = styled.div`
-    width: 0.5px;
-    height: 34px;
-    background-color: #9BC3FF;
 `;

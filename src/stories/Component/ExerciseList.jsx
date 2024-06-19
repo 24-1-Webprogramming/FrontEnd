@@ -123,6 +123,10 @@ const CategoryFilter = styled.button`
   color: ${props => props.active ? '#FFFFFF' : '#5467F5'};
 `;
 
+const styledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [exerciseList, setExerciseList] = useState(exercises || []);
@@ -220,12 +224,14 @@ const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
       ))}
       <FixedButtonContainer>
         {checkedNames.size > 0 && (
+          <styledLink to = '/exercise/routine/:id/add/detail'>
           <Button
             width={'90%'}
             label={buttonLabel}
             onClick={() => {}}
             primary
           />
+          </styledLink>
         )}
       </FixedButtonContainer>
     </Container>

@@ -10,7 +10,7 @@ const IconButton = ({ src, text, textSize, textColor, borderRadius, width, heigh
     width,
     height,
     backgroundColor: isHovered ? hoverBackgroundColor : currentBackgroundColor,
-    cursor: disabled ? 'not-allowed' : 'pointer',
+    cursor: disabled ? '' : 'pointer',
     transition: 'background-color 0.3s ease',
     display: 'flex',
     flexDirection: 'column', // 아이콘과 텍스트를 상하로 정렬하기 위해 추가

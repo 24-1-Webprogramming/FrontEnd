@@ -127,7 +127,7 @@ const styledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const ExerciseListE = ({ exercises, onSelectedExercisesChange }) => {
+const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [exerciseList, setExerciseList] = useState(exercises || []);
   const [filterCategory, setFilterCategory] = useState('전체');
@@ -224,19 +224,19 @@ const ExerciseListE = ({ exercises, onSelectedExercisesChange }) => {
       ))}
       <FixedButtonContainer>
         {checkedNames.size > 0 && (
-          <StyledLink to = '/exercise-suggestion-detail'>
-            <Button
-              width={'90%'}
-              label={buttonLabel}
-              onClick={() => {}}
-              primary
-            />
-          </StyledLink>
+          <styledLink to = '/exercise/routine/:id/play'>
+          <Button
+            width={'90%'}
+            label={buttonLabel}
+            onClick={() => {}}
+            primary
+          />
+          </styledLink>
         )}
       </FixedButtonContainer>
     </Container>
   );
 };  
 
-export default ExerciseListE;
+export default ExerciseList;
 

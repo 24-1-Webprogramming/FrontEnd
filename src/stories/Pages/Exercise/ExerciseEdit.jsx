@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ExerciseList from '../../Component/ExerciseList';
+import ExerciseListE from '../../Component/ExerciseListE';
+import Header from '../../Component/Header';
 
 const exerciseData = [
     { exercise: '컨벤셔널 데드리프트', mark: false, category: '등', check: false },
@@ -14,18 +15,20 @@ const Container = styled.div`
     padding: 20px;
     max-width: 800px;
     margin: auto;
+    margin-top: 10%;
 `;
 
-const ExerciseSuggestionAdd = () => {
+const ExerciseEdit = () => {
     const handleCheckedExercisesChange = (checkedExercises) => {
         console.log("Checked Exercises: ", checkedExercises);
     };
 
     return (
         <Container>
-            <ExerciseList exercises={exerciseData} onSelectedExercisesChange={handleCheckedExercisesChange} />
+            <Header text='루틴명'/>
+            <ExerciseListE exercises={exerciseData} onSelectedExercisesChange={handleCheckedExercisesChange} />
         </Container>
     );
 };
 
-export default ExerciseSuggestionAdd;
+export default ExerciseEdit;

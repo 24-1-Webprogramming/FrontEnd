@@ -4,8 +4,10 @@ import Image from '../Component/Image';
 import styled from 'styled-components';
 import { Button } from '../Component/Button';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Error = () => {
+  const navigate = useNavigate();
     return (
         <Container>
           <PageTitle>
@@ -18,13 +20,12 @@ const Error = () => {
               height="240px"
             />
           <FixedButtonContainer>
-            <Link to='/'>
               <Button
                 label="돌아가기"
                 type="primary"
                 style={{ width: '321px' }}
+                onClick={() => navigate(-1)}
               />
-            </Link>
           </FixedButtonContainer>
         </Container>
       );

@@ -27,7 +27,8 @@ const ExerciseRoutineList = () => {
 
             <Container>
                 {routineData.map((routine, index) => (
-                    <StyledLink to={`/exercise/routine/${routine.routineid}/add`} key={index}>
+                    <StyledLink to={`/exercise/routine/${routine.routineid}/edit`} key={index}> 
+                    {/* 여기 링크 이동은 exercise/main 으로 이동해야 하나, 최근 루틴id를 로컬에 저장해야 함 */}
                         <GroupCard>
                             <GroupTextBox>
                                 <GroupTitle>{routine.name}</GroupTitle>
@@ -49,14 +50,15 @@ const ExerciseRoutineList = () => {
                     <ModalBox onClick={(e) => e.stopPropagation()}>
                         <ModalContent>
                             <ButtonContainer>
-                                <StyledLink to="/group/create">
+                                <StyledLink to={`/exercise/routine/:id/add`}>
                                     <Button
                                         label="AI 루틴 생성"
                                         width={350}
                                         height={60}
                                     />
                                 </StyledLink>
-                                <StyledLink to="/group/join">
+                                <StyledLink to={`/exercise/routine/:id/add`}>
+                                {/* id새로 만들어야 함 */}
                                     <Button
                                         label="루틴 직접 생성"
                                         type="border"
