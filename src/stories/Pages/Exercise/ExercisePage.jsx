@@ -114,8 +114,10 @@ const ExercisePage = () => {
                     </Titles>
                     <img src='/Characters/Sunglasses1_Black.svg'/>
                 </HeadContainer>
-
-                <Button width='80%' label='운동시작'/>
+                
+                <StyledLink2 to = "/exercise/routine/:id/play">
+                  <Button width='100%' label='운동시작'/>
+                </StyledLink2>
 
                 <ExerciseCard />
 
@@ -291,4 +293,9 @@ const XsetItem = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+`;
+
+const StyledLink2 = styled(Link)`
+  width: 80%;
+  align-items: center;
 `;

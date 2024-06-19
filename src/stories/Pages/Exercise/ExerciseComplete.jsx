@@ -41,8 +41,12 @@ const ExerciseComplete = () => {
                 </CardContentCenter>
             </Card>
             <FixedButtonContainer>
-                <Button width='45%' height='45px' label='완료하기' backgroundColor='#FFF' color='#495EF6' type='border' />
-                <Button width='45%' height='45px' label='기록남기기' backgroundColor='#FFF' color='#495EF6' type='border' />
+                <StyledLink to='/exercise/main'>
+                    <Button width='100%' height='45px' label='완료하기' backgroundColor='#FFF' color='#495EF6' type='border' />
+                </StyledLink>
+                <StyledLink to='/exercise/routine/:id/record'>
+                    <Button width='100%' height='45px' label='기록남기기' backgroundColor='#FFF' color='#495EF6' type='border' />
+                </StyledLink>
             </FixedButtonContainer>
 
         </Container>
@@ -108,4 +112,8 @@ const Text = styled.div`
     font-size: 17px;
     font-weight: 400;
     color: #FFF;
+`;
+
+const StyledLink = styled(Link)`
+    width: 50%;
 `;

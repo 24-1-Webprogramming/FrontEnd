@@ -27,8 +27,12 @@ const ExercisePlay = () => {
             <ExerciseStop />
 
             <FixedButtonContainer>
-                <Button width='100%' height='45px' label='운동추가' type='border'/>
-                <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                <StyledLink to = '/exercise/routine/:id/edit'>
+                    <Button width='100%' height='45px' label='운동추가' type='border'/>
+                </StyledLink>
+                <StyledLink to = '/exercise/routine/:id/complete'>
+                    <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                </StyledLink>
             </FixedButtonContainer>
         </Container>
     );
@@ -43,4 +47,8 @@ const Container = styled.div`
     padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
     padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
     gap: 36px; /* Ensure 45px space between each Card */
+`;
+
+const StyledLink = styled(Link)`
+    width: 50%;
 `;
