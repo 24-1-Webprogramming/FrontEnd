@@ -128,7 +128,7 @@ const LeftContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: 20px;
+  margin-left: 30px;
 `;
 
 const BodyProfileLabel = styled.button`
@@ -160,7 +160,7 @@ const Date = styled.div`
   font-family: Pretendard;
   font-size: 17px;
   font-weight: 400;
-  margin-right: 20px;
+  margin-right: 40px;
   letter-spacing: 0.4px;
 `;
 
