@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ArrowIcon from '../../../Icon/Icon_Arrow.svg';
 import SearchIcon from '../../../Icon/Search.svg';
 import LocationIcon from '../../../Icon/Location.svg';
 import styled from 'styled-components';
 import axios from 'axios';
+import Header from '../../Component/Header';
 
 const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,18 +30,44 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
           Authorization: `KakaoAK ${apiKey}`
         }
       });
-      const districts = response.data.documents
-        .map(doc => ({
-          name: doc.address_name,
-          district: `${doc.address_name.split(' ')[0]} ${doc.address_name.split(' ')[1]}`
-        }))
+      const documents = response.data.documents;
+
+      // 구 단위 검색 결과를 추가하기 위한 배열
+      const guResults = [];
+
+      documents.forEach(doc => {
+        const addressParts = doc.address_name.split(' ');
+        if (addressParts.length >= 3) {
+          const guAddress = `${addressParts[0]} ${addressParts[1]}`;
+          if (!guResults.some(result => result.district === guAddress) && guAddress.includes(query)) {
+            guResults.push({ name: guAddress, district: guAddress });
+          }
+        }
+      });
+
+      const districts = documents
+        .map(doc => {
+          const addressParts = doc.address_name.split(' ');
+          if (addressParts.length >= 3) {
+            return {
+              name: doc.address_name,
+              district: `${addressParts[0]} ${addressParts[1]} ${addressParts[2]}` // 시/구/동 단위로 변환
+            };
+          } else {
+            return {
+              name: doc.address_name,
+              district: `${addressParts[0]} ${addressParts[1]}` // 시/구 단위로 변환
+            };
+          }
+        })
         .filter((value, index, self) => 
           index === self.findIndex((t) => (
             t.district === value.district
           ))
         )
-        .filter(district => district.district.includes(query)); // 특정 구 필터링
-      setSearchResults(districts);
+        .filter(district => district.district.includes(query)); // 세부적으로 주소 포함 확인
+
+      setSearchResults([...guResults, ...districts]);
     } catch (error) {
       console.error('Error fetching districts:', error);
     }
@@ -67,18 +93,13 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   return (
     <Container>
       <InnerContainer>
-        <Header>
-          <Link to="/" style={styles.backButton}>
-            <img src={ArrowIcon} alt="back" />
-          </Link>
-          <Title>주소 설정</Title>
-        </Header>
+        <Header {...Header.AddressProps} />
         <SearchContainer>
           <SearchBox>
             <img src={SearchIcon} alt="search" />
             <SearchInput
               type="text"
-              placeholder=" 내 주변 위치 입력 (시/구 단위)"
+              placeholder=" 내 주변 위치 설정 (시/구/동 단위)"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -104,7 +125,6 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
                   <Address>{item.address}</Address>
                   <Details>
                     <Distance>{item.distance}</Distance>
-                    <Price>{item.price}</Price>
                   </Details>
                   <Tags>
                     {item.tags.map((tag, index) => (
@@ -113,6 +133,7 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
                   </Tags>
                 </Info>
               </AddressItem>
+              <Price>{item.price}</Price>
             </Link>
           ))}
         </AddressList>
@@ -120,6 +141,7 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
     </Container>
   );
 };
+
 
 // styled-components 정의 추가
 const Container = styled.div`
@@ -129,6 +151,7 @@ const Container = styled.div`
   width: 100%;
   background-color: #fff;
   box-sizing: border-box;
+  margin-top: 20%;
 `;
 
 const InnerContainer = styled.div`
@@ -142,13 +165,6 @@ const InnerContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-`;
 
 const Title = styled.h1`
   flex: 1;
@@ -169,6 +185,7 @@ const SearchBox = styled.div`
   border-radius: 10px;
   padding: 10px;
 `;
+
 const SearchInput = styled.input`
   flex: 1;
   border: none;
@@ -180,13 +197,11 @@ const SearchInput = styled.input`
   font-weight: 400;
   letter-spacing: -0.3px;
   color: #333;
-
   &::placeholder {
     color: #B2BAC2; // Set the color of placeholder text
     font-family: 'Pretendard', sans-serif; // Apply the 'Pretendard' font to the placeholder
   }
 `;
-
 
 const DistrictList = styled.div`
   width: 100%;
@@ -253,6 +268,7 @@ const Price = styled.div`
   font-size: 14px;
   font-weight: bold;
   color: #000;
+  align-items: right;
 `;
 
 const Tags = styled.div`

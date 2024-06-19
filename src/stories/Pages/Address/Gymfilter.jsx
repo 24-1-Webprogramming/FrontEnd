@@ -86,6 +86,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between; /* 변경된 부분 */
   width: 100%;
+  padding-top: 15px;
   padding-bottom: 10px;
   margin-bottom: 20px;
 `;
@@ -105,13 +106,15 @@ const TagContainer = styled.div`
 `;
 
 const TagButton = styled.button`
-  padding: 10px 20px;
+  padding: 5px 17px;
   margin: 0 5px;
-  border: ${({ selected }) => (selected ? 'none' : '2px solid #5467F5')}; /* 선택되지 않은 경우 외곽선 */
+  border: ${({ selected }) => (selected ? 'none' : '2px solid #5467F5')};
   border-radius: 20px;
-  background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
+  background-color: ${({ selected }) => (selected ? '#495EF6' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
   cursor: pointer;
+  font-size: 14px;
+  font-family: 'Pretendard', sans-serif;
 `;
 
 const AddressList = styled.div`
@@ -179,7 +182,7 @@ const Tag = styled.span`
 const StyledSearchIcon = styled.img`
   position: relative;
   top: 5px; /* 아래로 5px 이동 */
-  right: 55px; /* 왼쪽으로 15px 이동 */
+  right: 35px; /* 왼쪽으로 15px 이동 */
 `;
 
 const styles = {
