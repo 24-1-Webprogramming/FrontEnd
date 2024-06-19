@@ -45,6 +45,13 @@ Header.defaultProps = {
   backButton: true,
 };
 
+// Adding AddressProps as a static property
+Header.AddressProps = {
+  showIcon: false,
+  text: '주소 설정',
+  backButton: true,
+};
+
 export default Header;
 
 const TopLayout = styled.div`
