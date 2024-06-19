@@ -4,6 +4,7 @@ import NavBar from '../../Component/NavBar';
 import Header from '../../Component/Header';
 import { Button } from '../../Component/Button';
 import { Link } from 'react-router-dom';
+import Profile from '../../../Icon/profile.png'; // 프로필 이미지 경로 수정
 
 // 그룹 데이터 정의
 const initialGroupData = [
@@ -11,33 +12,33 @@ const initialGroupData = [
         name: "체육대회 준비팀",
         groupid: 1,
         members: [
-            { rank: 1, name: '김준호', profileImg: 'https://via.placeholder.com/50', nickname: 'Junho' },
-            { rank: 2, name: '이승기', profileImg: 'https://via.placeholder.com/50', nickname: 'Seunggi' },
-            { rank: 3, name: '정소민', profileImg: 'https://via.placeholder.com/50', nickname: 'Somin' },
-            { rank: 4, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' }
+            { rank: 1, name: '김준호', profileImg: Profile, nickname: 'Junho' },
+            { rank: 2, name: '이승기', profileImg: Profile, nickname: 'Seunggi' },
+            { rank: 3, name: '정소민', profileImg: Profile, nickname: 'Somin' },
+            { rank: 4, name: '편유나', profileImg: Profile, nickname: 'Yuna' }
         ]
     },
     {
         name: "주말 등산 클럽",
         groupid: 2,
         members: [
-            { rank: 1, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' },
-            { rank: 2, name: '박지성', profileImg: 'https://via.placeholder.com/50', nickname: 'Jisung' },
-            { rank: 3, name: '이영표', profileImg: 'https://via.placeholder.com/50', nickname: 'Youngpyo' },
-            { rank: 4, name: '황희찬', profileImg: 'https://via.placeholder.com/50', nickname: 'Heechan' },
-            { rank: 5, name: '구자철', profileImg: 'https://via.placeholder.com/50', nickname: 'Jacheol' }
+            { rank: 1, name: '편유나', profileImg: Profile, nickname: 'Yuna' },
+            { rank: 2, name: '박지성', profileImg: Profile, nickname: 'Jisung' },
+            { rank: 3, name: '이영표', profileImg: Profile, nickname: 'Youngpyo' },
+            { rank: 4, name: '황희찬', profileImg: Profile, nickname: 'Heechan' },
+            { rank: 5, name: '구자철', profileImg: Profile, nickname: 'Jacheol' }
         ]
     },
     {
         name: "매일 요가 도전",
         groupid: 3,
         members: [
-            { rank: 1, name: '유재석', profileImg: 'https://via.placeholder.com/50', nickname: 'Jaeseok' },
-            { rank: 2, name: '지석진', profileImg: 'https://via.placeholder.com/50', nickname: 'Seokjin' },
-            { rank: 3, name: '김종국', profileImg: 'https://via.placeholder.com/50', nickname: 'Jongkook' },
-            { rank: 4, name: '편유나', profileImg: 'https://via.placeholder.com/50', nickname: 'Yuna' },
-            { rank: 5, name: '송지효', profileImg: 'https://via.placeholder.com/50', nickname: 'Jihyo' },
-            { rank: 6, name: '양세찬', profileImg: 'https://via.placeholder.com/50', nickname: 'Sechan' }
+            { rank: 1, name: '유재석', profileImg: Profile, nickname: 'Jaeseok' },
+            { rank: 2, name: '지석진', profileImg: Profile, nickname: 'Seokjin' },
+            { rank: 3, name: '김종국', profileImg: Profile, nickname: 'Jongkook' },
+            { rank: 4, name: '편유나', profileImg: Profile, nickname: 'Yuna' },
+            { rank: 5, name: '송지효', profileImg: Profile, nickname: 'Jihyo' },
+            { rank: 6, name: '양세찬', profileImg: Profile, nickname: 'Sechan' }
         ]
     }
 ];
