@@ -1,38 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import Search from '../../../Icon/Search2.svg'; // 경로 수정 확인
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.css'; // Swiper 스타일 가져오기
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/autoplay';
 import ArrowBackIcon from '../../../Icon/Icon_Arrow.svg'; // Ensure this is the correct path to your back arrow icon
-
 
 const Gymfilter = () => {
   const { district } = useParams();
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState(null);
+  const [addresses, setAddresses] = useState([]);
+  const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
 
   const goBack = () => {
     navigate('/Exercise/main');
   };
 
-  const addresses = [
-    { id: 1, image: 'https://via.placeholder.com/150', name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층', price: '11,000원', distance: '2.7km', tags: ['OT무료'] },
-    { id: 2, image: 'https://via.placeholder.com/150', name: '상도 이공고휘트니스', address: '서울 동작구 상도로 95 2층', price: '15,000원', distance: '2.3km', tags: ['OT무료', '인바디'] },
-    { id: 3, image: 'https://via.placeholder.com/150', name: '신대방삼거리 OS GYM', address: '서울 동작구 상도로 95 2층', price: '15,000원', distance: '2.7km', tags: ['OT무료', '인바디'] },
-    { id: 4, image: 'https://via.placeholder.com/150', name: '신림 유앤아이점', address: '서울 관악구 신림동', price: '13,500원', distance: '2.9km', tags: ['인바디'] },
-    { id: 5, image: 'https://via.placeholder.com/150', name: '신대방삼거리 브라매휘트니스', address: '서울 동작구 상도로 95 2층', price: '12,000원', distance: '2.5km', tags: ['정기권'] },
-  ];
+  const fetchGymsByLocal = async (address) => {
+    const url = 'http://soongitglwebp8.site/gym/searchGymByLocal';
+    try {
+      const response = await axios.post(url, { address }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching gyms:', error);
+      return [];
+    }
+  };
+
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const toRad = (value) => (value * Math.PI) / 180;
+    const R = 6371; // Radius of the Earth in km
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+  };
+
+  const numberWithCommas = (x) => {
+    if (x == null) return '';
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  useEffect(() => {
+    const fetchGyms = async () => {
+      const gyms = await fetchGymsByLocal(district);
+      const updatedGyms = gyms.map(gym => ({
+        id: gym.gym_id,
+        image: gym.image_path || 'https://via.placeholder.com/150', // 기본 이미지 설정
+        name: gym.name,
+        address: gym.address, // API 응답에서 자세한 주소를 가져옴
+        price: `${numberWithCommas(gym.price)}원`,
+        distance: userLocation.lat && userLocation.lng 
+          ? `${calculateDistance(userLocation.lat, userLocation.lng, gym.lat, gym.lng).toFixed(1)}km`
+          : 'N/A',
+        tags: [
+          gym.is_ot_free && 'OT무료',
+          gym.is_inbody && '인바디'
+        ].filter(Boolean)
+      }));
+      setAddresses(updatedGyms);
+    };
+
+    fetchGyms();
+  }, [district, userLocation]);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      });
+    }
+  }, []);
 
   const tags = ['일일권', 'OT무료', '인바디', '정기권'];
 
   const filteredAddresses = addresses.filter(item => {
-    return item.address.includes(district) && (!selectedTag || item.tags.includes(selectedTag));
+    return (!selectedTag || item.tags.includes(selectedTag));
   });
 
+  const handleSearchIconClick = () => {
+    navigate('/gym');
+  };
 
   return (
     <Container>
@@ -41,7 +100,9 @@ const Gymfilter = () => {
           <img src={ArrowBackIcon} alt="Back" />
         </BackButton>
         <Title>{district}</Title>
-        <StyledSearchIcon src={Search} alt="Search" />
+        <StyledSearchIcon onClick={handleSearchIconClick}>
+          <img src={Search} alt="Search" />
+        </StyledSearchIcon>
       </Header>
       <TagContainer>
         {tags.map(tag => (
@@ -84,6 +145,9 @@ const Gymfilter = () => {
   );
 };
 
+
+// styled-components 정의 추가
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -97,7 +161,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 80%;
   padding-bottom: 10px;
   margin-bottom: 20px;
   margin-top: 15px;
@@ -110,6 +174,13 @@ const Title = styled.h1`
   flex: 1;
   text-align: center;
   margin-left: 30px;
+`;
+
+const StyledSearchIcon = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 `;
 
 const TagContainer = styled.div`
@@ -143,7 +214,6 @@ const BackButton = styled.button`
   border: none;
   cursor: pointer;
 `;
-
 
 const AddressItem = styled.div`
   display: flex;
@@ -201,9 +271,10 @@ const TagsAndPrice = styled.div`
   margin-top: 10px;
   width: 100%;  // Ensure it spans the full width of its container
 `;
+
 const Tags = styled.div`
   display: flex;
-  margin-right: 30px; // Maintains a right margin for spaci
+  margin-right: 30px; // Maintains a right margin for spacing
   width: 180px;
 `;
 
@@ -213,7 +284,6 @@ const Price = styled.div`
   color: #000;
   align-self: flex-end; // Aligns the price to the right end of its container
 `;
-
 
 const Tag = styled.span`
   font-size: 11px;
@@ -228,12 +298,6 @@ const Tag = styled.span`
   margin-right: 10px;
 `;
 
-const StyledSearchIcon = styled.img`
-  position: relative;
-  top: 5px;
-  right: 35px;
-`;
-
 const styles = {
   backButton: {
     textDecoration: 'none',
@@ -243,11 +307,11 @@ const styles = {
     width: '115px',
     height: '119px',
     borderRadius: '9px',
-  },
-  link: {
+    },
+    link: {
     textDecoration: 'none',
     color: 'inherit',
-  },
-};
-
+    },
+  };
+    
 export default Gymfilter;
