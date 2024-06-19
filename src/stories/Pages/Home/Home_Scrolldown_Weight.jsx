@@ -30,6 +30,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 30px;
+  margin-bottom: 100px;
 `;
 
 const Box = styled.div`
