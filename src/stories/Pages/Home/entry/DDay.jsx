@@ -42,23 +42,34 @@ const DDay = () => {
   };
 
   const handleNextStep = () => {
-      const newResponses = responses.map((response, index) => index === step ? currentInput : response);
-      setResponses(newResponses);
-      localStorage.setItem('dday', JSON.stringify(newResponses));
+    const newResponses = responses.map((response, index) => index === step ? currentInput : response);
+    setResponses(newResponses);
+    localStorage.setItem('dday', JSON.stringify(newResponses));
 
-      if (step < dday.length - 1) {
-          setStep(step + 1);
-          setCurrentInput(''); // 입력값 초기화
-          setIsButtonEnabled(false); // 버튼 비활성화
-      } else {
-          // 로컬 스토리지에 저장
-          const [dDayLabel, targetDate] = newResponses;
-          localStorage.setItem('dDayLabel', dDayLabel);
-          localStorage.setItem('targetDate', targetDate);
-          console.log('dday complete:', newResponses);
-          navigate('/home');
-      }
-  };
+    if (step < dday.length - 1) {
+        setStep(step + 1);
+        setCurrentInput(''); // 입력값 초기화
+        setIsButtonEnabled(false); // 버튼 비활성화
+    } else {
+        // 로컬 스토리지에 저장
+        const [dDayLabel, targetDate] = newResponses;
+        // 날짜 형식을 YYYY.MM.DD로 변경하고, 단일 자릿수 월/일에 0을 붙임
+        const dateObj = new Date(targetDate);
+        const formattedTargetDate = new Intl.DateTimeFormat('en-CA', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(dateObj).replace(/-/g, '.');
+
+        localStorage.setItem('dDayLabel', dDayLabel);
+        localStorage.setItem('targetDate', formattedTargetDate); // 변경된 형식으로 저장
+        console.log('Formatted target date:', formattedTargetDate);
+        console.log('dday complete:', newResponses);
+        navigate('/home');
+    }
+};
+
+
 
   return (
       <>
