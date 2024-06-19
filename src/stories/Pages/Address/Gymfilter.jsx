@@ -112,7 +112,7 @@ const TagButton = styled.button`
   padding: 10px 20px;
   margin: 0 5px;
   border: 2px solid #5467F5;
-  border-radius: 20px;
+  border-radius: 140px;
   background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
   cursor: pointer;
@@ -186,7 +186,7 @@ const Tag = styled.span`
   font-family: Pretendard;
   background-color: #F1F2FF;
   border-radius: 110px;
-  padding: 5px 10px;
+  padding: 8px 15px;
   margin-right: 5px;
 `;
 

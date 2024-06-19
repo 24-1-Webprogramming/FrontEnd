@@ -7,7 +7,7 @@ import styled from 'styled-components';
 const XsetContainer = styled.div`
   display: flex;
   width: 100%;
-  height: 77px;
+  height: 55px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -31,7 +31,7 @@ const ExerciseDetails = styled.div`
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 `;
 
 const ExerciseStats = styled.div`
@@ -40,6 +40,8 @@ const ExerciseStats = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  color: #747474;
+  margin-top: -10px;
 `;
 
 const NumberText = styled.span`
@@ -49,32 +51,14 @@ const NumberText = styled.span`
 `;
 
 const ExerciseText = styled.span`
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 500;
   color: #404040;
-`;
-
-const ExerciseSets = styled(ExerciseText)`
-  font-size: 16px;
+  font-family: Pretendard;
   font-weight: 500;
 `;
 
 const ExerciseWeight = styled(ExerciseText)`
-  font-size: 15px;
-  font-weight: 400;
-`;
-
-const ExerciseReps = styled(ExerciseWeight)`
-  font-size: 15px;
-  font-weight: 400;
-`;
-
-const ExerciseTotalWeight = styled(ExerciseText)`
-  font-size: 16px;
-  font-weight: 500;
-`;
-
-const ExerciseKg = styled(ExerciseText)`
   font-size: 15px;
   font-weight: 400;
 `;
@@ -86,17 +70,12 @@ const Xset = ({ number, bodyPart, exercise, sets, weight, reps }) => {
     <XsetContainer>
       <ExerciseInfo>
         <ExerciseDetails>
-          <NumberText>{number}</NumberText>
-          <ExerciseText>{bodyPart} | {exercise}</ExerciseText>
-          <ExerciseSets>{sets}세트</ExerciseSets>
+          <ExerciseText><b>{bodyPart}</b></ExerciseText>
+          <ExerciseText>{exercise}</ExerciseText>
+          <ExerciseText>{sets}세트</ExerciseText>
         </ExerciseDetails>
         <ExerciseStats>
-          <div>
-            <ExerciseWeight>{weight}kg</ExerciseWeight>
-            <ExerciseText> X </ExerciseText>
-            <ExerciseReps>{reps}회</ExerciseReps>
-          </div>
-          <ExerciseTotalWeight>{totalWeight}kg</ExerciseTotalWeight>
+            {weight}kg X {reps}회 · {totalWeight}kg
         </ExerciseStats>
       </ExerciseInfo>
     </XsetContainer>

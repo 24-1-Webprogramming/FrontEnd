@@ -37,7 +37,7 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
 
       documents.forEach(doc => {
         const addressParts = doc.address_name.split(' ');
-        if (addressParts.length >= 3) {
+        if (addressParts.length >= 2) {
           const guAddress = `${addressParts[0]} ${addressParts[1]}`;
           if (!guResults.some(result => result.district === guAddress) && guAddress.includes(query)) {
             guResults.push({ name: guAddress, district: guAddress });
@@ -48,17 +48,10 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
       const districts = documents
         .map(doc => {
           const addressParts = doc.address_name.split(' ');
-          if (addressParts.length >= 3) {
-            return {
-              name: doc.address_name,
-              district: `${addressParts[0]} ${addressParts[1]} ${addressParts[2]}` // 시/구/동 단위로 변환
-            };
-          } else {
-            return {
-              name: doc.address_name,
-              district: `${addressParts[0]} ${addressParts[1]}` // 시/구 단위로 변환
-            };
-          }
+          return {
+            name: doc.address_name,
+            district: `${addressParts[0]} ${addressParts[1]} ${addressParts[2] || ''}`.trim() // 시/구/동 단위로 변환
+          };
         })
         .filter((value, index, self) => 
           index === self.findIndex((t) => (
@@ -141,7 +134,6 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
     </Container>
   );
 };
-
 
 // styled-components 정의 추가
 const Container = styled.div`

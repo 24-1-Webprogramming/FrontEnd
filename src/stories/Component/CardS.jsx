@@ -6,24 +6,27 @@ import IconButton from './IconButton';
 export const ExerciseCard = () => {
     return (
         <Card
-                    height="102px"
+                    height="60px"
+                    width="350px"
                     shadow={false}
                     borderRadius="10px"
-                    background='#EEF0FF'
+                    background='#ffffff'
                 >
                     <CardContentCenter>
                         <Container>
-                            <img src='/Icons/Icon_time_c.svg' alt='time' />
+                            <img src='/Icons/Icon_time_c.svg' width="35px" alt='time' />
                             <Text>40분</Text>
+                            <Margin/>
                         </Container>
                         <Divider />
                         <Container>
-                            <img src='/Icons/Icon_exercise_c.svg' alt='exercise' />
+                            <img src='/Icons/Icon_exercise_c.svg' width="45px" alt='exercise' />
+                            <Margin/>
                             <Text>5개</Text>
                         </Container>
                         <Divider />
                         <Container>
-                            <img src='/Icons/Icon_muscle_c.svg' alt='muscle' />
+                            <img src='/Icons/Icon_muscle_c.svg' width="35px" alt='muscle' />
                             <Text>300cal</Text>
                         </Container>
                     </CardContentCenter>
@@ -34,14 +37,17 @@ export const ExerciseCard = () => {
 
 const CardContentCenter = styled.div`
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 100px;
     padding: 13px 30px;
-    gap: 15px;
+    gap: 25px;
 `;
 
+const Margin = styled.div`
+    margin-top: 1px;
+`;
 const Text = styled.div`
     color: var(--Active, #495EF6);
     font-family: Pretendard;
@@ -54,7 +60,7 @@ const Text = styled.div`
 const Container = styled.div`
     display: flex;
     width: 60px;
-    height: 51px;
+    height: 30px;
     flex-direction: column;
     align-items: center;
     gap: 5px;
