@@ -94,6 +94,9 @@ const App = () => {
           <Route path="/Exercise/write" element={<ExerciseWrite/>} />
 
           <Route path="/Mypage" element={<Mypage/>} />
+          <Route path="/Condition" element={<Condition/>} />
+          <Route path="/Leave" element={<Leave/>} />
+          <Route path="/Edit" element={<Edit/>} />
 
           <Route path="/Error" element={<Error/>} />
           <Route path="/clearStorage" element={<ClearStoragePage/>} />

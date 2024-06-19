@@ -5,6 +5,24 @@ import axios from 'axios';
 import Search from '../../../Icon/Search2.svg'; // 경로 수정 확인
 import ArrowBackIcon from '../../../Icon/Icon_Arrow.svg'; // Ensure this is the correct path to your back arrow icon
 
+// 이미지 가져오기
+import gymImg1 from '../../../healthIMG/gymImg1.jpg';
+import gymImg2 from '../../../healthIMG/gymImg2.jpg';
+import gymImg3 from '../../../healthIMG/gymImg3.png';
+import gymImg4 from '../../../healthIMG/gymImg4.jpg';
+import gymImg5 from '../../../healthIMG/gymImg5.jpg';
+import ot1 from '../../../healthIMG/ot1.jpg';
+import ot2 from '../../../healthIMG/ot2.jpg';
+import ot3 from '../../../healthIMG/ot3.jpg';
+import ot4 from '../../../healthIMG/ot4.jpg';
+import seocho1 from '../../../healthIMG/seocho1.jpeg';
+import seocho2 from '../../../healthIMG/seocho2.jpg';
+import seocho3 from '../../../healthIMG/seocho3.jpg';
+import seocho4 from '../../../healthIMG/seocho4.jpg';
+import seocho5 from '../../../healthIMG/seocho5.jpg';
+import inbody1 from '../../../healthIMG/inbody1.jpg';
+import inbody2 from '../../../healthIMG/inbody2.jpg';
+
 const Gymfilter = () => {
   const { district } = useParams();
   const navigate = useNavigate();
@@ -49,12 +67,17 @@ const Gymfilter = () => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  const getRandomImagePath = () => {
+    const images = [gymImg1, gymImg2, gymImg3, gymImg4, gymImg5, ot1, ot2, ot3, ot4, seocho1, seocho2, seocho3, seocho4, seocho5, inbody1, inbody2];
+    return images[Math.floor(Math.random() * images.length)];
+  };
+
   useEffect(() => {
     const fetchGyms = async () => {
       const gyms = await fetchGymsByLocal(district);
       const updatedGyms = gyms.map(gym => ({
         id: gym.gym_id,
-        image: gym.image_path || 'https://via.placeholder.com/150', // 기본 이미지 설정
+        image: getRandomImagePath(), // 랜덤 이미지 설정
         name: gym.name,
         address: gym.address, // API 응답에서 자세한 주소를 가져옴
         price: `${numberWithCommas(gym.price)}원`,

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import ArrowIcon from '../../../Icon/Icon_Arrow.svg';
 import { Button } from '../../Component/Button';
 import HealthIcon from '../../../Icon/health.png';
@@ -8,17 +9,36 @@ import HealthIcon from '../../../Icon/health.png';
 const GymDetailPage = () => {
   const { gymId } = useParams();
   const navigate = useNavigate();
+  const [gymDetails, setGymDetails] = useState(null);
 
-  // 실제 데이터는 API 등을 통해 불러올 수 있습니다.
-  const gymDetails = {
-    id: gymId,
-    name: '상도 BBGYM',
-    address: '서울 동작구 상도로 95 2층',
-    image: HealthIcon,
-    priceDay: '11,000₩',
-    priceMonth: '100,000₩',
-    tags: ['OT무료'],
-  };
+  useEffect(() => {
+    const fetchGymDetails = async () => {
+      try {
+        console.log(`Fetching details for gym ID: ${gymId}`);
+        const response = await axios.get(`http://soongitglwebp8.site/gym/${gymId}`);
+        console.log('API response:', response.data);
+        setGymDetails({
+          ...response.data,
+          tags: [
+            response.data.is_ot_free && 'OT무료',
+            response.data.is_inbody && '인바디',
+            response.data.is_one_day && '일일권'
+          ].filter(Boolean), // API에서 받은 데이터를 tags 배열로 변환
+          priceDay: response.data.price_type.includes('일') ? response.data.price : '정보 없음',
+          priceMonth: response.data.price_type.includes('달') ? response.data.price : '정보 없음',
+          image: HealthIcon // 이미지 고정
+        });
+      } catch (error) {
+        console.error('Error fetching gym details:', error);
+      }
+    };
+
+    fetchGymDetails();
+  }, [gymId]);
+
+  if (!gymDetails) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container>
@@ -52,12 +72,12 @@ const GymDetailPage = () => {
             <PriceItem>
               <PriceLabel>일일권</PriceLabel>
               <PriceDots> - - - - - - - - - - - </PriceDots>
-              <Price>{gymDetails.priceDay}</Price>
+              <Price>{gymDetails.priceDay !== '정보 없음' ? `${gymDetails.priceDay.toLocaleString()}원` : '정보 없음'}</Price>
             </PriceItem>
             <PriceItem>
               <PriceLabel>정기권</PriceLabel>
               <PriceDots> - - - - - - - - - - - </PriceDots>
-              <Price>{gymDetails.priceMonth}</Price>
+              <Price>{gymDetails.priceMonth !== '정보 없음' ? `${gymDetails.priceMonth.toLocaleString()}원` : '정보 없음'}</Price>
             </PriceItem>
           </PriceContainer>
         </InfoContainer>
@@ -88,8 +108,6 @@ const InnerContainer = styled.div`
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  // border: 1px solid #ddd;
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Header = styled.header`
@@ -211,7 +229,6 @@ const ButtonContainer = styled.div`
   bottom: 0; /* 하단에 고정 */
   left: 0;
   background-color: #fff;
-  // box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const styles = {
