@@ -40,6 +40,10 @@ const GymDetailPage = () => {
     return <div>Loading...</div>;
   }
 
+  const handleButtonClick = () => {
+    navigate('/Exercise/main');
+  };
+
   return (
     <Container>
       <InnerContainer>
@@ -83,7 +87,7 @@ const GymDetailPage = () => {
         </InfoContainer>
       </InnerContainer>
       <ButtonContainer>
-        <Button type="primary" label="장소 선택하기" />
+        <Button type="primary" label="탐색 마치기" onClick={handleButtonClick} />
       </ButtonContainer>
     </Container>
   );
