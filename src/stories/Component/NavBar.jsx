@@ -124,7 +124,9 @@ NavBar.defaultProps = {
   paddingTop: '0px',
   paddingBottom: '0px',
   activeState: 'Home', // 기본 상태는 'Home'
+  setActiveState: () => {} // 기본적으로 아무 동작도 하지 않는 함수를 추가
 };
+
 
 export default NavBar;
 
