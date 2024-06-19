@@ -56,7 +56,9 @@ const Gymfilter = () => {
                 <Address>{item.address}</Address>
                 <Details>
                   <Distance>{item.distance}</Distance>
-                  <Price>{item.price}</Price>
+                  <PriceContainer>
+                    <Price>{item.price}</Price>
+                  </PriceContainer>
                 </Details>
                 <Tags>
                   {item.tags.map((tag, index) => (
@@ -86,9 +88,10 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between; /* 변경된 부분 */
   width: 100%;
-  padding-top: 15px;
+  padding-bottom: 10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  margin-top: 15px;
 `;
 
 const Title = styled.h1`
@@ -106,15 +109,13 @@ const TagContainer = styled.div`
 `;
 
 const TagButton = styled.button`
-  padding: 5px 17px;
+  padding: 10px 20px;
   margin: 0 5px;
-  border: ${({ selected }) => (selected ? 'none' : '2px solid #5467F5')};
+  border: 2px solid #5467F5;
   border-radius: 20px;
-  background-color: ${({ selected }) => (selected ? '#495EF6' : '#fff')};
+  background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
   cursor: pointer;
-  font-size: 14px;
-  font-family: 'Pretendard', sans-serif;
 `;
 
 const AddressList = styled.div`
@@ -159,6 +160,12 @@ const Distance = styled.span`
   color: #888;
 `;
 
+const PriceContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 190px; /* 거리와 가격 간의 간격을 고정 */
+`;
+
 const Price = styled.div`
   font-size: 14px;
   font-weight: bold;
@@ -171,11 +178,15 @@ const Tags = styled.div`
 `;
 
 const Tag = styled.span`
-  font-size: 12px;
-  color: #5467F5;
-  background-color: #E0E7FF;
-  border-radius: 5px;
-  padding: 2px 5px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.285px;
+  color: var(--Active, #495EF6);
+  font-family: Pretendard;
+  background-color: #F1F2FF;
+  border-radius: 110px;
+  padding: 5px 10px;
   margin-right: 5px;
 `;
 

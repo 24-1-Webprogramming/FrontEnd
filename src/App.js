@@ -18,6 +18,7 @@ import Statistic from './stories/Pages/Statistic/statistic';
 
 import AddressSettingPage from './stories/Pages/Address/GymInfoPage';
 import Gymfilter from './stories/Pages/Address/Gymfilter';
+import GymDetailPage from './stories/Pages/Address/GymDetailPage';
 
 import GroupPage from './stories/Pages/Group/GroupPage';
 import GroupJoin from './stories/Pages/Group/GroupJoin';
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/entry/DDay" element={<DDay/>} />
 
           <Route path="/gym" element={<AddressSettingPage />} />
+          <Route path="/gymDetail" element={<GymDetailPage />} />
           <Route path="/gymfilter/:district" element={<Gymfilter />} />
 
           <Route path="/group/empty" element={<GroupEmpty/>} />
