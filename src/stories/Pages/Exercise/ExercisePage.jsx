@@ -15,129 +15,82 @@ import Header from '../../Component/Header';
 
 const ExercisePage = () => {
     const [nickname, setNickname] = useState('');
+    const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
     const [exerciseData, setExerciseData] = useState([]);
-  
+
     useEffect(() => {
-      const savedNickname = localStorage.getItem('nickname');
-      if (savedNickname) {
-        setNickname(savedNickname);
-      }
-      // Simulate fetching data from an API
-      const suggestionData = [
-        {
-          id: 1,
-          number: 1,
-          bodyPart: '하체',
-          exercise: '스쿼트',
-          sets: 4,
-          weight: 20,
-          reps: 12,
-        },
-        {
-          id: 2,
-          number: 2,
-          bodyPart: '상체',
-          exercise: '벤치 프레스',
-          sets: 3,
-          weight: 30,
-          reps: 10,
-        },
-        {
-          id: 3,
-          number: 3,
-          bodyPart: '하체',
-          exercise: '레그 프레스',
-          sets: 5,
-          weight: 50,
-          reps: 15,
-        },
-        {
-          id: 4,
-          number: 4,
-          bodyPart: '상체',
-          exercise: '숄더 프레스',
-          sets: 3,
-          weight: 25,
-          reps: 12,
-        },
-        {
-          id: 5,
-          number: 5,
-          bodyPart: '하체',
-          exercise: '데드리프트',
-          sets: 4,
-          weight: 40,
-          reps: 8,
-        },
-        {
-          id: 6,
-          number: 6,
-          bodyPart: '상체',
-          exercise: '풀업',
-          sets: 3,
-          weight: 0,
-          reps: 8,
-        },
-        {
-          id: 7,
-          number: 7,
-          bodyPart: '하체',
-          exercise: '레그 컬',
-          sets: 4,
-          weight: 15,
-          reps: 12,
-        },
-        {
-          id: 8,
-          number: 8,
-          bodyPart: '상체',
-          exercise: '바벨 로우',
-          sets: 3,
-          weight: 35,
-          reps: 10,
-        },
-      ];
-      setExerciseData(suggestionData);
+        const savedNickname = localStorage.getItem('nickname');
+        if (savedNickname) {
+            setNickname(savedNickname);
+        }
+        const savedCurrentRoutine = localStorage.getItem('currentRoutine');
+        if (savedCurrentRoutine) {
+            setCurrentRoutine(savedCurrentRoutine);
+        }
+
+        // Simulate fetching data from an API
+        const suggestionData = [
+            {
+                id: 1,
+                number: 1,
+                bodyPart: '하체',
+                exercise: '스쿼트',
+                sets: 4,
+                weight: 20,
+                reps: 12,
+            },
+            {
+                id: 2,
+                number: 2,
+                bodyPart: '상체',
+                exercise: '벤치 프레스',
+                sets: 3,
+                weight: 30,
+                reps: 10,
+            },
+        ];
+        setExerciseData(suggestionData);
     }, []);
 
     return (
         <div>
             <Container>
-              <Header showIcon={true} text="홈" backButton={false} />
-                <TopSection>
-                  <HeadContainer>
-                      <Titles>
-                          <div>
-                              <Title>여긴루틴이름임</Title>
-                              <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle> </div>
-                          <StyledLink to = "/exercise/routine/list">
-                            <ChangeR/>
-                          </StyledLink>
-                      </Titles>
-                      <img src='/Characters/Sunglasses1_Black.svg'/>
-                  </HeadContainer>
-                  
-                  <StyledLink2 to = "/exercise/routine/:id/play">
-                    <Button width='100%' label='운동시작'/>
-                  </StyledLink2>
-                </TopSection>
+                <Header showIcon={true} text="홈" backButton={false} />
+                  <TopSection>
+                    <HeadContainer>
+                        <Titles>
+                            <div>
+                                <Title>{currentRoutine ? currentRoutine : '루틴을 선택해 주세요!'}</Title>
+                                <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle>
+                            </div>
+                            <StyledLink to="/exercise/routine/list">
+                                <ChangeR />
+                            </StyledLink>
+                        </Titles>
+                        <img src='/Characters/Sunglasses1_Black.svg' alt="Character" />
+                    </HeadContainer>
+
+                    <StyledLink2 to="/exercise/routine/:id/play">
+                        <Button width='100%' label='운동시작' disabled={currentRoutine ? false : true}/>
+                    </StyledLink2>
+                  </TopSection>
 
                 <ExerciseCard />
 
                 <XsetContainer>
                     <XsetList>
-                    {exerciseData.map((exercise) => (
-                        <XsetItem key={exercise.id}>
-                        <Xset
-                            number={exercise.number}
-                            bodyPart={exercise.bodyPart}
-                            exercise={exercise.exercise}
-                            sets={exercise.sets}
-                            weight={exercise.weight}
-                            reps={exercise.reps}
-                        />
-                        </XsetItem>
-                    ))}
+                        {exerciseData.map((exercise) => (
+                            <XsetItem key={exercise.id}>
+                                <Xset
+                                    number={exercise.number}
+                                    bodyPart={exercise.bodyPart}
+                                    exercise={exercise.exercise}
+                                    sets={exercise.sets}
+                                    weight={exercise.weight}
+                                    reps={exercise.reps}
+                                />
+                            </XsetItem>
+                        ))}
                     </XsetList>
                 </XsetContainer>
 
@@ -157,12 +110,12 @@ const ExercisePage = () => {
                         <CircularProgressBar totalSteps={100} currentStep={40} />
                     </ProgressContainer>
                 </Card>
-                <MarginTop/>
-                
-            <GymButton/>
-            <FixedButtonContainer>
-                <NavBar activeState='Exercise' />
-            </FixedButtonContainer>
+                <MarginTop />
+
+                <GymButton />
+                <FixedButtonContainer>
+                    <NavBar activeState='Exercise' />
+                </FixedButtonContainer>
             </Container>
         </div>
     );
@@ -181,13 +134,12 @@ const Container = styled.div`
 `;
 
 const HeadContainer = styled.div`
-    width: 332px;
+    width: 352px;
     height: 127px;
     padding-right: 21px;
     padding-left: 21px;
     gap: 28px;
     display: flex;
-
 `;
 
 const TopSection = styled.div`
@@ -195,7 +147,7 @@ const TopSection = styled.div`
     flex-direction: column;
     width: 100%;
     align-items: center;
-    `;
+`;
 
 const MarginTop = styled.div`
     margin-top: 100px;
@@ -206,7 +158,7 @@ const Titles = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    width: 163px;
+    width: 400px;
     height: 84px;
     padding-top: 21px;
 `;
@@ -237,7 +189,6 @@ const TitleSection = styled.div`
     font-weight: 800;
     margin-bottom: 10px;
     width: 100%;
-
 `;
 
 const ProgressContainer = styled.div`

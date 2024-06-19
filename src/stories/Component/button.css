@@ -43,5 +43,5 @@
   background-color: rgba(178, 186, 194, 1); /* Consistent use of RGBA */
   color: white;
   border-color: rgba(178, 186, 194, 1);
-  cursor: not-allowed; /* Ensure cursor indicates the button is disabled */
+  cursor: '';
 }
