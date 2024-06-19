@@ -38,7 +38,8 @@ import ExerciseEdit from './stories/Pages/Exercise/ExerciseEdit';
 import ExerciseComplete from './stories/Pages/Exercise/ExerciseComplete';
 import ExerciseWrite from './stories/Pages/Exercise/ExerciseWrite';
 
-import Mypage from './stories/Pages/Mypage/Mypage';
+
+import Mypage from './stories/Pages/mypage/mypage';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
 

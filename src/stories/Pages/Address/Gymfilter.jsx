@@ -50,22 +50,24 @@ const Gymfilter = () => {
         {filteredAddresses.map((item, index) => (
           <Link to={`/gym/${item.id}`} key={index} style={styles.link}>
             <AddressItem>
-              <img src={item.image} alt={item.name} style={styles.image} />
-              <Info>
-                <Name>{item.name}</Name>
-                <Address>{item.address}</Address>
-                <Details>
-                  <Distance>{item.distance}</Distance>
-                  <PriceContainer>
+              <ImageAndInfoContainer>
+                <img src={item.image} alt={item.name} style={styles.image} />
+                <Info>
+                  <Name>{item.name}</Name>
+                  <Address>{item.address}</Address>
+                  <Details>
+                    <Distance>{item.distance}</Distance>
+                  </Details>
+                  <TagsAndPrice>
+                    <Tags>
+                      {item.tags.map((tag, index) => (
+                        <Tag key={index}>{tag}</Tag>
+                      ))}
+                    </Tags>
                     <Price>{item.price}</Price>
-                  </PriceContainer>
-                </Details>
-                <Tags>
-                  {item.tags.map((tag, index) => (
-                    <Tag key={index}>{tag}</Tag>
-                  ))}
-                </Tags>
-              </Info>
+                  </TagsAndPrice>
+                </Info>
+              </ImageAndInfoContainer>
             </AddressItem>
           </Link>
         ))}
@@ -86,9 +88,8 @@ const Container = styled.div`
 const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 변경된 부분 */
+  justify-content: space-between;
   width: 100%;
-  padding-bottom: 10px;
   padding-bottom: 10px;
   margin-bottom: 20px;
   margin-top: 15px;
@@ -98,21 +99,27 @@ const Title = styled.h1`
   font-size: 17px;
   font-weight: bold;
   flex: 1;
-  text-align: center; /* 텍스트를 중앙에 위치 */
-  margin-left: 30px; /* 아이콘이 15px 오른쪽으로 이동했으므로 그에 맞춰서 텍스트도 왼쪽으로 조정 */
+  text-align: center;
+  margin-left: 30px;
 `;
 
 const TagContainer = styled.div`
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 10px;
+  margin-bottom: 15px;
+  margin-left: 70px;
 `;
 
 const TagButton = styled.button`
-  padding: 10px 20px;
-  margin: 0 5px;
+  font-family: Pretendard;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 14px;
+  margin: 0 6px;
   border: 2px solid #5467F5;
-  border-radius: 140px;
+  border-radius: 110px;
   background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
   cursor: pointer;
@@ -124,16 +131,24 @@ const AddressList = styled.div`
 
 const AddressItem = styled.div`
   display: flex;
+  justify-content: flex-start;
   padding: 20px 14px;
   align-items: flex-start;
   gap: 11px;
   border-bottom: 1px solid #ddd;
 `;
 
+const ImageAndInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 24px; /* 요소 전체를 오른쪽으로 이동 */
+`;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-left: 20px;
   margin-bottom: 5px;
 `;
 
@@ -160,21 +175,15 @@ const Distance = styled.span`
   color: #888;
 `;
 
-const PriceContainer = styled.div`
+const TagsAndPrice = styled.div`
   display: flex;
-  justify-content: flex-end;
-  width: 190px; /* 거리와 가격 간의 간격을 고정 */
-`;
-
-const Price = styled.div`
-  font-size: 14px;
-  font-weight: bold;
-  color: #000;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 const Tags = styled.div`
   display: flex;
-  margin-top: 10px;
+  margin-right: 30px; /* 태그와 가격 사이의 간격 */
 `;
 
 const Tag = styled.span`
@@ -187,13 +196,19 @@ const Tag = styled.span`
   background-color: #F1F2FF;
   border-radius: 110px;
   padding: 8px 15px;
-  margin-right: 5px;
+  margin-right: 10px;
+`;
+
+const Price = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
 `;
 
 const StyledSearchIcon = styled.img`
   position: relative;
-  top: 5px; /* 아래로 5px 이동 */
-  right: 35px; /* 왼쪽으로 15px 이동 */
+  top: 5px;
+  right: 35px;
 `;
 
 const styles = {

@@ -18,6 +18,14 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.App {
+  text-align: center;
+  font-family: 'Pretendard';
+  max-width: 480px; /* 너비 고정 */
+  margin: 0 auto; /* 가운데 정렬 */
+  width: 100%; /* 브라우저 창 너비에 맞춤 */
+}
+
 
 .App-header {
   background-color: #282c34;
@@ -29,6 +37,16 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+/* 모든 페이지에 적용되는 전역 스타일 시트에 추가 */
+html, body {
+  width: 100%;
+  max-width: 480px; /* 화면 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  position: relative; /* 포지셔닝 컨텍스트 설정 */
+}
+
 
 .App-link {
   color: #61dafb;

@@ -101,7 +101,7 @@ CharacterSector.defaultProps = {
 const Line = styled.div`
   position: fixed;
   top: 79px;
-  width: 100%;
+  width: 520px;
   height: 53px;
   display: flex;
   align-items: center;

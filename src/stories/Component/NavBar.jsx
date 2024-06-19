@@ -124,19 +124,21 @@ NavBar.defaultProps = {
   paddingTop: '0px',
   paddingBottom: '0px',
   activeState: 'Home', // 기본 상태는 'Home'
+  setActiveState: () => {} // 기본적으로 아무 동작도 하지 않는 함수를 추가
 };
+
 
 export default NavBar;
 
 const BottomLayout = styled.div`
   position: fixed;
   bottom: 0px;
-  left: 0px;
+  left: 0px; /* 확실한 위치 고정을 위해 추가 */
   width: 100%;
   background-color: ${(props) => props.bgColor};
   display: flex;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1000; /* 충분히 높은 z-index를 설정 */
 `;
 
 const NavBarContainer = styled.div`
@@ -144,6 +146,7 @@ const NavBarContainer = styled.div`
   justify-content: space-around;
   width: 100%;
 `;
+
 
 const StyledLink = styled(Link)`
   text-decoration: none;

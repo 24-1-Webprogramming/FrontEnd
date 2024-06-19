@@ -1,14 +1,14 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import ArrowIcon  from '../../../Icon/Icon_Arrow.svg';
+import ArrowIcon from '../../../Icon/Icon_Arrow.svg';
 import { Button } from '../../Component/Button';
 import HealthIcon from '../../../Icon/health.png';
 
 const GymDetailPage = () => {
   const { gymId } = useParams();
   const navigate = useNavigate();
-  
+
   // 실제 데이터는 API 등을 통해 불러올 수 있습니다.
   const gymDetails = {
     id: gymId,
@@ -60,11 +60,11 @@ const GymDetailPage = () => {
               <Price>{gymDetails.priceMonth}</Price>
             </PriceItem>
           </PriceContainer>
-          <ButtonContainer>
-            <Button type="primary" label="장소 선택하기" />
-          </ButtonContainer>
         </InfoContainer>
       </InnerContainer>
+      <ButtonContainer>
+        <Button type="primary" label="장소 선택하기" />
+      </ButtonContainer>
     </Container>
   );
 };
@@ -73,24 +73,23 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 393px;
-  height: 852px;
   background-color: #fff;
   box-sizing: border-box;
+  position: relative;
+  min-height: 100vh; /* 화면 전체 높이를 차지 */
+  padding-bottom: 80px; /* 버튼 컨테이너 공간 확보 */
 `;
 
 const InnerContainer = styled.div`
   width: 100%;
-  height: 100%;
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  border: 1px solid #ddd;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: relative;
+  // border: 1px solid #ddd;
+  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
 const Header = styled.header`
@@ -112,7 +111,7 @@ const BackButton = styled.button`
 `;
 
 const ImageContainer = styled.div`
-  width: 393px;
+  width: 553px;
   height: 228px;
   margin-bottom: 20px;
   position: relative;
@@ -130,14 +129,14 @@ const GymName = styled.div`
   font-size: 23px;
   font-weight: bold;
   margin-bottom: 5px;
-  margin-Top: -35px;
+  margin-top: -35px;
   text-align: left;
   width: 100%;
 `;
 
 const GymAddress = styled.div`
   font-size: 12px;
-  color: #7C7C80;
+  color: #7c7c80;
   margin-bottom: 20px;
   font-weight: 500;
   text-align: left;
@@ -152,11 +151,11 @@ const TagsContainer = styled.div`
 `;
 
 const Tag = styled.span`
-  font-family: Pretendard; 
+  font-family: Pretendard;
   font-size: 12px;
   font-weight: 600;
-  color: #5467F5;
-  background-color: #E0E7FF;
+  color: #5467f5;
+  background-color: #f1f2ff;
   border-radius: 110px;
   padding: 5px 15px;
   margin-right: 5px;
@@ -187,7 +186,7 @@ const PriceItem = styled.div`
 
 const PriceLabel = styled.span`
   color: #000; /* 검은색 */
-  margin-right: -00px; /* 일일권과 점선 사이 띄우기 */
+  margin-right: 0px; /* 일일권과 점선 사이 띄우기 */
 `;
 
 const PriceDots = styled.span`
@@ -198,7 +197,7 @@ const PriceDots = styled.span`
 `;
 
 const Price = styled.span`
-  color: #495EF6; /* 가격 색상 */
+  color: #495ef6; /* 가격 색상 */
   margin-right: 90px;
 `;
 
@@ -209,9 +208,10 @@ const ButtonContainer = styled.div`
   padding: 20px;
   box-sizing: border-box;
   position: absolute;
-  bottom: 30px;
-  font-weight: 800;
-  font-style: normal;
+  bottom: 0; /* 하단에 고정 */
+  left: 0;
+  background-color: #fff;
+  // box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const styles = {
