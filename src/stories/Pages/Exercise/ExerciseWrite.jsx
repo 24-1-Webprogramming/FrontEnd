@@ -114,7 +114,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 100px;
-    padding-bottom: 15%;
+    padding-bottom: 130px;
     gap: 33px;
     padding-left: 20px;
     padding-right: 20px;
