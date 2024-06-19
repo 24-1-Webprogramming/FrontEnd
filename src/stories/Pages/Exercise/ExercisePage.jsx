@@ -114,6 +114,10 @@ const ExercisePage = () => {
                     </Titles>
                     <img src='/Characters/Sunglasses1_Black.svg'/>
                 </HeadContainer>
+                
+                <StyledLink2 to = "/exercise/routine/:id/play">
+                  <Button width='100%' label='운동시작'/>
+                </StyledLink2>
 
                 <ExerciseCard />
 
@@ -150,11 +154,12 @@ const ExercisePage = () => {
                         <CircularProgressBar totalSteps={100} currentStep={40} />
                     </ProgressContainer>
                 </Card>
-            </Container>
+                
             <GymButton/>
             <FixedButtonContainer>
                 <NavBar activeState='Exercise' />
             </FixedButtonContainer>
+            </Container>
         </div>
     );
 };
@@ -167,7 +172,7 @@ const Container = styled.div`
     align-items: center;
     padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
     padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
-    gap: 45px; /* Ensure 45px space between each Card */
+    gap: 20px; /* Ensure 45px space between each Card */
 `;
 
 const HeadContainer = styled.div`
@@ -288,4 +293,9 @@ const XsetItem = styled.div`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+`;
+
+const StyledLink2 = styled(Link)`
+  width: 80%;
+  align-items: center;
 `;

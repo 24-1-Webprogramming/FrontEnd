@@ -7,7 +7,7 @@ import Header from '../../Component/Header';
 import ExerciseStop from '../../Component/ExerciseStop';
 import ExerciseStopEdit from '../../Component/ExerciseStopEdit';
 
-const ExerciseSuggestionDetail = () => {
+const ExerciseAddDetail = () => {
 
     const [nickname, setNickname] = useState('');
 
@@ -26,8 +26,6 @@ const ExerciseSuggestionDetail = () => {
                 운동루틴명
             </NameContainer>
 
-
-
             <ExerciseStopEdit />
 
             <FixedButtonContainer>
@@ -37,7 +35,7 @@ const ExerciseSuggestionDetail = () => {
     );
 };
 
-export default ExerciseSuggestionDetail;
+export default ExerciseAddDetail;
 
 const Container = styled.div`
     display: flex;

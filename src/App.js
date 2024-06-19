@@ -32,9 +32,11 @@ import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 import ExercisePage from './stories/Pages/Exercise/ExercisePage';
 import ExerciseRoutineList from './stories/Pages/Exercise/ExerciseRoutineList';
-import ExerciseSuggestionDetail from './stories/Pages/Exercise/ExerciseSuggestionDetailDefault';
-import ExerciseSuggestions from './stories/Pages/Exercise/ExerciseSuggestionDefault';
-import ExerciseSuggestionAdd from './stories/Pages/Exercise/ExerciseSuggestionAdd';
+import ExerciseAddDetail from './stories/Pages/Exercise/ExerciseAddDetail';
+import ExercisePlay from './stories/Pages/Exercise/ExercisePlay';
+import ExerciseAdd from './stories/Pages/Exercise/ExerciseAdd';
+import ExerciseEdit from './stories/Pages/Exercise/ExerciseEdit';
+import ExerciseComplete from './stories/Pages/Exercise/ExerciseComplete';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
 
@@ -73,11 +75,11 @@ const App = () => {
 
           <Route path="/Exercise/main" element={<ExercisePage/>} />
           <Route path="/Exercise/routine/list" element={<ExerciseRoutineList/>} />
-          <Route path="/Exercise/routine/:id/add" element={<ExerciseSuggestionAdd/>} />
-          <Route path="/Exercise/routine/:id/detail" element={<ExerciseSuggestionDetail/>} />
-          <Route path="/Exercise/routine/:id/play" element={<Mypage/>} />
-          <Route path="/Exercise/routine/:id/edit" element={<Mypage/>} />
-          <Route path="/Exercise/routine/:id/success" element={<Mypage/>} />
+          <Route path="/Exercise/routine/:id/add" element={<ExerciseAdd/>} />
+          <Route path="/Exercise/routine/:id/add/detail" element={<ExerciseAddDetail/>} />
+          <Route path="/Exercise/routine/:id/play" element={<ExercisePlay/>} />
+          <Route path="/Exercise/routine/:id/edit" element={<ExerciseEdit/>} />
+          <Route path="/Exercise/routine/:id/complete" element={<ExerciseComplete/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>

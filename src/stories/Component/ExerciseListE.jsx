@@ -123,11 +123,11 @@ const CategoryFilter = styled.button`
   color: ${props => props.active ? '#FFFFFF' : '#5467F5'};
 `;
 
-const styledLink = styled(Link)`
-  text-decoration: none;
+const StyledLink = styled(Link)`
+  width: 100%;
 `;
 
-const ExerciseListE = ({ exercises, onSelectedExercisesChange }) => {
+const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [exerciseList, setExerciseList] = useState(exercises || []);
   const [filterCategory, setFilterCategory] = useState('전체');
@@ -224,7 +224,7 @@ const ExerciseListE = ({ exercises, onSelectedExercisesChange }) => {
       ))}
       <FixedButtonContainer>
         {checkedNames.size > 0 && (
-          <StyledLink to = '/exercise-suggestion-detail'>
+          <StyledLink to = '/exercise/routine/:id/play'>
             <Button
               width={'90%'}
               label={buttonLabel}
@@ -238,5 +238,5 @@ const ExerciseListE = ({ exercises, onSelectedExercisesChange }) => {
   );
 };  
 
-export default ExerciseListE;
+export default ExerciseList;
 

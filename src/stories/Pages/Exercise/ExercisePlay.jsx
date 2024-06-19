@@ -7,7 +7,7 @@ import Header from '../../Component/Header';
 import Stopwatch from '../../Component/Stopwatch';
 import ExerciseStop from '../../Component/ExerciseStop';
 
-const ExerciseSuggestion = () => {
+const ExercisePlay = () => {
 
     const [nickname, setNickname] = useState('');
 
@@ -27,14 +27,18 @@ const ExerciseSuggestion = () => {
             <ExerciseStop />
 
             <FixedButtonContainer>
-                <Button width='100%' height='45px' label='운동추가' type='border'/>
-                <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                <StyledLink to = '/exercise/routine/:id/edit'>
+                    <Button width='100%' height='45px' label='운동추가' type='border'/>
+                </StyledLink>
+                <StyledLink to = '/exercise/routine/:id/complete'>
+                    <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                </StyledLink>
             </FixedButtonContainer>
         </Container>
     );
 };
 
-export default ExerciseSuggestion;
+export default ExercisePlay;
 
 const Container = styled.div`
     display: flex;
@@ -45,18 +49,6 @@ const Container = styled.div`
     gap: 36px; /* Ensure 45px space between each Card */
 `;
 
-const CardContentCenter = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 13px 30px;
-    gap: 15px;
-`;
-
-const Divider = styled.div`
-    width: 0.5px;
-    height: 34px;
-    background-color: #9BC3FF;
+const StyledLink = styled(Link)`
+    width: 50%;
 `;
