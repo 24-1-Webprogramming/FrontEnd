@@ -6,6 +6,118 @@ import { Button } from './Button';
 import FixedButtonContainer from './FixedButtonContainer';
 import { Link } from 'react-router-dom';
 
+const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [exerciseList, setExerciseList] = useState(exercises || []);
+  const [filterCategory, setFilterCategory] = useState('전체');
+  const [checkedNames, setCheckedNames] = useState(new Set());
+  const [favoriteNames, setFavoriteNames] = useState(new Set());
+
+  useEffect(() => {
+    const initialFavorites = new Set();
+    exercises.forEach(exercise => {
+      if (exercise.mark) {
+        initialFavorites.add(exercise.exercise);
+      }
+    });
+    setFavoriteNames(initialFavorites);
+  }, [exercises]);
+
+  useEffect(() => {
+    const filtered = (exercises || [])
+      .filter(e => 
+        e.exercise.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        (filterCategory === '전체' || 
+         (filterCategory === '즐겨찾기' && favoriteNames.has(e.exercise)) || 
+         e.category === filterCategory)
+      )
+      .sort((a, b) => (b.mark === a.mark ? 0 : b.mark ? 1 : -1));
+    setExerciseList(filtered);
+  }, [searchTerm, filterCategory, exercises, favoriteNames]);
+
+  const toggleMark = (exerciseName) => {
+    setFavoriteNames(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(exerciseName)) {
+        newFavorites.delete(exerciseName);
+      } else {
+        newFavorites.add(exerciseName);
+      }
+      return newFavorites;
+    });
+  };
+
+  const toggleCheck = (exerciseName) => {
+    setCheckedNames(prev => {
+      const newNames = new Set(prev);
+      if (newNames.has(exerciseName)) {
+        newNames.delete(exerciseName);
+      } else {
+        newNames.add(exerciseName);
+      }
+      onSelectedExercisesChange(Array.from(newNames));
+      return newNames;
+    });
+  };
+
+  const buttonLabel = checkedNames.size > 0 ? `${checkedNames.size}개 선택` : '선택';
+
+  return (
+    <Container>
+      <SearchContainer>
+        <Icon src={SearchIcon} alt="Search" />
+        <SearchInput
+          type="text"
+          placeholder="운동 검색하기"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </SearchContainer>
+  
+      <CategoryFilterContainer>
+        {['즐겨찾기', '전체', '하체', '가슴', '등', '어깨', '팔'].map(category => (
+          <CategoryFilter
+            key={category}
+            active={filterCategory === category}
+            onClick={() => setFilterCategory(category)}
+          >
+            {category}
+          </CategoryFilter>
+        ))}
+      </CategoryFilterContainer>
+  
+      {exerciseList.map((exercise, index) => (
+        <ExerciseItem key={index}>
+            <StarIconContainer onClick={() => toggleMark(exercise.exercise)}>
+              {favoriteNames.has(exercise.exercise) ? <StarIconActive /> : <StarIconDeactive />}
+            </StarIconContainer>
+            
+          <ExerciseContent onClick={() => toggleCheck(exercise.exercise)}>
+            {exercise.exercise}
+            <Checkbox
+              type="checkbox"
+              checked={checkedNames.has(exercise.exercise)}
+            />
+          </ExerciseContent>
+        </ExerciseItem>
+      ))}
+      <FixedButtonContainer>
+        {checkedNames.size > 0 && (
+          <StyledLink to = '/exercise/routine/:id/play'>
+            <Button
+              width={'90%'}
+              label={buttonLabel}
+              onClick={() => {}}
+              primary
+            />
+          </StyledLink>
+        )}
+      </FixedButtonContainer>
+    </Container>
+  );
+};  
+
+export default ExerciseList;
+
 // Styled components
 const Container = styled.div`
   padding: 20px;
@@ -126,117 +238,3 @@ const CategoryFilter = styled.button`
 const StyledLink = styled(Link)`
   width: 100%;
 `;
-
-const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [exerciseList, setExerciseList] = useState(exercises || []);
-  const [filterCategory, setFilterCategory] = useState('전체');
-  const [checkedNames, setCheckedNames] = useState(new Set());
-  const [favoriteNames, setFavoriteNames] = useState(new Set());
-
-  useEffect(() => {
-    const initialFavorites = new Set();
-    exercises.forEach(exercise => {
-      if (exercise.mark) {
-        initialFavorites.add(exercise.exercise);
-      }
-    });
-    setFavoriteNames(initialFavorites);
-  }, [exercises]);
-
-  useEffect(() => {
-    const filtered = (exercises || [])
-      .filter(e => 
-        e.exercise.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (filterCategory === '전체' || 
-         (filterCategory === '즐겨찾기' && favoriteNames.has(e.exercise)) || 
-         e.category === filterCategory)
-      )
-      .sort((a, b) => (b.mark === a.mark ? 0 : b.mark ? 1 : -1));
-    setExerciseList(filtered);
-  }, [searchTerm, filterCategory, exercises, favoriteNames]);
-
-  const toggleMark = (exerciseName) => {
-    setFavoriteNames(prev => {
-      const newFavorites = new Set(prev);
-      if (newFavorites.has(exerciseName)) {
-        newFavorites.delete(exerciseName);
-      } else {
-        newFavorites.add(exerciseName);
-      }
-      return newFavorites;
-    });
-  };
-
-  const toggleCheck = (exerciseName) => {
-    setCheckedNames(prev => {
-      const newNames = new Set(prev);
-      if (newNames.has(exerciseName)) {
-        newNames.delete(exerciseName);
-      } else {
-        newNames.add(exerciseName);
-      }
-      onSelectedExercisesChange(Array.from(newNames));
-      return newNames;
-    });
-  };
-
-  const buttonLabel = checkedNames.size > 0 ? `${checkedNames.size}개 선택` : '선택';
-
-  return (
-    <Container>
-      <SearchContainer>
-        <Icon src={SearchIcon} alt="Search" />
-        <SearchInput
-          type="text"
-          placeholder="운동 검색하기"
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </SearchContainer>
-  
-      <CategoryFilterContainer>
-        {['즐겨찾기', '전체', '하체', '가슴', '등', '어깨', '팔'].map(category => (
-          <CategoryFilter
-            key={category}
-            active={filterCategory === category}
-            onClick={() => setFilterCategory(category)}
-          >
-            {category}
-          </CategoryFilter>
-        ))}
-      </CategoryFilterContainer>
-  
-      {exerciseList.map((exercise, index) => (
-        <ExerciseItem key={index}>
-            <StarIconContainer onClick={() => toggleMark(exercise.exercise)}>
-              {favoriteNames.has(exercise.exercise) ? <StarIconActive /> : <StarIconDeactive />}
-            </StarIconContainer>
-            
-          <ExerciseContent onClick={() => toggleCheck(exercise.exercise)}>
-            {exercise.exercise}
-            <Checkbox
-              type="checkbox"
-              checked={checkedNames.has(exercise.exercise)}
-              onClick={() => toggleCheck(exercise.exercise)}
-            />
-          </ExerciseContent>
-        </ExerciseItem>
-      ))}
-      <FixedButtonContainer>
-        {checkedNames.size > 0 && (
-          <StyledLink to = '/exercise/routine/:id/play'>
-            <Button
-              width={'90%'}
-              label={buttonLabel}
-              onClick={() => {}}
-              primary
-            />
-          </StyledLink>
-        )}
-      </FixedButtonContainer>
-    </Container>
-  );
-};  
-
-export default ExerciseList;
-

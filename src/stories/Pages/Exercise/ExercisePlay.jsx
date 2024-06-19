@@ -10,11 +10,12 @@ import ExerciseStop from '../../Component/ExerciseStop';
 const ExercisePlay = () => {
 
     const [nickname, setNickname] = useState('');
+    const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
 
   useEffect(() => {
-    const savedNickname = localStorage.getItem('nickname');
-    if (savedNickname) {
-      setNickname(savedNickname);
+    const savedCurrentRoutine = localStorage.getItem('currentRoutine');
+    if (savedCurrentRoutine) {
+        setCurrentRoutine(savedCurrentRoutine);
     }
   }, []);
 
