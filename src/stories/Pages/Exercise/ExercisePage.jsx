@@ -11,6 +11,7 @@ import GymButton from '../../Component/GymButton';
 import { ChangeR } from '../../Component/ButtonS';
 import Xset from '../../Component/Xset';
 import { ExerciseCard } from '../../Component/CardS';
+import Header from '../../Component/Header';
 
 const ExercisePage = () => {
     const [nickname, setNickname] = useState('');
@@ -102,6 +103,7 @@ const ExercisePage = () => {
     return (
         <div>
             <Container>
+              <Header showIcon={true} text="홈" backButton={false} />
                 <TopSection>
                   <HeadContainer>
                       <Titles>
