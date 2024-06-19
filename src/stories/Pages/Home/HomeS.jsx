@@ -54,7 +54,7 @@ export const CharacterSector = ({ continuousExerciseDays, characterMessage, curr
         <ProgressBarContainer>
           <ProgressLabel>물 섭취</ProgressLabel>
           <ProgressBar
-            totalSteps={100}
+            totalSteps={2}
             currentStep={currentSteps[0]}
             direction="horizontal"
             width="130px"
