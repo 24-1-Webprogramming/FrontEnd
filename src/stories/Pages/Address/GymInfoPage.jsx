@@ -78,7 +78,7 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
             <img src={SearchIcon} alt="search" />
             <SearchInput
               type="text"
-              placeholder="헬스장 이름 또는 지번으로 검색"
+              placeholder=" 내 주변 위치 설정 (시/구 단위)"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -176,6 +176,7 @@ const SearchInput = styled.input`
   outline: none;
   background-color: transparent;
   font-size: 16px;
+  padding-left: 10px;
 `;
 
 const DistrictList = styled.div`

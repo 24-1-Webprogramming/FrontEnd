@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './IconButton.css';
 
-const IconButton = ({ src, text, textSize, textColor, borderRadius, width, height, iconWidth, iconHeight, iconTextSpacing, disabled, currentBackgroundColor, hoverBackgroundColor, disabledIcon, disabledFontcolor }) => {
+const IconButton = ({ src, text, textSize, textColor, borderRadius, width, height, iconWidth, iconHeight, iconTextSpacing, disabled, currentBackgroundColor, hoverBackgroundColor, disabledIcon, disabledFontcolor, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const buttonStyle = {
@@ -10,7 +10,7 @@ const IconButton = ({ src, text, textSize, textColor, borderRadius, width, heigh
     width,
     height,
     backgroundColor: isHovered ? hoverBackgroundColor : currentBackgroundColor,
-    cursor: disabled ? '' : 'pointer',
+    cursor: disabled ? 'not-allowed' : 'pointer',
     transition: 'background-color 0.3s ease',
     display: 'flex',
     flexDirection: 'column', // 아이콘과 텍스트를 상하로 정렬하기 위해 추가
@@ -39,6 +39,7 @@ const IconButton = ({ src, text, textSize, textColor, borderRadius, width, heigh
       disabled={disabled}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick} // 클릭 이벤트 핸들러 추가
     >
       <img src={iconSrc} alt="" style={iconStyle} />
       {text && <span style={textStyle}>{text}</span>}
@@ -62,6 +63,7 @@ IconButton.propTypes = {
   hoverBackgroundColor: PropTypes.string,
   disabledIcon: PropTypes.string, // disabled 상태일 때 아이콘의 경로
   disabledFontcolor: PropTypes.string, // disabled 상태일 때 텍스트의 색상
+  onClick: PropTypes.func, // 클릭 이벤트 핸들러
 };
 
 IconButton.defaultProps = {
@@ -78,6 +80,7 @@ IconButton.defaultProps = {
   textColor: '#B2BAC2', // 기본 텍스트 색상
   disabledIcon: null,
   disabledFontcolor: '#495EF6', // disabled 상태일 때 기본 텍스트 색상
+  onClick: null, // 기본 클릭 이벤트 핸들러
 };
 
 export default IconButton;

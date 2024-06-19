@@ -2,20 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from './IconButton';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Header = ({ showIcon, text, backButton, path }) => {
+const Header = ({ showIcon, text, backButton }) => {
+  const navigate = useNavigate();
+
   return (
     <TopLayout bgColor="white">
       {backButton && (
         <IconButtonWrapper>
-          <Link to={path}>
-            <IconButton
-              src="/Icons/Icon_arrow.svg"
-              width="40px"
-              height="40px"
-            />
-          </Link>
+          <IconButton
+            src="/Icons/Icon_arrow.svg"
+            width="40px"
+            height="40px"
+            onClick={() => navigate(-1)}
+          />
         </IconButtonWrapper>
       )}
       

@@ -3,8 +3,10 @@ import { Button } from '../../Component/Button';
 import TextField from '../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../Component/Header';
-import { create } from '../data/data';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { create } from '../data/data';
+
 
 const GroupCreate = () => {
     const [step, setStep] = useState(0); // 단계
@@ -18,7 +20,7 @@ const GroupCreate = () => {
         setIsButtonEnabled(value.trim() !== ''); // 입력값이 비어 있지 않으면 버튼 활성화
     };
 
-    const handleNextStep = () => {
+    const handleNextStep = async () => {
         const newResponses = responses.map((response, index) => index === step ? currentInput : response);
         setResponses(newResponses);
         localStorage.setItem('groupnames', JSON.stringify(newResponses)); // Save the responses to localStorage
@@ -29,7 +31,26 @@ const GroupCreate = () => {
             setIsButtonEnabled(false); // 버튼 비활성화
         } else {
             console.log('create complete:', newResponses);
-            navigate('/group/create/success'); // Navigate to the success page
+            await createGroup(newResponses); // 그룹 생성 API 호출
+            navigate('/group'); // 그룹 생성 성공 후 /group 페이지로 이동
+        }
+    };
+
+    const createGroup = async (groupData) => {
+        const apiUrl = 'http://soongitglwebp8.site/group/makeGroup'; // 백엔드 그룹 생성 API URL
+        const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
+
+        try {
+            const response = await axios.post(apiUrl, { name: groupData[0] }, {
+                headers: {
+                    'accept': '*/*',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // 토큰을 헤더에 포함
+                }
+            });
+            console.log('Group created successfully:', response.data);
+        } catch (error) {
+            console.error('Error creating group:', error);
         }
     };
 

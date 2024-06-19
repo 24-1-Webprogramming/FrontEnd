@@ -7,6 +7,8 @@ import { TrophyIcon, PlusIcon } from '../../Component/icon';
 import NavBar from '../../Component/NavBar';
 import { Button } from '../../Component/Button';
 
+
+
 const groupData = {
     name: "회원님여덑개만더하조",
     ranking: 2,
