@@ -102,22 +102,23 @@ const ExercisePage = () => {
     return (
         <div>
             <Container>
-                
-                <HeadContainer>
-                    <Titles>
-                        <div>
-                            <Title>여긴루틴이름임</Title>
-                            <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle> </div>
-                        <StyledLink to = "/exercise/routine/list">
-                          <ChangeR/>
-                        </StyledLink>
-                    </Titles>
-                    <img src='/Characters/Sunglasses1_Black.svg'/>
-                </HeadContainer>
-                
-                <StyledLink2 to = "/exercise/routine/:id/play">
-                  <Button width='100%' label='운동시작'/>
-                </StyledLink2>
+                <TopSection>
+                  <HeadContainer>
+                      <Titles>
+                          <div>
+                              <Title>여긴루틴이름임</Title>
+                              <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle> </div>
+                          <StyledLink to = "/exercise/routine/list">
+                            <ChangeR/>
+                          </StyledLink>
+                      </Titles>
+                      <img src='/Characters/Sunglasses1_Black.svg'/>
+                  </HeadContainer>
+                  
+                  <StyledLink2 to = "/exercise/routine/:id/play">
+                    <Button width='100%' label='운동시작'/>
+                  </StyledLink2>
+                </TopSection>
 
                 <ExerciseCard />
 
@@ -140,7 +141,7 @@ const ExercisePage = () => {
 
                 <Card>
                     <TitleSection>
-                        이번주 운동목표
+                        이번주 루틴 달성률
                     </TitleSection>
                     <ProgressContainer>
                         <ProgressBarSection>
@@ -154,6 +155,7 @@ const ExercisePage = () => {
                         <CircularProgressBar totalSteps={100} currentStep={40} />
                     </ProgressContainer>
                 </Card>
+                <MarginTop/>
                 
             <GymButton/>
             <FixedButtonContainer>
@@ -173,6 +175,7 @@ const Container = styled.div`
     padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
     padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
     gap: 20px; /* Ensure 45px space between each Card */
+    margin-top: 30px;
 `;
 
 const HeadContainer = styled.div`
@@ -183,6 +186,17 @@ const HeadContainer = styled.div`
     gap: 28px;
     display: flex;
 
+`;
+
+const TopSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    `;
+
+const MarginTop = styled.div`
+    margin-top: 100px;
 `;
 
 const Titles = styled.div`
@@ -216,10 +230,12 @@ const Subtitle = styled.div`
 `;
 
 const TitleSection = styled.div`
-    color: var(--Active, #495EF6);
+    color: var(--Active, #000000);
     font-size: 16px;
     font-weight: 800;
     margin-bottom: 10px;
+    width: 100%;
+
 `;
 
 const ProgressContainer = styled.div`
@@ -252,6 +268,8 @@ const Day = styled.div`
 
 const XsetContainer = styled.div`
   align-self: flex-start;
+  font-family: Pretendard;
+  font-weight: 500;
   margin-left: 10%;
   width: 80%;
   max-width: 80%;
