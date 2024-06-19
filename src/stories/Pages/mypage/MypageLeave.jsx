@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Image from '../../Component/Image';
 import MySVGIcon from './Leave_check'; // import the SVG component
-import DumbbellCryingIcon from '../../../Icon/Crying2.svg'; // DumbbellCrying3 SVG import
+import DumbbellCryingIcon from '../../assets/DumbbellCrying2.svg'; // DumbbellCrying3 SVG import
 
 const SurveyStartPage = () => {
   const [nickname, setNickname] = useState('');
@@ -43,8 +43,10 @@ const SurveyStartPage = () => {
           {nickname}님과 헤어지기 싫어요<br />
           <Highlight>정말 떠나실 건가요?</Highlight>
         </Title>
-        <Image src={DumbbellCryingIcon} alt="프로필 이미지" width="144px" height="240px" />
-        <Description><Bold>{nickname}님</Bold>과의 추억 정리 중...</Description>
+        <IconImg>
+          <Image src={DumbbellCryingIcon} alt="프로필 이미지" width="144px" height="240px" />
+          <Description><Bold>{nickname}님</Bold>과의 추억 정리 중...</Description>
+        </IconImg>
         <Agreement onClick={handleAgreementClick} agreementChecked={agreementChecked}>
           <MySVGIcon style={{ width: '20px', height: '20px' }} />
           <AgreementText>안내 사항을 확인하였으며, 이에 동의합니다.</AgreementText>
@@ -101,7 +103,10 @@ const Header = styled.div`
   height: 49px;
   z-index: 1000;
   padding: 10px 10px 20px 10px;
+`;
 
+const IconImg = styled.div`
+  margin-top: 60px; /* 이미지와 텍스트를 아래로 이동 */
 `;
 
 const CenterContent = styled.div`
@@ -133,7 +138,6 @@ const Content = styled.div`
   align-items: center;
   padding: 0 50px;
   box-sizing: border-box;
-  
 `;
 
 const Title = styled.h2`
@@ -158,7 +162,6 @@ const Highlight = styled.span`
   font-weight: 700;
   line-height: 120%;
   letter-spacing: -0.75px;
-  
 `;
 
 const Description = styled.p`
@@ -171,7 +174,7 @@ const Agreement = styled.div`
   font-style: normal;
   font-size: 14px;
   color: ${({ agreementChecked }) => (agreementChecked ? '#FF3C3C' : '#535353')};
-  margin-top: 190px;
+  margin-top: 120px;
   display: flex;
   align-items: center;
   cursor: pointer;
