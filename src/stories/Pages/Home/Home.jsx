@@ -27,15 +27,17 @@ const Home = () => {
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
                 <HeadLine />
+                    <MarginTop/>
                     <CharacterSector
                         continuousExerciseDays={1}
                         characterMessage="작디작은 1kg 아령"
                         currentSteps={currentSteps}
                     />
+                    <MarginTop/>
                         <HomeScrolldownMeal />
                         <HomeScrolldownWeight/>
                         <HomeScrolldownDDay/>
-                {showArrow && <StyledDownArrow />} {/* Use the icon here */}
+                {showArrow && <StyledDownArrow />}
                 
                 <FixedButtonContainer>
                     <NavBar activeState="Home" />
@@ -60,6 +62,10 @@ const StyledDownArrow = styled(MdKeyboardArrowDown)`
     font-size: 48px; // Size of the arrow
     color: #B2BAC2; // Arrow color
     z-index: 1000;
+`;
+
+const MarginTop = styled.div`
+    margin-top: 160px;
 `;
 
 

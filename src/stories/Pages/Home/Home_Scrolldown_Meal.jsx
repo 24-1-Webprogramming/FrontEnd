@@ -88,6 +88,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   background-color: #fff;
+  margin-bottom: 100px;
 `;
 
 const MealManagement = styled.div`
