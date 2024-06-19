@@ -32,7 +32,7 @@ export const HeadLine = ({ dDayLabel, targetDate }) => {
         <DDayLabel>{dDayLabel}</DDayLabel>
         <DDay>{dDay}</DDay>
       </LeftContainer>
-      <Date>{currentDate}</Date>
+      <Date>{targetDate}</Date>
     </Line>
   );
 };

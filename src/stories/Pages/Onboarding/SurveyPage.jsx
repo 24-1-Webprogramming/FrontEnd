@@ -4,7 +4,8 @@ import TextField from '../../Component/TextField';
 import ProgressBar from '../../Component/ProgressBar';
 import {questions} from '../data/data';
 import styled from 'styled-components';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SurveyPage = () => {
   const [step, setStep] = useState(0); //단계
@@ -12,7 +13,7 @@ const SurveyPage = () => {
   const [currentWeight, setCurrentWeight] = useState(''); //현재 몸무게
   const [loadingDots, setLoadingDots] = useState(''); //로딩
   const [nickname, setNickname] = useState(''); //닉네임
-
+  const navigate = useNavigate();
   //점 로딩용
   useEffect(() => {
     const updateLoadingDots = () => {
@@ -30,16 +31,69 @@ const SurveyPage = () => {
     }
   }, [step]);
 
+//기존 state 및 useEffect 로직
+const handleNextStep = () => {
+  if (step < questions.length - 1) {
+    setStep(step + 1);
+    setCurrentWeight(''); // 현재 체중 입력 필드 초기화
+  } else {
+    // 설문 완료 시 로직
+    const userEmail = localStorage.getItem('userEmail'); // 사용자 이메일
+    const onboardData = {
+      user_id: userEmail,
+      purpose: responses[2], // 예: '근육으로 가득 찬 몸'
+      period: responses[3],  // 예: '6~12개월'
+      push_up: responses[4], // 예: 숫자 또는 '잘 모르겠어요'
+      goal: responses[5]     // 예: '1주일에 5번 이상'
+    };
+
+    const RoutineData = {
+      user_info: {
+        sex: responses[0],
+        body_type: responses[2], // 예: '근육으로 가득 찬 몸'
+        experience: responses[3],  // 예: '6~12개월'
+        pushup_count: responses[4], // 예: 숫자 또는 '잘 모르겠어요'
+        workout_frequency: responses[5]     // 예: '1주일에 5번 이상'
+      }
+    };
+
+    axios.post('http://soongitglwebp8.site/onboard/setOnboard', onboardData)
+      .then(response => {
+        console.log('Onboarding data posted successfully:', response);
+      })
+      .catch(error => {
+        console.log(onboardData)
+        console.error('Failed to post onboarding data:', error);
+        navigate('/Error'); // 실패 시 에러 페이지로 이동
+      });
+
+    console.log('Survey complete:', responses);
+
+    localStorage.setItem('surveyAnswers', JSON.stringify(responses));
+    axios.post('https://a43pwwzgih.execute-api.ap-northeast-2.amazonaws.com/default/AIRoutine', RoutineData)
+        .then(response => {
+          const responseBody = response.data.body;
+          console.log('Response body:', responseBody);
+          navigate('/home'); // 성공 시 홈으로 이동
+        })
+        .catch(error => {
+          console.log(RoutineData)
+          console.error('Failed to post onboarding data:', error);
+          navigate('/Error'); // 실패 시 에러 페이지로 이동
+        });
+
+      console.log('Survey complete:', responses);
+      localStorage.setItem('surveyAnswers', JSON.stringify(responses));
+      navigate('/result'); // 결과 페이지로 네비게이션
+    }
+  };
+
+  // handleAnswerClick 함수에서 handleNextStep 호출
   const handleAnswerClick = (answer) => {
     const newResponses = responses.map((response, index) => index === step ? answer : response);
     setResponses(newResponses);
-    localStorage.setItem('surveyAnswers', JSON.stringify(newResponses));
 
-    if (step < questions.length - 1) {
-      setStep(step + 1);
-    } else {
-      console.log('Survey complete:', newResponses);
-    }
+    handleNextStep(); // 직접적으로 다음 단계를 처리
   };
   
 
@@ -47,9 +101,22 @@ const SurveyPage = () => {
   const handleWeightSubmit = () => {
     if (currentWeight.trim()) {
       handleAnswerClick(currentWeight); // 현재 몸무게를 응답 배열에 추가
+      localStorage.setItem('weightAmount', currentWeight); // 몸무게를 localStorage에 저장
       setCurrentWeight(''); // 입력 필드 초기화
+  
+      // Get the user email from local storage
+      const userEmail = localStorage.getItem('userEmail');
+      if (userEmail) {
+        // Construct the API URL
+        const weightApiUrl = `http://soongitglwebp8.site/weight/${userEmail}`;
+        // Make the API call to post weight
+        axios.post(weightApiUrl, { weight: currentWeight })
+          .then(response => console.log('Weight posted successfully:', response))
+          .catch(error => console.error('Failed to post weight:', error));
+      }
     }
   };
+  
 
 
   return (
@@ -73,7 +140,7 @@ const SurveyPage = () => {
 };
 
 const SurveyContent = ({
-  step, intro, question, description, answers, currentWeight, onWeightChange, onAnswerClick, loadingDots, nickname
+  step, intro, question, description, answers, currentWeight, onWeightChange, onSubmitWeight, onAnswerClick, loadingDots, nickname
 }) => {
   return (
     <>
