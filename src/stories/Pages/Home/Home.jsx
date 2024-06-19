@@ -10,7 +10,7 @@ import HomeScrolldownWeight from './Home_Scrolldown_Weight';
 import HomeScrolldownDDay from './Home_Scrolldown_DDay';
 
 const Home = () => {
-    const currentSteps = [70, 50, 90, 30];
+    const [currentSteps, setCurrentSteps] = useState([0, 0, 0, 0]);
     const [showArrow, setShowArrow] = useState(false);
     const [dDayLabel, setDDayLabel] = useState('');
     const [targetDate, setTargetDate] = useState('');
@@ -20,7 +20,6 @@ const Home = () => {
             const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
             setShowArrow(!bottom);
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -32,6 +31,23 @@ const Home = () => {
             setDDayLabel(storedDDayLabel);
             setTargetDate(storedTargetDate);
         }
+    }, []);
+
+    useEffect(() => {
+        const mealTypes = ['아침', '점심', '저녁', '기타'];
+        let carbsTotal = 0, proteinTotal = 0, fatsTotal = 0;
+        const water = localStorage.getItem('waterAmount');
+        mealTypes.forEach(type => {
+            const data = localStorage.getItem(type);
+            if (data) {
+                const nutrients = JSON.parse(data);
+                carbsTotal += parseFloat(nutrients[1] || 0);
+                proteinTotal += parseFloat(nutrients[2] || 0);
+                fatsTotal += parseFloat(nutrients[3] || 0);
+            }
+        });
+
+        setCurrentSteps([water, carbsTotal, proteinTotal, fatsTotal]);
     }, []);
 
     return (
