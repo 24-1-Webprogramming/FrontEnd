@@ -107,7 +107,7 @@ const ExerciseWrite = () => {
 
             <FixedButtonContainer>
                 <StyledLink to={{
-                    pathname : '/test',
+                    pathname : '/statistic',
                     state : {
                         uploadedImage : uploadedImage
                     }
