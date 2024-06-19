@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ExerciseListE from '../../Component/ExerciseListE';
+import ExerciseList from '../../Component/ExerciseList';
 import Header from '../../Component/Header';
-
-const exerciseData = [
-    { exercise: '컨벤셔널 데드리프트', mark: false, category: '등', check: false },
-    { exercise: '스모 데드리프트', mark: true, category: '가슴', check: false },
-    { exercise: '루마니안 데드리프트', mark: false, category: '팔', check: false },
-    { exercise: '스티프 레그 데드리프트', mark: true, category: '하체', check: false },
-    { exercise: 'ㅇㅇ 레그 데드리프트', mark: true, category: '상체', check: false },
-];
+import { exerciseInfo } from '../data/Xinfo'; // Xinfo 모듈에서 데이터 가져오기
 
 const Container = styled.div`
     padding: 20px;
@@ -19,14 +12,21 @@ const Container = styled.div`
 `;
 
 const ExerciseEdit = () => {
+    // exerciseInfo 배열을 새로운 배열로 변환하여 mark와 check 속성 추가
+    const enhancedExerciseData = exerciseInfo.map(exercise => ({
+        ...exercise,
+        mark: false,
+        check: false
+    }));
+
     const handleCheckedExercisesChange = (checkedExercises) => {
         console.log("Checked Exercises: ", checkedExercises);
     };
 
     return (
         <Container>
-            <Header text='루틴명'/>
-            <ExerciseListE exercises={exerciseData} onSelectedExercisesChange={handleCheckedExercisesChange} />
+            <Header text='루틴 추가'/>
+            <ExerciseList exercises={enhancedExerciseData} onSelectedExercisesChange={handleCheckedExercisesChange} />
         </Container>
     );
 };

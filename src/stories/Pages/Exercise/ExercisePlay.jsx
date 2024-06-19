@@ -8,31 +8,39 @@ import Stopwatch from '../../Component/Stopwatch';
 import ExerciseStop from '../../Component/ExerciseStop';
 
 const ExercisePlay = () => {
-
-    const [nickname, setNickname] = useState('');
     const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
+    const [routineData, setRoutineData] = useState([]);
 
-  useEffect(() => {
-    const savedCurrentRoutine = localStorage.getItem('currentRoutine');
-    if (savedCurrentRoutine) {
-        setCurrentRoutine(savedCurrentRoutine);
-    }
-  }, []);
+    useEffect(() => {
+        const savedCurrentRoutine = localStorage.getItem('currentRoutine');
+        if (savedCurrentRoutine) {
+            setCurrentRoutine(savedCurrentRoutine);
+        }
+        const storedRoutineData = JSON.parse(localStorage.getItem('routineData')) || []; // Parse JSON from localStorage or initialize as empty array
+        setRoutineData(storedRoutineData);
+    }, []);
+
+    // Find the routine that matches currentRoutine
+    const matchedRoutine = routineData.find(routine => routine.name === currentRoutine);
 
     return (
         <Container>
-            <Header text = '루틴명'/>
+            <Header text={currentRoutine} />
 
             <Stopwatch />
 
-            <ExerciseStop />
+            {matchedRoutine && (
+                matchedRoutine.exercises.map((exercise, index) => (
+                    <ExerciseStop key={index} exerciseName={exercise.exercise} /> // Pass exercise.exercise as exerciseName
+                ))
+            )}
 
             <FixedButtonContainer>
-                <StyledLink to = '/exercise/routine/:id/edit'>
-                    <Button width='100%' height='45px' label='루틴편집' type='border'/>
+                <StyledLink to='/exercise/routine/:id/edit'>
+                    <Button width='100%' height='45px' label='루틴편집' type='border' />
                 </StyledLink>
-                <StyledLink to = '/exercise/routine/:id/complete'>
-                    <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                <StyledLink to='/exercise/routine/:id/complete'>
+                    <Button width='100%' height='45px' label='운동완료' type='primary' />
                 </StyledLink>
             </FixedButtonContainer>
         </Container>
@@ -45,9 +53,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
-    padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
-    gap: 36px; /* Ensure 45px space between each Card */
+    padding-top: 15%;
+    padding-bottom: 130px;
+    gap: 36px;
 `;
 
 const StyledLink = styled(Link)`

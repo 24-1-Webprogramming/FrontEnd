@@ -118,7 +118,7 @@ const Text = styled.div`
     line-height: normal;
 `;
 
-const ExerciseStop = () => {
+const ExerciseStop = ({exerciseName}) => {
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [rows, setRows] = useState([{ id: 1 }]); // 초기에 하나의 Row를 가지고 시작
@@ -174,7 +174,7 @@ const ExerciseStop = () => {
     return (
         <Container>
             <WatchContainer>
-                <ExerciseText>원레그 익스텐션 <Info/></ExerciseText>
+                <ExerciseText>{exerciseName} <Info/></ExerciseText>
                 <TimeDisplay>{formatTime(time)}</TimeDisplay>
                 <ButtonContainer>
                     {time === 0 ? (
