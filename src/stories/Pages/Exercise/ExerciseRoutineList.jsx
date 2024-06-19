@@ -18,8 +18,7 @@ const ExerciseRoutineList = () => {
           minutes: 30,
           kcal: 200,
           exercises: [
-            { exerciseId: 1, sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
-            { exerciseId: 2, sets: [{ kg: 80, reps: 12 }] }
+            { exercise: '컨벤셔널 데드리프트', sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] }
           ]
         },
         {
@@ -28,13 +27,16 @@ const ExerciseRoutineList = () => {
           minutes: 4444,
           kcal: 4444,
           exercises: [
-            { exerciseId: 1, sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
-            { exerciseId: 2, sets: [{ kg: 80, reps: 12 }] }
+            { exercise: '컨벤셔널 데드리프트', sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
+            { exercise: '바벨 백스쿼트', sets: [{ kg: 80, reps: 12 }] },
+            { exercise: '스미스머신 스플릿 스쿼트', sets: [{ kg: 80, reps: 12 }] }
           ]
         }
       ];
 
       const storedRoutineData = localStorage.getItem('routineData');
+      setRoutineData(exampleData);
+
       if (storedRoutineData) {
         setRoutineData(JSON.parse(storedRoutineData));
       } else {
