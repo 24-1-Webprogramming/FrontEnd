@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Graph from '../../Component/Graph';
 import WeekCalendarSlides from '../../Component/WeekCalendarSlides';
 
+
 const data = [10, 20, 15, 250, 30, 200, 10];
 
 const DashBoard = () => {
