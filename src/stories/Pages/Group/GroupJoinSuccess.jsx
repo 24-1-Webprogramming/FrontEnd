@@ -63,7 +63,7 @@ const GroupJoinSuccess = () => {
         <Button
           label="확인"
           type="primary"
-          size="medium"
+          style = {{width: "312px"}}
         />
       </Link>
     </FixedButtonContainer>

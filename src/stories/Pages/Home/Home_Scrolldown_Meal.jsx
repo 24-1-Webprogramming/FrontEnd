@@ -1,20 +1,45 @@
 import React, { useState } from 'react';
-import SunHorizonIcon from '../../../Icon/SunHorizon.svg';
-import SunIcon from '../../../Icon/Sun.svg';
-import MoonStarsIcon from '../../../Icon/MoonStars.svg';
-import PopcornIcon from '../../../Icon/Popcorn.svg';
+import { useNavigate } from 'react-router-dom'; 
+
+import MorningDefault from '../../../Icon/MorningDefault.svg';
+import MorningActive from '../../../Icon/MorningActive.svg';
+import LunchDefault from '../../../Icon/LunchDefault.svg';
+import LunchActive from '../../../Icon/LunchActive.svg';
+import DinnerDefault from '../../../Icon/DinnerDefault.svg';
+import DinnerActive from '../../../Icon/DinnerActive.svg';
+import OtherDefault from '../../../Icon/OtherDefault.svg';
+import OtherActive from '../../../Icon/OtherActive.svg';
+
 import HomeScrolldownWater from './Home_Scrolldown_Water';
 import styled from 'styled-components';
 
 const HomeScrolldownMeal = () => {
   const [activeTab, setActiveTab] = useState('meal');
+  const navigate = useNavigate(); // Create a useNavigate hook instance
 
   const meals = [
-    { name: '아침', icon: <img src={SunHorizonIcon} />, kcal: '371kcal', isInputted: true },
-    { name: '점심', icon: <img src={SunIcon} />, kcal: '371kcal', isInputted: true },
-    { name: '저녁', icon: <img src={MoonStarsIcon} />, kcal: '입력전', isInputted: false },
-    { name: '기타', icon: <img src={PopcornIcon} />, kcal: '입력전', isInputted: false },
+    { name: '아침', kcal: '371kcal', isInputted: true },
+    { name: '점심', kcal: '371kcal', isInputted: true },
+    { name: '저녁', kcal: '입력전', isInputted: false },
+    { name: '기타', kcal: '입력전', isInputted: false },
   ];
+
+  const icons = {
+    MorningDefault, MorningActive,
+    LunchDefault, LunchActive,
+    DinnerDefault, DinnerActive,
+    OtherDefault, OtherActive
+  };
+
+  const getIcon = (mealName, isInputted) => {
+    switch(mealName) {
+      case '아침': return isInputted ? icons.MorningActive : icons.MorningDefault;
+      case '점심': return isInputted ? icons.LunchActive : icons.LunchDefault;
+      case '저녁': return isInputted ? icons.DinnerActive : icons.DinnerDefault;
+      case '기타': return isInputted ? icons.OtherActive : icons.OtherDefault;
+      default: return icons.OtherDefault;
+    }
+  };
 
   return (
     <Container>
@@ -40,8 +65,10 @@ const HomeScrolldownMeal = () => {
           {activeTab === 'meal' && (
             <MealCards>
               {meals.map((meal, index) => (
-                <MealCard key={index} isInputted={meal.isInputted}>
-                  <IconContainer>{meal.icon}</IconContainer>
+                <MealCard key={index} isInputted={meal.isInputted} onClick={() => navigate('/entry/meal/' + meal.name.toLowerCase())}>
+                  <IconContainer>
+                    <img src={getIcon(meal.name, meal.isInputted)} alt={`${meal.name} icon`} />
+                  </IconContainer>
                   <MealName isInputted={meal.isInputted}>{meal.name}</MealName>
                   <MealKcal isInputted={meal.isInputted}>{meal.kcal}</MealKcal>
                 </MealCard>
@@ -130,6 +157,14 @@ const MealCard = styled.div`
   padding: 25px 25px;
   border-radius: 10px;
   background-color: ${props => (props.isInputted ? '#5467F5' : '#EEF0FF')};
+  transition: all 0.3s ease; // Smooth transition for background color and box-shadow
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${props => (props.isInputted ? '#2641c4' : '#D8DAFF')}; // Darker for inputted, lighter for not inputted
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); // Adds shadow on hover
+    transform: scale(1.05); // Slightly increases size to indicate it's clickable
+  }
 `;
 
 const IconContainer = styled.div`

@@ -31,7 +31,7 @@ const GroupInvite = () => {
                     <Button
                         label="확인완료"
                         type="primary"
-                        size="medium"
+                        style = {{width: "312px"}}
                     />
                 </Link>
             </FixedButtonContainer>

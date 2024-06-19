@@ -35,7 +35,7 @@ const GroupJoin = () => {
 
     return (
         <>
-            <Header text="그룹 만들기" path="/group" />
+            <Header text="그룹 만들기" path="/group/empty" />
             <Container>
                 <SurveyContent
                     step={step}
