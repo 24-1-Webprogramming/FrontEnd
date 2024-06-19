@@ -27,7 +27,6 @@ import Group from './stories/Pages/Group/Group';
 import GroupCreateSuccess from './stories/Pages/Group/GroupCreateSuccess';
 import GroupJoinSuccess from './stories/Pages/Group/GroupJoinSuccess';
 
-import Mypage from './stories/Pages/mypage/mypage';
 import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 import ExercisePage from './stories/Pages/Exercise/ExercisePage';
@@ -59,7 +58,7 @@ const App = () => {
           <Route path="/entry/DDay" element={<DDay/>} />
 
           <Route path="/gym" element={<AddressSettingPage />} />
-          <Route path="/gymDetail" element={<GymDetailPage />} />
+          <Route path="/gym/:gymId" element={<GymDetailPage />} />
           <Route path="/gymfilter/:district" element={<Gymfilter />} />
 
           <Route path="/group/empty" element={<GroupEmpty/>} />

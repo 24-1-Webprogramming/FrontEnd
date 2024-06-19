@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ArrowIcon  from '../../../Icon/Icon_Arrow.svg';
 import { Button } from '../../Component/Button';
@@ -7,6 +7,7 @@ import HealthIcon from '../../../Icon/health.png';
 
 const GymDetailPage = () => {
   const { gymId } = useParams();
+  const navigate = useNavigate();
   
   // 실제 데이터는 API 등을 통해 불러올 수 있습니다.
   const gymDetails = {
@@ -23,9 +24,9 @@ const GymDetailPage = () => {
     <Container>
       <InnerContainer>
         <Header>
-          <Link to="/" style={styles.backButton}>
-            <img src={ArrowIcon} />
-          </Link>
+          <BackButton onClick={() => navigate(-1)}>
+            <img src={ArrowIcon} alt="back" />
+          </BackButton>
         </Header>
         <ImageContainer>
           <img src={gymDetails.image} alt={gymDetails.name} style={styles.image} />
@@ -104,6 +105,12 @@ const Header = styled.header`
   z-index: 2; /* Ensure it is above the image */
 `;
 
+const BackButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
 const ImageContainer = styled.div`
   width: 393px;
   height: 228px;
@@ -145,11 +152,13 @@ const TagsContainer = styled.div`
 `;
 
 const Tag = styled.span`
+  font-family: Pretendard; 
   font-size: 12px;
+  font-weight: 600;
   color: #5467F5;
   background-color: #E0E7FF;
-  border-radius: 5px;
-  padding: 2px 5px;
+  border-radius: 110px;
+  padding: 5px 15px;
   margin-right: 5px;
 `;
 
