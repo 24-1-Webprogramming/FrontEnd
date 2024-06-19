@@ -28,7 +28,7 @@ export const SetMinus = () => {
 export const ChangeR = () => {
     return (
         <RoutineContainer>
-            <Primary>루틴변경</Primary>
+            <Primary>루틴선택</Primary>
             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="12" viewBox="0 0 8 12" fill="none">
                 <path d="M1.5 1.5L6.5 6L1.5 10.5" stroke="#4D61F5" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>

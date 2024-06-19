@@ -18,6 +18,11 @@ const ExerciseRoutineList = () => {
         setIsModalOpen(!isModalOpen);
     };
 
+    const handleGroupCardClick = (routine) => {
+        localStorage.setItem('currentRoutine', routine.name); // Save currentRoutine to localStorage
+        // You can also save other relevant information about the routine if needed
+    };
+
     return (
         <>
             {isModalOpen && <DarkOverlay />}
@@ -27,8 +32,7 @@ const ExerciseRoutineList = () => {
 
             <Container>
                 {routineData.map((routine, index) => (
-                    <StyledLink to={`/exercise/routine/${routine.routineid}/edit`} key={index}> 
-                    {/* 여기 링크 이동은 exercise/main 으로 이동해야 하나, 최근 루틴id를 로컬에 저장해야 함 */}
+                    <StyledLink to={`/exercise/main`} key={index} onClick={() => handleGroupCardClick(routine)}>
                         <GroupCard>
                             <GroupTextBox>
                                 <GroupTitle>{routine.name}</GroupTitle>
@@ -58,7 +62,6 @@ const ExerciseRoutineList = () => {
                                     />
                                 </StyledLink>
                                 <StyledLink to={`/exercise/routine/:id/add`}>
-                                {/* id새로 만들어야 함 */}
                                     <Button
                                         label="루틴 직접 생성"
                                         type="border"
@@ -71,6 +74,7 @@ const ExerciseRoutineList = () => {
                     </ModalBox>
                 </ModalBackground>
             )}
+            <NavBar activeState='Exercise' />
         </>
     );
 };

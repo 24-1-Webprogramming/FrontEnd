@@ -28,7 +28,7 @@ const ExercisePlay = () => {
 
             <FixedButtonContainer>
                 <StyledLink to = '/exercise/routine/:id/edit'>
-                    <Button width='100%' height='45px' label='운동추가' type='border'/>
+                    <Button width='100%' height='45px' label='루틴편집' type='border'/>
                 </StyledLink>
                 <StyledLink to = '/exercise/routine/:id/complete'>
                     <Button width='100%' height='45px' label='운동완료' type='primary'/>

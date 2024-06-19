@@ -115,10 +115,10 @@ const TagContainer = styled.div`
 const TagButton = styled.button`
   font-family: Pretendard;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 6px 14px;
-  margin: 0 6px;
-  border: 2px solid #5467F5;
+  margin: 0 2px;
+  border: 1px solid #5467F5;
   border-radius: 110px;
   background-color: ${({ selected }) => (selected ? '#5467F5' : '#fff')};
   color: ${({ selected }) => (selected ? '#fff' : '#5467F5')};
@@ -129,6 +129,7 @@ const AddressList = styled.div`
   width: 100%;
 `;
 
+
 const AddressItem = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -136,12 +137,14 @@ const AddressItem = styled.div`
   align-items: flex-start;
   gap: 11px;
   border-bottom: 1px solid #ddd;
+  width: 100%;  // Ensure it spans the full width
 `;
 
 const ImageAndInfoContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 24px; /* 요소 전체를 오른쪽으로 이동 */
+  width: 100%; // Ensures full width usage
+  margin-left: 24px;
 `;
 
 const Info = styled.div`
@@ -177,14 +180,25 @@ const Distance = styled.span`
 
 const TagsAndPrice = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: space-between;  // This will push the Price to the right
+  flex-direction: row;
+  align-items: space-between;
   margin-top: 10px;
+  width: 100%;  // Ensure it spans the full width of its container
 `;
-
 const Tags = styled.div`
   display: flex;
-  margin-right: 30px; /* 태그와 가격 사이의 간격 */
+  margin-right: 30px; // Maintains a right margin for spaci
+  width: 180px;
 `;
+
+const Price = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  align-self: flex-end; // Aligns the price to the right end of its container
+`;
+
 
 const Tag = styled.span`
   font-size: 11px;
@@ -197,12 +211,6 @@ const Tag = styled.span`
   border-radius: 110px;
   padding: 8px 15px;
   margin-right: 10px;
-`;
-
-const Price = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
 `;
 
 const StyledSearchIcon = styled.img`
