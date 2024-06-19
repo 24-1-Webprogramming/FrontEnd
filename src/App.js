@@ -47,7 +47,7 @@ import Condition from './stories/Pages/mypage/MyPageConditions.jsx';
 import Leave from './stories/Pages/mypage/MypageLeave.jsx';
 import Edit from './stories/Pages/mypage/MyPageProfileEditPage.jsx';
 
-
+import Test from './stories/Pages/utils/test.jsx';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
 
@@ -102,6 +102,7 @@ const App = () => {
           <Route path="/clearStorage" element={<ClearStoragePage/>} />
           <Route path="/clearUser" element={<ClearUserPage/>} />
           <Route path='/checkOnboard' element={<CheckOnboard/>} />
+          <Route path="/test" element={<Test/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>
