@@ -1,83 +1,112 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NavBar from '../../Component/NavBar';
 import Header from '../../Component/Header';
 import { Button } from '../../Component/Button';
 import { Link } from 'react-router-dom';
 
-// 그룹 데이터 배열
-const routineData = [
-    { name: "아침불끈근육맨 루틴", minutes: 40, reps: 5, kcal: 300, routineid: 1231 },
-    { name: "사랑의 세레나데 루틴", minutes: 4444, reps: 44, kcal: 4444, routineid: 1232 },
-];
-
 const ExerciseRoutineList = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [routineData, setRoutineData] = useState([]);
+  
+    useEffect(() => {
+      // 로컬 스토리지에서 데이터 가져오기
+      const exampleData = [
+        {
+          routineId: 1,
+          name: '아침불끈근육맨 루틴',
+          minutes: 30,
+          kcal: 200,
+          exercises: [
+            { exerciseId: 1, sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
+            { exerciseId: 2, sets: [{ kg: 80, reps: 12 }] }
+          ]
+        },
+        {
+          routineId: 2,
+          name: '사랑의 세레나데 루틴',
+          minutes: 4444,
+          kcal: 4444,
+          exercises: [
+            { exerciseId: 1, sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
+            { exerciseId: 2, sets: [{ kg: 80, reps: 12 }] }
+          ]
+        }
+      ];
 
+      const storedRoutineData = localStorage.getItem('routineData');
+      if (storedRoutineData) {
+        setRoutineData(JSON.parse(storedRoutineData));
+      } else {
+        setRoutineData(exampleData);
+        localStorage.setItem('routineData', JSON.stringify(exampleData));
+      }
+    }, []);
+  
     const toggleModal = () => {
-        setIsModalOpen(!isModalOpen);
+      setIsModalOpen(!isModalOpen);
     };
-
+  
     const handleGroupCardClick = (routine) => {
-        localStorage.setItem('currentRoutine', routine.name); // Save currentRoutine to localStorage
-        // You can also save other relevant information about the routine if needed
+      localStorage.setItem('currentRoutine', routine.name); // Save currentRoutine to localStorage
+      // You can also save other relevant information about the routine if needed
     };
-
+  
     return (
-        <>
-            {isModalOpen && <DarkOverlay />}
-            <HeaderContainer isModalOpen={isModalOpen}>
-                <Header text="나의 루틴" backButton={true} />
-            </HeaderContainer>
-
-            <Container>
-                {routineData.map((routine, index) => (
-                    <StyledLink to={`/exercise/main`} key={index} onClick={() => handleGroupCardClick(routine)}>
-                        <GroupCard>
-                            <GroupTextBox>
-                                <GroupTitle>{routine.name}</GroupTitle>
-                                <GroupSub>{routine.minutes}분 · {routine.reps}개 · {routine.kcal}Kcal</GroupSub>
-                            </GroupTextBox>
-                        </GroupCard>
-                    </StyledLink>
-                ))}
-                <Button
-                    label="+"
-                    type="border"
-                    width={405}
-                    height={60}
-                    onClick={toggleModal}
-                />
-            </Container>
-            {isModalOpen && (
-                <ModalBackground onClick={toggleModal}>
-                    <ModalBox onClick={(e) => e.stopPropagation()}>
-                        <ModalContent>
-                            <ButtonContainer>
-                                <StyledLink to={`/exercise/routine/:id/add`}>
-                                    <Button
-                                        label="AI 루틴 생성"
-                                        width={350}
-                                        height={60}
-                                    />
-                                </StyledLink>
-                                <StyledLink to={`/exercise/routine/:id/add`}>
-                                    <Button
-                                        label="루틴 직접 생성"
-                                        type="border"
-                                        width={350}
-                                        height={60}
-                                    />
-                                </StyledLink>
-                            </ButtonContainer>
-                        </ModalContent>
-                    </ModalBox>
-                </ModalBackground>
-            )}
-            <NavBar activeState='Exercise' />
-        </>
+      <>
+        {isModalOpen && <DarkOverlay />}
+        <HeaderContainer isModalOpen={isModalOpen}>
+          <Header text="나의 루틴" backButton={true} />
+        </HeaderContainer>
+  
+        <Container>
+          {routineData.map((routine, index) => (
+            <StyledLink to={`/exercise/main`} key={index} onClick={() => handleGroupCardClick(routine)}>
+              <GroupCard>
+                <GroupTextBox>
+                  <GroupTitle>{routine.name}</GroupTitle>
+                  <GroupSub>{routine.minutes}분 · {routine.exercises.length}개 · {routine.kcal}Kcal</GroupSub>
+                </GroupTextBox>
+              </GroupCard>
+            </StyledLink>
+          ))}
+          <Button
+            label="+"
+            type="border"
+            width={405}
+            height={60}
+            onClick={toggleModal}
+          />
+        </Container>
+        {isModalOpen && (
+          <ModalBackground onClick={toggleModal}>
+            <ModalBox onClick={(e) => e.stopPropagation()}>
+              <ModalContent>
+                <ButtonContainer>
+                  <StyledLink to={`/exercise/routine/:id/add`}>
+                    <Button
+                      label="AI 루틴 생성"
+                      width={350}
+                      height={60}
+                    />
+                  </StyledLink>
+                  <StyledLink to={`/exercise/routine/:id/add`}>
+                    <Button
+                      label="루틴 직접 생성"
+                      type="border"
+                      width={350}
+                      height={60}
+                    />
+                  </StyledLink>
+                </ButtonContainer>
+              </ModalContent>
+            </ModalBox>
+          </ModalBackground>
+        )}
+        <NavBar activeState='Exercise' />
+      </>
     );
-};
+  };
 
 const StyledLink = styled(Link)`
     text-decoration: none;

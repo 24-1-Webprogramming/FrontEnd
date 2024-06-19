@@ -14,15 +14,10 @@ import { ExerciseCard } from '../../Component/CardS';
 import Header from '../../Component/Header';
 
 const ExercisePage = () => {
-    const [nickname, setNickname] = useState('');
     const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
     const [exerciseData, setExerciseData] = useState([]);
 
     useEffect(() => {
-        const savedNickname = localStorage.getItem('nickname');
-        if (savedNickname) {
-            setNickname(savedNickname);
-        }
         const savedCurrentRoutine = localStorage.getItem('currentRoutine');
         if (savedCurrentRoutine) {
             setCurrentRoutine(savedCurrentRoutine);

@@ -8,11 +8,17 @@ import Header from '../../Component/Header';
 
 const MyPageProfileEdit = () => {
     const [nickname, setNickname] = useState('이름없음');
+    const [email, setEmail] = useState('untitle@gmail.com');
 
     useEffect(() => {
         const savedNickname = localStorage.getItem('nickname');
+        const savedEmail = localStorage.getItem('userEmail');
         if (savedNickname) {
             setNickname(savedNickname);
+        }
+
+        if(savedEmail) {
+            setEmail(savedEmail);
         }
     }, []);
 
@@ -29,7 +35,7 @@ const MyPageProfileEdit = () => {
                 />
             </ProfileImageContainer>
             <Nickname>{nickname}</Nickname>
-            <Email>newnya@gmail.com</Email>
+            <Email>{email}</Email>
             <EditProfileButton to="/Edit">
                 <EditProfileButtonInner>프로필 편집</EditProfileButtonInner>
             </EditProfileButton>

@@ -122,6 +122,7 @@ const Line = styled.div`
   justify-content: space-between;
   padding: 0;
   background-color: #5467f5;
+  z-index: 1000;
 `;
 
 const TopLayout = styled.div`
