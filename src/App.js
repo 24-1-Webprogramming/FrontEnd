@@ -40,6 +40,9 @@ import ExerciseWrite from './stories/Pages/Exercise/ExerciseWrite';
 
 
 import Mypage from './stories/Pages/mypage/mypage';
+import Condition from './stories/Pages/mypage/MyPageConditions.jsx';
+import Leave from './stories/Pages/mypage/MypageLeave.jsx';
+import Edit from './stories/Pages/mypage/MyPageProfileEditPage.jsx';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
 
@@ -86,6 +89,9 @@ const App = () => {
           <Route path="/Exercise/write" element={<ExerciseWrite/>} />
 
           <Route path="/Mypage" element={<Mypage/>} />
+          <Route path="/condition" element={<Condition/>} />
+          <Route path="/Leave" element={<Leave/>} />
+          <Route path="/Edit" element={<Edit/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>

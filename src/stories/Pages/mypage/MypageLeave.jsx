@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../Component/Button';
-import { Link } from 'react-router-dom';
-import Hbar2 from './Hbar2';
-import Header from '../../Component/Header';
-import MySVGIcon from './Leave_check'; // import the SVG component
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Image from '../../Component/Image';
+import MySVGIcon from './Leave_check'; // import the SVG component
 import DumbbellCryingIcon from '../../../Icon/Crying2.svg'; // DumbbellCrying3 SVG import
 
 const SurveyStartPage = () => {
   const [nickname, setNickname] = useState('');
   const [buttonClicked, setButtonClicked] = useState(false);
   const [agreementChecked, setAgreementChecked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedNickname = localStorage.getItem('nickname');
@@ -18,16 +18,6 @@ const SurveyStartPage = () => {
       setNickname(savedNickname);
     }
   }, []);
-
-  const handleCancel = () => {
-    console.log('취소');
-    // 취소 기능 구현
-  };
-
-  const handleComplete = () => {
-    console.log('완료');
-    // 완료 기능 구현
-  };
 
   const handleButtonClick = () => {
     setButtonClicked(true);
@@ -38,30 +28,34 @@ const SurveyStartPage = () => {
     setAgreementChecked(!agreementChecked);
   };
 
+  const handleCancelClick = () => {
+    navigate(-1);
+  };
+
   return (
-    <PageContainer>
-      <Header/>
-      <ContentContainer>
-        <h2 style={{ marginTop: '30px', textAlign: 'left', width: '322px', height: '63px', fontFamily: 'Pretendard Variable', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '120%', letterSpacing: '-0.75px', color: 'var(--deprecated-Gray-01, #252525)' }}>
+    <Container>
+      <Header>
+        <CenterContent>계정탈퇴</CenterContent>
+        <RightButtonWrapper onClick={handleCancelClick}>취소</RightButtonWrapper>
+      </Header>
+      <Content>
+        <Title>
           {nickname}님과 헤어지기 싫어요<br />
-          <span style={{ color: 'var(--Primary, #5467F5)', fontFamily: 'Pretendard Variable', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '120%', letterSpacing: '-0.75px' }}>
-            정말 떠나실 건가요?
-          </span>
-        </h2>
-        <img src={DumbbellCryingIcon} />
-        <p style={{ fontSize: '14px', marginTop: '10px' }}>{nickname}님과의 추억 정리 중...</p>
-        <AgreementContainer onClick={handleAgreementClick} agreementChecked={agreementChecked}>
+          <Highlight>정말 떠나실 건가요?</Highlight>
+        </Title>
+        <Image src={DumbbellCryingIcon} alt="프로필 이미지" width="144px" height="240px" />
+        <Description><Bold>{nickname}님</Bold>과의 추억 정리 중...</Description>
+        <Agreement onClick={handleAgreementClick} agreementChecked={agreementChecked}>
           <MySVGIcon style={{ width: '20px', height: '20px' }} />
-          <span style={{ marginLeft: '10px' }}>안내 사항을 확인하였으며, 이에 동의합니다.</span>
-        </AgreementContainer>
-        <ButtonContainer>
+          <AgreementText>안내 사항을 확인하였으며, 이에 동의합니다.</AgreementText>
+        </Agreement>
+        <FixedButtonContainer>
           <Link to={agreementChecked ? '/survey' : '#'} style={{ textDecoration: 'none' }}>
             <Button
               label={<BoldText>탈퇴하기</BoldText>}
               type="primary"
-              size="medium"
               style={{
-                backgroundColor: agreementChecked ? 'var(--Red-500, #FF3C3C)' : '#fff',
+                backgroundColor: agreementChecked ? '#FF3C3C' : '#fff',
                 color: agreementChecked ? '#fff' : '#FF3C3C',
                 border: '1px solid #FF3C3C',
                 width: '341px',
@@ -71,54 +65,113 @@ const SurveyStartPage = () => {
                 alignItems: 'center',
                 gap: '10px',
                 borderRadius: '12px',
-                textDecoration: 'none', // 밑줄 제거
+                textDecoration: 'none',
               }}
               onClick={handleButtonClick}
               disabled={!agreementChecked}
             />
           </Link>
-        </ButtonContainer>
-      </ContentContainer>
-    </PageContainer>
+        </FixedButtonContainer>
+      </Content>
+    </Container>
   );
 };
 
 export default SurveyStartPage;
 
-const PageContainer = styled.div`
+const Container = styled.div`
+  background-color: #fff;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: start;
   align-items: center;
-  background-color: #fff;
-  min-height: 100vh;
-  overflow: hidden; /* 스크롤 비활성화 */
+  padding-top: 49px; /* 헤더 높이만큼 패딩 추가 */
 `;
 
-const HeaderContainer = styled.div`
-    position: relative;
-    z-index: ${({ isModalOpen }) => (isModalOpen ? '101' : '1')};
-    margin-buttom:20p
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 49px;
+  z-index: 1000;
+  padding: 10px 10px 20px 10px;
+
 `;
 
-const ContentContainer = styled.div`
-  background-color: #fff;
+const CenterContent = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+  position: absolute;
+  left: 43%;
+  transform: translateX(-60%);
+  transform: translateY(30%);
+`;
+
+const RightButtonWrapper = styled.div`
+  position: absolute;
+  right: 60px; /* 버튼 위치 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  cursor: pointer;
+  z-index: 1100;
+`;
+
+const Content = styled.div`
   width: 393px;
-  flex: 1; /* 남은 공간을 차지하도록 설정 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 50px; /* 상단 패딩 제거, 좌우 패딩 추가 */
+  padding: 0 50px;
   box-sizing: border-box;
-  position: relative;
-  overflow: hidden; /* 스크롤 비활성화 */
+  
 `;
 
-const AgreementContainer = styled.div`
+const Title = styled.h2`
+  text-align: left;
+  width: 322px;
+  height: 63px;
+  font-family: 'Pretendard Variable';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: -0.75px;
+  color: var(--deprecated-Gray-01, #252525);
+  margin-top: 80px;
+`;
+
+const Highlight = styled.span`
+  color: var(--Primary, #5467F5);
+  font-family: 'Pretendard Variable';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: -0.75px;
+  
+`;
+
+const Description = styled.p`
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+const Agreement = styled.div`
   font-family: 'Pretendard Variable';
   font-style: normal;
   font-size: 14px;
   color: ${({ agreementChecked }) => (agreementChecked ? '#FF3C3C' : '#535353')};
-  margin-top: 150px;
+  margin-top: 190px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -128,14 +181,22 @@ const AgreementContainer = styled.div`
   padding: 10px 0;
 `;
 
-const ButtonContainer = styled.div`
+const AgreementText = styled.span`
+  margin-left: 10px;
+`;
+
+const FixedButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
+`;
+
+const Bold = styled.span`
+  font-weight: 800;
 `;
 
 const BoldText = styled.span`

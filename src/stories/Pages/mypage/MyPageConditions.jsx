@@ -8,6 +8,7 @@ const TermsOfServicePage = () => {
     <PageContainer>
       <Header text='이용약관' />
       <Content>
+        <Title>맛있다 이용약관</Title>
         <p><strong>제 1조 (목적)</strong></p>
         <p>
           본 약관은 [앱 이름] (이하 "맛있다!")의 이용과 관련하여 서비스 제공자(이하 "회사")와 이용자의 권리, 의무 및 책임사항, 이용 조건과 절차 등 기본적인 사항을 규정함을 목적으로 합니다.
@@ -67,11 +68,18 @@ const PageContainer = styled.div`
 `;
 
 const Content = styled.div`
-  margin-top: 20%;
+  margin-top: 24%;
   text-align: left;
-  font-size: 10px;
+  font-size: 14px;
   line-height: 1.6;
   padding: 0 10px;
+`;
+
+const Title = styled.h1`
+  font-size: 25px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 40px;
 `;
 
 export default TermsOfServicePage;

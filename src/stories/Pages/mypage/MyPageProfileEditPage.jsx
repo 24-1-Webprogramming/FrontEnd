@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Image from '../../Component/Image';
 import TextField from '../../Component/TextField';
 import { Button } from '../../Component/Button';
-import ProfileHeader from './Hbar'; // ProfileHeader 컴포넌트 임포트
+import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import styled from 'styled-components';
 
 const ProfileSetupPage = () => {
   const [nickname, setNickname] = useState('');
   const [isSignUpButtonEnabled, setIsSignUpButtonEnabled] = useState(false);
+  const navigate = useNavigate();
 
   const saveNicknameToLocalStorage = (nickname) => {
     localStorage.setItem('nickname', nickname);
@@ -23,30 +24,31 @@ const ProfileSetupPage = () => {
     console.log('수정 완료:', nickname);
   };
 
-  const handleCancel = () => {
-    console.log('취소');
-    // 취소 기능 구현
+  const handleCancelClick = () => {
+    navigate(-1);
   };
 
   return (
-    <PageContainer>
-      <HeaderContainer>
-        <ProfileHeader onSave={handleComplete} onCancel={handleCancel} />
-      </HeaderContainer>
-      <ContentContainer>
-        <ProfileImageContainer>
-          <Image 
-            src="../../status=view.svg"
-            alt="프로필 이미지"
-            width="100px"
-            height="100px"
-          />
-          <EditIcon 
-            src="../../Edit-icon.svg"
-            alt="편집 버튼"
-            onClick={() => alert('편집 기능 구현 필요')}
-          />
-        </ProfileImageContainer>
+    <Container>
+      <Header>
+        <CenterContent>프로필 설정</CenterContent>
+        <RightButtonWrapper onClick={handleCancelClick}>취소</RightButtonWrapper>
+      </Header>
+      <ProfileImageContainer>
+        <Image 
+          src="../../status=view.svg"
+          alt="프로필 이미지"
+          width="159px"
+          height="159px"
+        />
+        <EditIcon 
+          src="../../Edit-icon.svg"
+          alt="편집 버튼"
+          onClick={() => alert('편집 기능 구현 필요')}
+        />
+      </ProfileImageContainer>
+      <div style={{ marginTop: '20px' }}>
+        <h5>닉네임<br /></h5>
         <TextField 
           value={nickname}
           onChange={(e) => setNickname(e.target.value)}
@@ -54,81 +56,85 @@ const ProfileSetupPage = () => {
           placeholder=""
           showCharCount={true}  // 문자 수 표시
         />
-      </ContentContainer>
-      <ButtonContainer>
-        <Link to='/survey-start' style={{ textDecoration: 'none' }}>
+      </div>
+      <FixedButtonContainer>
+        <Link to='/Mypage' style={{ textDecoration: 'none' }}>
           <Button 
             onClick={handleComplete} 
             disabled={!isSignUpButtonEnabled}
             label={<BoldText>수정 완료</BoldText>}
             type="primary" 
-            size="medium" 
-            backgroundColor={isSignUpButtonEnabled ? '#5467F5' : 'var(--deactive, #B2BAC2)'}
+            style={{ margin: '5px 0', width: '321px' }}
           />
         </Link>
-      </ButtonContainer>
-    </PageContainer>
+      </FixedButtonContainer>
+    </Container>
   );
 };
 
 export default ProfileSetupPage;
 
-const PageContainer = styled.div`
+const Container = styled.div`
   background-color: #fff;
-  height: 852px;
-  width: 393px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: start;
   align-items: center;
-  box-sizing: border-box;
+  padding-top: 70px; /* 헤더 높이만큼 패딩 추가 */
 `;
 
-const HeaderContainer = styled.div`
-  width: 393px; /* 페이지 크기에 맞추기 */
-  background-color: #fff;
-  padding: 20px 0; /* 여유 공간 추가 */
+const Header = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
   display: flex;
   justify-content: center;
-  box-shadow: none; /* 헤더 밑의 선 제거 */
-  border-bottom: none; /* 헤더 밑의 선 제거 */
+  align-items: center;
+  height: 80px; /* 헤더 높이 조정 */
+  z-index: 1100;
 `;
 
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* 위쪽으로 정렬 */
-  flex: 1;
-  margin-top: 10px; /* 더 위로 이동 */
+const CenterContent = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+  color: black;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+const RightButtonWrapper = styled.div`
+  position: absolute;
+  right: 20px; /* 버튼 위치 조정 */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  font-weight: 400;
+  color: black;
+  cursor: pointer;
 `;
 
 const ProfileImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 159px;
+  height: 159px;
   position: relative;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 30px; /* 더 위로 이동 */
+  margin-top: 50px;
 `;
 
 const EditIcon = styled.img`
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
+  top: 120px;
+  left: 105px;
+  width: 42px;
+  height: 42px;
   cursor: pointer;
   z-index: 1;
-`;
-
-const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-  position: absolute;
-  bottom: 60px;
-  font-weight: bold;
-  font-style: normal;
 `;
 
 const BoldText = styled.span`

@@ -30,24 +30,28 @@ const MyPageProfileEdit = () => {
             </ProfileImageContainer>
             <Nickname>{nickname}</Nickname>
             <Email>newnya@gmail.com</Email>
-            <EditProfileButton to="/mypage-profile-edit-page">
+            <EditProfileButton to="/Edit">
                 <EditProfileButtonInner>프로필 편집</EditProfileButtonInner>
             </EditProfileButton>
             <Container2>
                 <AccountManagement>
                     <TitleBox>계정관리</TitleBox>
                     <Text1>로그아웃</Text1>
-                    <WithArrow>
-                        <Text2>계정탈퇴</Text2>
-                        <img src={ArrowIcon} alt="Arrow" />
-                    </WithArrow>
+                    <StyledLink to="/Leave">
+                        <WithArrow>
+                            <Text2>계정탈퇴</Text2>
+                            <img src={ArrowIcon} alt="Arrow" />
+                        </WithArrow>
+                    </StyledLink>
                 </AccountManagement>
                 <ServiceInformation>
                     <TitleBox>서비스 정보</TitleBox>
-                    <WithArrow>
-                        <Text2>이용약관</Text2>
-                        <img src={ArrowIcon} alt="Arrow" />
-                    </WithArrow>
+                    <StyledLink to="/condition">
+                        <WithArrow>
+                            <Text2>이용약관</Text2>
+                            <img src={ArrowIcon} alt="Arrow" />
+                        </WithArrow>
+                    </StyledLink>
                 </ServiceInformation>
             </Container2>
             <FixedButtonContainer>
@@ -135,6 +139,11 @@ const WithArrow = styled.div`
     justify-content: space-between;
     align-items: center;
     padding-right: 0px;  // 텍스트와 화살표 사이의 간격 조절
+`;
+
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: inherit;
 `;
 
 const Text2 = styled.div`
