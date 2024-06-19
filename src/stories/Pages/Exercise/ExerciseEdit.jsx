@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ExerciseList from '../../Component/ExerciseList';
 import Header from '../../Component/Header';
@@ -12,12 +12,43 @@ const Container = styled.div`
 `;
 
 const ExerciseEdit = () => {
-    // exerciseInfo 배열을 새로운 배열로 변환하여 mark와 check 속성 추가
-    const enhancedExerciseData = exerciseInfo.map(exercise => ({
-        ...exercise,
-        mark: false,
-        check: false
-    }));
+    // 상태 초기화
+    const [currentRoutine, setCurrentRoutine] = useState('');
+    const [routineData, setRoutineData] = useState([]);
+    const [enhancedExerciseData, setEnhancedExerciseData] = useState([]);
+
+    useEffect(() => {
+        // 로컬 스토리지에서 currentRoutine과 routineData 가져오기
+        const savedCurrentRoutine = localStorage.getItem('currentRoutine');
+        if (savedCurrentRoutine) {
+            setCurrentRoutine(savedCurrentRoutine);
+        }
+
+        const storedRoutineData = JSON.parse(localStorage.getItem('routineData')) || [];
+        setRoutineData(storedRoutineData);
+
+        // exerciseInfo 배열을 새로운 배열로 변환하여 mark와 check 속성 추가
+        const enhancedExerciseData = exerciseInfo.map(exercise => ({
+            ...exercise,
+            mark: false,
+            check: false
+        }));
+
+        // 현재 루틴에 포함된 운동을 체크
+        if (savedCurrentRoutine) {
+            const routine = storedRoutineData.find(routine => routine.name === savedCurrentRoutine);
+            if (routine) {
+                const exercisesInRoutine = routine.exercises.map(ex => ex.exercise);
+                enhancedExerciseData.forEach(exercise => {
+                    if (exercisesInRoutine.includes(exercise.exercise)) {
+                        exercise.check = true;
+                    }
+                });
+            }
+        }
+
+        setEnhancedExerciseData(enhancedExerciseData);
+    }, []);
 
     const handleCheckedExercisesChange = (checkedExercises) => {
         console.log("Checked Exercises: ", checkedExercises);
