@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../Component/Header';
 import NavBar from '../../Component/NavBar';
 import styled from 'styled-components';
-import { MdKeyboardArrowDown } from 'react-icons/md'; // Import the arrow ico
+import { MdKeyboardArrowDown } from 'react-icons/md';
 import { HeadLine, CharacterSector } from './HomeS';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import HomeScrolldownMeal from './Home_Scrolldown_Meal';
@@ -12,6 +12,8 @@ import HomeScrolldownDDay from './Home_Scrolldown_DDay';
 const Home = () => {
     const currentSteps = [70, 50, 90, 30];
     const [showArrow, setShowArrow] = useState(false);
+    const [dDayLabel, setDDayLabel] = useState('');
+    const [targetDate, setTargetDate] = useState('');
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,21 +25,30 @@ const Home = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        const storedDDayLabel = localStorage.getItem('dDayLabel');
+        const storedTargetDate = localStorage.getItem('targetDate');
+        if (storedDDayLabel && storedTargetDate) {
+            setDDayLabel(storedDDayLabel);
+            setTargetDate(storedTargetDate);
+        }
+    }, []);
+
     return (
         <>
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
-                <HeadLine />
-                    <MarginTop/>
-                    <CharacterSector
-                        continuousExerciseDays={1}
-                        characterMessage="작디작은 1kg 아령"
-                        currentSteps={currentSteps}
-                    />
-                    <MarginTop/>
-                        <HomeScrolldownMeal />
-                        <HomeScrolldownWeight/>
-                        <HomeScrolldownDDay/>
+                {targetDate && <HeadLine dDayLabel={dDayLabel} targetDate={targetDate} />}
+                <MarginTop />
+                <CharacterSector
+                    continuousExerciseDays={1}
+                    characterMessage="작디작은 1kg 아령"
+                    currentSteps={currentSteps}
+                />
+                <MarginTop />
+                <HomeScrolldownMeal />
+                <HomeScrolldownWeight />
+                <HomeScrolldownDDay />
                 {showArrow && <StyledDownArrow />}
             </Container>
             <FixedButtonContainer>
@@ -48,10 +59,10 @@ const Home = () => {
 };
 
 const Container = styled.div`
-    display:flex;
+    display: flex;
     margin-top: 70px;
     flex-direction: column;
-    justify-content:center;
+    justify-content: center;
     margin-bottom: 100px;
 `;
 
@@ -68,6 +79,5 @@ const StyledDownArrow = styled(MdKeyboardArrowDown)`
 const MarginTop = styled.div`
     margin-top: 160px;
 `;
-
 
 export default Home;

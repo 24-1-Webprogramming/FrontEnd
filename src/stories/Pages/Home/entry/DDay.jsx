@@ -6,6 +6,7 @@ import Header from '../../../Component/Header';
 import { dday } from '../../data/data';
 import { DatePicker } from 'ios-style-picker';
 import '../../../Component/ios-style-picker.css';
+import { useNavigate } from 'react-router-dom';
 
 const AnswerButtons = ({ step, totalSteps, isButtonEnabled, handleNextStep }) => (
   <AnswerButtonContainer>
@@ -25,6 +26,7 @@ const DDay = () => {
   const [responses, setResponses] = useState(Array(dday.length).fill(null)); // 답변 저장 배열
   const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
   const [currentInput, setCurrentInput] = useState(''); // 현재 입력값
+  const navigate = useNavigate();
 
   const handleInputChange = (value) => {
       setCurrentInput(value);
@@ -37,7 +39,6 @@ const DDay = () => {
       setResponses(newResponses);
       setCurrentInput(dateValue);
       setIsButtonEnabled(true); // 날짜가 선택되면 버튼 활성화
-      localStorage.setItem('dday', JSON.stringify(newResponses));
   };
 
   const handleNextStep = () => {
@@ -50,7 +51,12 @@ const DDay = () => {
           setCurrentInput(''); // 입력값 초기화
           setIsButtonEnabled(false); // 버튼 비활성화
       } else {
+          // 로컬 스토리지에 저장
+          const [dDayLabel, targetDate] = newResponses;
+          localStorage.setItem('dDayLabel', dDayLabel);
+          localStorage.setItem('targetDate', targetDate);
           console.log('dday complete:', newResponses);
+          navigate('/home');
       }
   };
 
@@ -111,7 +117,6 @@ const SurveyContent = ({
   );
 };
 
-
 const StepText = styled.div`
   color: var(--Base-Gray-700, #3F3F45);
   font-size: 12px;
@@ -122,30 +127,31 @@ const StepText = styled.div`
   margin-top: 50px;
   align-items: start;
   justify-content: start;
-`
+`;
+
 const Container = styled.div`
   background-color: '#fff';
   display: 'flex';
   flex-direction: 'column';
   align-items: 'center';
   justify-content: 'center'; // 가운데 정렬
-`
+`;
 
 const ContainerTop = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom:70px;
+  margin-bottom: 70px;
   margin-top: 50px;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const TextBox = styled.div`
   width: 322px;
   color: var(--deprecated-Gray-01, #252525);
   font-size: 16px;
   font-style: normal; 
-`
+`;
 
 const AnswerButtonContainer = styled.div`
   position: fixed;
