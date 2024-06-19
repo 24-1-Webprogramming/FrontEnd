@@ -74,9 +74,9 @@ const SurveyPage = () => {
       axios.post('https://a43pwwzgih.execute-api.ap-northeast-2.amazonaws.com/default/AIRoutine', RoutineData)
         .then(response => {
           try {
-            const responseBody = JSON.parse(response.data.workout_routine);
-            console.log('Response body:', responseBody);
-            localStorage.setItem('AIRoutine', JSON.stringify(responseBody));
+            console.log('Routine data posted successfully:', response.data);
+            const res = JSON.stringify(response.data);
+            localStorage.setItem('AIRoutine', res);
             navigate('/Exercise/main'); // 성공 시 홈으로 이동
           } catch (error) {
             console.error('Failed to parse response body:', error);
