@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { Switch } from './Switch';
 import TextField from './TextField';
@@ -6,6 +6,8 @@ import { ReactComponent as Play } from '../../Icon/Play.svg';
 import { ReactComponent as Stop } from '../../Icon/Stop.svg';
 import { ReactComponent as Reset } from '../../Icon/Reset.svg';
 import { SetPlus, SetMinus, Info } from './ButtonS';
+import InfoCard from './InfoCard';
+import { exerciseInfo } from '../Pages/data/Xinfo'; // Xinfo 모듈에서 데이터 가져오기
 
 const Container = styled.div`
     display: flex;
@@ -118,10 +120,40 @@ const Text = styled.div`
     line-height: normal;
 `;
 
-const ExerciseStop = ({exerciseName}) => {
+const DarkOverlay = styled.div`
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding-top: 100px;
+    z-index: 90;
+`;
+
+const Xinfo = styled(InfoCard)`
+    top: 130px;
+    position: fixed;
+    align-self: center; 
+    z-index: 100;
+`;
+
+const ExerciseStop = ({ exerciseName }) => {
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [rows, setRows] = useState([{ id: 1 }]); // 초기에 하나의 Row를 가지고 시작
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Find the exercise info from exerciseInfo
+    const exerciseData = exerciseInfo.find(exercise => exercise.exercise === exerciseName);
+    const gif_url = exerciseData ? exerciseData.gifurl : '';
+    const description = exerciseData ? exerciseData.description : '';
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
+    };
 
     const timerRef = useRef(null);
 
@@ -173,8 +205,15 @@ const ExerciseStop = ({exerciseName}) => {
 
     return (
         <Container>
+            {isModalOpen && (
+                <DarkOverlay onClick={toggleModal}>
+                    <Xinfo name={exerciseName} imgSrc={gif_url} description={description}/>
+                </DarkOverlay>
+            )}
             <WatchContainer>
-                <ExerciseText>{exerciseName} <Info/></ExerciseText>
+                <ExerciseText onClick={toggleModal}>
+                    {exerciseName} <Info onClick={toggleModal} />   
+                </ExerciseText>
                 <TimeDisplay>{formatTime(time)}</TimeDisplay>
                 <ButtonContainer>
                     {time === 0 ? (
@@ -188,7 +227,7 @@ const ExerciseStop = ({exerciseName}) => {
                     ) : (
                         <>
                             <Button onClick={resetTimer}>
-                                <Reset/>
+                                <Reset />
                             </Button>
                             <Button onClick={startTimer}>
                                 <Play />
@@ -198,7 +237,7 @@ const ExerciseStop = ({exerciseName}) => {
                 </ButtonContainer>
             </WatchContainer>
             <RowContainer>
-              <Row>
+                <Row>
                     <Sub>SET</Sub>
                     <Sub>
                         <Text>KG</Text>
@@ -216,10 +255,10 @@ const ExerciseStop = ({exerciseName}) => {
                             <Text>{row.id}</Text>
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3' />
                         </Sub>
                         <Sub>
-                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3'/>
+                            <TextField width="100%" fontSize="16px" allowedCharsType='numeric' maxlength='3' />
                         </Sub>
                         <SwitchContainer>
                             <Switch />

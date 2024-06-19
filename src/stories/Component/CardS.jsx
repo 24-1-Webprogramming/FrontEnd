@@ -1,38 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
-import IconButton from './IconButton';
 
 export const ExerciseCard = () => {
+    const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
+    const [routineData, setRoutineData] = useState([]); // State to hold routine data
+
+    useEffect(() => {
+        const savedCurrentRoutine = localStorage.getItem('currentRoutine');
+        if (savedCurrentRoutine) {
+            setCurrentRoutine(savedCurrentRoutine);
+        }
+
+        const storedRoutineData = JSON.parse(localStorage.getItem('routineData')) || [];
+        setRoutineData(storedRoutineData);
+    }, []);
+
+    // Find the routine that matches currentRoutine
+    const matchedRoutine = routineData.find(routine => routine.name === currentRoutine);
+
+    // Calculate total minutes and sets length from matchedRoutine
+    let totalMinutes = 0;
+    let totalSetsLength = 0;
+
+    if (matchedRoutine) {
+        totalMinutes = matchedRoutine.minutes;
+        totalSetsLength = matchedRoutine.exercises.reduce((total, exercise) => total + exercise.sets.length, 0);
+    }
+
     return (
         <Card
-                    height="60px"
-                    width="350px"
-                    shadow={false}
-                    borderRadius="10px"
-                    background='#ffffff'
-                >
-                    <CardContentCenter>
-                        <Container>
-                            <img src='/Icons/Icon_time_c.svg' width="35px" alt='time' />
-                            <Text>40분</Text>
-                            <Margin/>
-                        </Container>
-                        <Divider />
-                        <Container>
-                            <img src='/Icons/Icon_exercise_c.svg' width="45px" alt='exercise' />
-                            <Margin/>
-                            <Text>5개</Text>
-                        </Container>
-                        <Divider />
-                        <Container>
-                            <img src='/Icons/Icon_muscle_c.svg' width="35px" alt='muscle' />
-                            <Text>300cal</Text>
-                        </Container>
-                    </CardContentCenter>
-                </Card>
+            height="60px"
+            width="350px"
+            shadow={false}
+            borderRadius="10px"
+            background='#ffffff'
+        >
+            <CardContentCenter>
+                <Container>
+                    <img src='/Icons/Icon_time_c.svg' width="35px" alt='time' />
+                    <Text>{totalMinutes}분</Text>
+                    <Margin />
+                </Container>
+                <Divider />
+                <Container>
+                    <img src='/Icons/Icon_exercise_c.svg' width="45px" alt='exercise' />
+                    <Margin />
+                    <Text>{totalSetsLength}개</Text>
+                </Container>
+                <Divider />
+                <Container>
+                    <img src='/Icons/Icon_muscle_c.svg' width="35px" alt='muscle' />
+                    <Text>{matchedRoutine ? `${matchedRoutine.kcal}cal` : '0cal'}</Text>
+                </Container>
+            </CardContentCenter>
+        </Card>
     );
-
 };
 
 const CardContentCenter = styled.div`
@@ -48,6 +71,7 @@ const CardContentCenter = styled.div`
 const Margin = styled.div`
     margin-top: 1px;
 `;
+
 const Text = styled.div`
     color: var(--Active, #495EF6);
     font-family: Pretendard;
