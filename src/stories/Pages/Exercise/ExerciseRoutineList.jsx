@@ -8,107 +8,90 @@ import { Link } from 'react-router-dom';
 const ExerciseRoutineList = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [routineData, setRoutineData] = useState([]);
-  
+
     useEffect(() => {
-      // 로컬 스토리지에서 데이터 가져오기
-      const exampleData = [
-        {
-          routineId: 1,
-          name: '아침불끈근육맨 루틴',
-          minutes: 30,
-          kcal: 200,
-          exercises: [
-            { exercise: '컨벤셔널 데드리프트', sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] }
-          ]
-        },
-        {
-          routineId: 2,
-          name: '사랑의 세레나데 루틴',
-          minutes: 4444,
-          kcal: 4444,
-          exercises: [
-            { exercise: '컨벤셔널 데드리프트', sets: [{ kg: 100, reps: 10 }, { kg: 120, reps: 8 }] },
-            { exercise: '바벨 백스쿼트', sets: [{ kg: 80, reps: 12 }] },
-            { exercise: '스미스머신 스플릿 스쿼트', sets: [{ kg: 80, reps: 12 }] }
-          ]
+        // Fetch routineData from localStorage or set it to default exampleData if not found
+        let storedRoutineData = JSON.parse(localStorage.getItem('routineData'));
+        const AIRoutine = JSON.parse(localStorage.getItem('AIRoutine'))?.data[0] || {
+            routineId: 1,
+            name: 'AI 루틴',
+            minutes: 60,
+            kcal: 300,
+            exercises: [
+                { exercise: '에어 스쿼트', sets: [{ weight: 0, reps: 15 }, { weight: 0, reps: 15 }, { weight: 0, reps: 15 }] },
+                { exercise: '점프 스쿼트', sets: [{ weight: 0, reps: 10 }, { weight: 0, reps: 10 }] },
+                { exercise: '고블릿 스쿼트', sets: [{ weight: 5, reps: 10 }, { weight: 5, reps: 10 }] },
+                // more exercises...
+            ]
+        };
+
+        if (!Array.isArray(storedRoutineData) || storedRoutineData.length === 0) {
+            storedRoutineData = [
+                {
+                    routineId: 2,
+                    name: '가벼운 시작 루틴',
+                    minutes: 20,
+                    kcal: 100,
+                    exercises: [
+                        { exercise: '에어 스쿼트', sets: [{ weight: 0, reps: 15 }] },
+                        { exercise: '덤벨 런지', sets: [{ weight: 3, reps: 10 }] },
+                        { exercise: '플랭크', sets: [{ weight: 0, reps: 30 }] }
+                    ]
+                },
+                // Other example routines can be added here...
+            ];
+            localStorage.setItem('routineData', JSON.stringify(storedRoutineData));
         }
-      ];
 
-      const storedRoutineData = localStorage.getItem('routineData');
-      setRoutineData(exampleData);
-
-      if (storedRoutineData) {
-        setRoutineData(JSON.parse(storedRoutineData));
-      } else {
-        setRoutineData(exampleData);
-        localStorage.setItem('routineData', JSON.stringify(exampleData));
-      }
+        // Add AI routine to the routine list
+        setRoutineData([AIRoutine, ...storedRoutineData]);
     }, []);
-  
-    const toggleModal = () => {
-      setIsModalOpen(!isModalOpen);
-    };
-  
+
+    const toggleModal = () => setIsModalOpen(!isModalOpen);
+
     const handleGroupCardClick = (routine) => {
-      localStorage.setItem('currentRoutine', routine.name); // Save currentRoutine to localStorage
-      // You can also save other relevant information about the routine if needed
+        localStorage.setItem('currentRoutine', JSON.stringify(routine));
     };
-  
+
     return (
-      <>
-        {isModalOpen && <DarkOverlay />}
-        <HeaderContainer isModalOpen={isModalOpen}>
-          <Header text="나의 루틴" backButton={true} />
-        </HeaderContainer>
-  
-        <Container>
-          {routineData.map((routine, index) => (
-            <StyledLink to={`/exercise/main`} key={index} onClick={() => handleGroupCardClick(routine)}>
-              <GroupCard>
-                <GroupTextBox>
-                  <GroupTitle>{routine.name}</GroupTitle>
-                  <GroupSub>{routine.minutes}분 · {routine.exercises.length}개 · {routine.kcal}Kcal</GroupSub>
-                </GroupTextBox>
-              </GroupCard>
-            </StyledLink>
-          ))}
-          <Button
-            label="+"
-            type="border"
-            width={405}
-            height={60}
-            onClick={toggleModal}
-          />
-        </Container>
-        {isModalOpen && (
-          <ModalBackground onClick={toggleModal}>
-            <ModalBox onClick={(e) => e.stopPropagation()}>
-              <ModalContent>
-                <ButtonContainer>
-                  <StyledLink to={`/exercise/routine/:id/add`}>
-                    <Button
-                      label="AI 루틴 생성"
-                      width={350}
-                      height={60}
-                    />
-                  </StyledLink>
-                  <StyledLink to={`/exercise/routine/:id/add`}>
-                    <Button
-                      label="루틴 직접 생성"
-                      type="border"
-                      width={350}
-                      height={60}
-                    />
-                  </StyledLink>
-                </ButtonContainer>
-              </ModalContent>
-            </ModalBox>
-          </ModalBackground>
-        )}
-        <NavBar activeState='Exercise' />
-      </>
+        <>
+            {isModalOpen && <DarkOverlay />}
+            <HeaderContainer isModalOpen={isModalOpen}>
+                <Header text="나의 루틴" backButton={true} />
+            </HeaderContainer>
+            <Container>
+                {routineData.map((routine, index) => (
+                    <StyledLink to={`/exercise/main`} key={index} onClick={() => handleGroupCardClick(routine)}>
+                        <GroupCard>
+                            <GroupTextBox>
+                                <GroupTitle>{routine.name}</GroupTitle>
+                                <GroupSub>{routine.minutes}분 · {routine.exercises.length}개 · {routine.kcal}Kcal</GroupSub>
+                            </GroupTextBox>
+                        </GroupCard>
+                    </StyledLink>
+                ))}
+                <Button label="+" type="border" width={405} height={60} onClick={toggleModal} />
+            </Container>
+            {isModalOpen && (
+                <ModalBackground onClick={toggleModal}>
+                    <ModalBox onClick={(e) => e.stopPropagation()}>
+                        <ModalContent>
+                            <ButtonContainer>
+                                <StyledLink to={`/exercise/routine/:id/add`}>
+                                    <Button label="AI 루틴 생성" width={350} height={60} />
+                                </StyledLink>
+                                <StyledLink to={`/exercise/routine/:id/add`}>
+                                    <Button label="루틴 직접 생성" type="border" width={350} height={60} />
+                                </StyledLink>
+                            </ButtonContainer>
+                        </ModalContent>
+                    </ModalBox>
+                </ModalBackground>
+            )}
+            <NavBar activeState='Exercise' />
+        </>
     );
-  };
+};
 
 const StyledLink = styled(Link)`
     text-decoration: none;

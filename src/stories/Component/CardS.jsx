@@ -4,28 +4,23 @@ import Card from './Card';
 
 export const ExerciseCard = () => {
     const [currentRoutine, setCurrentRoutine] = useState(null); // Set initial state to null
-    const [routineData, setRoutineData] = useState([]); // State to hold routine data
 
     useEffect(() => {
         const savedCurrentRoutine = localStorage.getItem('currentRoutine');
         if (savedCurrentRoutine) {
-            setCurrentRoutine(savedCurrentRoutine);
+            setCurrentRoutine(JSON.parse(savedCurrentRoutine)); // Parse JSON string
         }
-
-        const storedRoutineData = JSON.parse(localStorage.getItem('routineData')) || [];
-        setRoutineData(storedRoutineData);
     }, []);
 
-    // Find the routine that matches currentRoutine
-    const matchedRoutine = routineData.find(routine => routine.name === currentRoutine);
-
-    // Calculate total minutes and sets length from matchedRoutine
+    // Calculate total minutes, sets length, and calories from currentRoutine
     let totalMinutes = 0;
     let totalSetsLength = 0;
+    let totalCalories = 0;
 
-    if (matchedRoutine) {
-        totalMinutes = matchedRoutine.minutes;
-        totalSetsLength = matchedRoutine.exercises.reduce((total, exercise) => total + exercise.sets.length, 0);
+    if (currentRoutine) {
+        totalMinutes = currentRoutine.minutes || 0;
+        totalSetsLength = currentRoutine.exercises ? currentRoutine.exercises.reduce((total, exercise) => total + exercise.sets.length, 0) : 0;
+        totalCalories = currentRoutine.kcal || 0;
     }
 
     return (
@@ -51,7 +46,7 @@ export const ExerciseCard = () => {
                 <Divider />
                 <Container>
                     <img src='/Icons/Icon_muscle_c.svg' width="35px" alt='muscle' />
-                    <Text>{matchedRoutine ? `${matchedRoutine.kcal}cal` : '0cal'}</Text>
+                    <Text>{totalCalories}cal</Text>
                 </Container>
             </CardContentCenter>
         </Card>
@@ -96,3 +91,5 @@ const Divider = styled.div`
     height: 34px;
     background-color: #9BC3FF;
 `;
+
+export default ExerciseCard;

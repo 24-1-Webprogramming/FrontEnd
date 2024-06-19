@@ -20,42 +20,40 @@ const ExercisePage = () => {
     useEffect(() => {
         const savedCurrentRoutine = localStorage.getItem('currentRoutine');
         if (savedCurrentRoutine) {
-            setCurrentRoutine(savedCurrentRoutine);
+            setCurrentRoutine(JSON.parse(savedCurrentRoutine)); // Parse the saved routine
         }
 
-        // Simulate fetching data from an API
-        const suggestionData = [
-            {
-                id: 1,
-                number: 1,
-                bodyPart: '하체',
-                exercise: '스쿼트',
-                sets: 4,
-                weight: 20,
-                reps: 12,
-            },
-            {
-                id: 2,
-                number: 2,
-                bodyPart: '상체',
-                exercise: '벤치 프레스',
-                sets: 3,
-                weight: 30,
-                reps: 10,
-            },
-        ];
-        setExerciseData(suggestionData);
+        // Generate or fetch exercise data based on the current routine
+        if (savedCurrentRoutine) {
+            const routine = JSON.parse(savedCurrentRoutine);
+            const generatedExerciseData = routine.exercises.map((exercise, index) => ({
+                id: index + 1,
+                number: index + 1,
+                bodyPart: '하체', // Assuming all exercises are for '하체' for this example
+                exercise: exercise.exercise,
+                sets: exercise.sets.length,
+                weight: exercise.sets[0].weight,
+                reps: exercise.sets[0].reps,
+            }));
+            setExerciseData(generatedExerciseData);
+        }
+
+        console.log('Current Routine:', savedCurrentRoutine);
     }, []);
+
+    const truncateName = (name) => {
+        return name.length > 6 ? `${name.substring(0, 6)}...` : name;
+    };
 
     return (
         <div>
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
-                  <TopSection>
+                <TopSection>
                     <HeadContainer>
                         <Titles>
                             <div>
-                                <Title>{currentRoutine ? currentRoutine : '루틴을 선택해 주세요!'}</Title>
+                                <Title>{currentRoutine ? truncateName(currentRoutine.name) : '루틴을 선택해 주세요!'}</Title>
                                 <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle>
                             </div>
                             <StyledLink to="/exercise/routine/list">
@@ -66,9 +64,9 @@ const ExercisePage = () => {
                     </HeadContainer>
 
                     <StyledLink2 to="/exercise/routine/:id/play">
-                        <Button width='100%' label='운동시작' disabled={currentRoutine ? false : true}/>
+                        <Button width='100%' label='운동시작' disabled={!currentRoutine}/>
                     </StyledLink2>
-                  </TopSection>
+                </TopSection>
 
                 <ExerciseCard />
 
@@ -97,12 +95,12 @@ const ExercisePage = () => {
                         <ProgressBarSection>
                             {['일', '월', '화', '수', '목', '금', '토'].map((day, index) => (
                                 <DayProgressContainer key={index}>
-                                    <ProgressBar direction='vertical' width='8px' height='80px' totalSteps={100} currentStep={40} />
+                                    <ProgressBar direction='vertical' width='8px' height='80px' totalSteps={100} currentStep={0} />
                                     <Day>{day}</Day>
                                 </DayProgressContainer>
                             ))}
                         </ProgressBarSection>
-                        <CircularProgressBar totalSteps={100} currentStep={40} />
+                        <CircularProgressBar totalSteps={100} currentStep={0} />
                     </ProgressContainer>
                 </Card>
                 <MarginTop />

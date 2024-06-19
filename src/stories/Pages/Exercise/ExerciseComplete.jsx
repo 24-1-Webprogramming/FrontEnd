@@ -110,7 +110,7 @@ const RightAlign = styled.div`
 
 const Text = styled.div`
     font-size: 17px;
-    font-weight: 400;
+    font-weight: 500;
     color: #FFF;
 `;
 

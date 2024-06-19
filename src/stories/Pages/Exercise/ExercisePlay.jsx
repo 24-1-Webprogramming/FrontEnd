@@ -14,35 +14,32 @@ const ExercisePlay = () => {
     useEffect(() => {
         const savedCurrentRoutine = localStorage.getItem('currentRoutine');
         if (savedCurrentRoutine) {
-            setCurrentRoutine(savedCurrentRoutine);
+            setCurrentRoutine(JSON.parse(savedCurrentRoutine)); // Parse the JSON string
         }
         const storedRoutineData = JSON.parse(localStorage.getItem('routineData')) || []; // Parse JSON from localStorage or initialize as empty array
         setRoutineData(storedRoutineData);
     }, []);
 
-    // Find the routine that matches currentRoutine
-    const matchedRoutine = routineData.find(routine => routine.name === currentRoutine);
-
     return (
         <Container>
-            <Header text={currentRoutine} />
+            <Header text={currentRoutine ? currentRoutine.name : 'No Routine Selected'} />
 
             <Stopwatch />
 
-            {matchedRoutine && (
-                matchedRoutine.exercises.map((exercise, index) => (
+            {currentRoutine && currentRoutine.exercises && (
+                currentRoutine.exercises.map((exercise, index) => (
                     <ExerciseStop key={index} exerciseName={exercise.exercise} /> // Pass exercise.exercise as exerciseName
                 ))
             )}
 
-            <FixedButtonContainer>
+            <FixedButtonContainerStyled>
                 <StyledLink to='/exercise/routine/:id/edit'>
                     <Button width='100%' height='45px' label='루틴편집' type='border' />
                 </StyledLink>
                 <StyledLink to='/exercise/routine/:id/complete'>
                     <Button width='100%' height='45px' label='운동완료' type='primary' />
                 </StyledLink>
-            </FixedButtonContainer>
+            </FixedButtonContainerStyled>
         </Container>
     );
 };
@@ -60,4 +57,14 @@ const Container = styled.div`
 
 const StyledLink = styled(Link)`
     width: 50%;
+`;
+
+const FixedButtonContainerStyled = styled(FixedButtonContainer)`
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
 `;
