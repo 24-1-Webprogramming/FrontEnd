@@ -2,7 +2,70 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../../assets/logo.png';
-import GoogleLoginImage from '../../assets/GoogleLogin.png';
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'; // Correct import
+
+
+const OnboardingPage = () => {
+  const navigate = useNavigate();
+  const clientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com';
+
+  const handleLoginSuccess = async (res) => {
+    console.log('Login Success:', res);
+
+    const decodedToken = jwtDecode(res.credential);
+    console.log('Decoded JWT:', decodedToken);
+
+    // Store user email in local storage if exists in decoded token
+    if (decodedToken.email) {
+      localStorage.setItem('userEmail', decodedToken.email);
+      console.log('User email stored:', decodedToken.email);
+    }
+
+    try {
+      const response = await axios.post('http://soongitglwebp8.site/auth/google', {
+          credential: res.credential
+      });
+      console.log('Backend response:', response.data);
+      if (response.data.success) {
+          console.log('Login/Signup successful');
+          if (!response.data.isExist) {
+              console.log('User does not exist, proceed to registration.');
+              navigate('/Onboarding'); // Route to Onboarding if user does not exist
+          } else {
+              console.log('User exists, proceed with login.');
+              navigate('/home'); // Route to main page if user exists
+          }
+      } else {
+          console.log('Login/Signup failed');
+          navigate('/Error'); // Route to Error page on failure
+      }
+    } catch (error) {
+      console.error('Error posting to backend:', error);
+      navigate('/Error'); // Also route to Error page on network or server error
+    }
+  };
+
+  const handleLoginFailure = (err) => {
+      console.log('Login Failed:', err);
+      navigate('/Error'); // Route to Error page on login failure
+  };
+
+  return (
+    <StyledContainer>
+      <TextBox>성장형 헬스 기록 서비스</TextBox>
+      <LogoImage src={Logo} alt="Logo" />
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+          onSuccess={handleLoginSuccess}
+          onFailure={handleLoginFailure}
+        />
+      </GoogleOAuthProvider>
+    </StyledContainer>
+  );
+};
 
 const StyledContainer = styled.div`
   background-color: #495EF6;
@@ -51,34 +114,5 @@ const ImageButton = styled.div`
   transform: translateX(-50%);
 `;
 
-const OnboardingPage = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-    const refreshToken = urlParams.get('refreshToken');
-
-    if (token && refreshToken) {
-      console.log('Token:', token);           // Log token to console
-      console.log('RefreshToken:', refreshToken);  // Log refreshToken to console
-      localStorage.setItem('token', token);
-      localStorage.setItem('refreshToken', refreshToken);
-      
-      // Ensure navigation happens after storing tokens
-      navigate('/onboarding');  // Modify this if you have a different route for post-login
-    }
-  }, [navigate]);
-
-  return (
-    <StyledContainer>
-      <TextBox>성장형 헬스 기록 서비스</TextBox>
-      <LogoImage src={Logo} alt="Logo" />
-      <ImageButton image={GoogleLoginImage} onClick={() => {
-        window.location.href = 'http://soongitglwebp8.site/auth/googleLogin';
-      }}/>
-    </StyledContainer>
-  );
-};
 
 export default OnboardingPage;

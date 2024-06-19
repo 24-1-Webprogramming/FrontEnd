@@ -11,6 +11,10 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    navigate('/Exercise/main');
+  };
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value.length > 1) {
@@ -51,9 +55,9 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
     <Container>
       <InnerContainer>
         <Header>
-          <Link to="/" style={styles.backButton}>
-            <img src={ArrowIcon} />
-          </Link>
+        <BackButton onClick={handleBackClick}>
+          <img src={ArrowIcon} alt="Back" />
+        </BackButton>
           <Title>주소 설정</Title>
         </Header>
         <SearchContainer>

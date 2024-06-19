@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Search from '../../../Icon/Search2.svg'; // 경로 수정 확인
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -7,11 +7,17 @@ import 'swiper/swiper-bundle.css'; // Swiper 스타일 가져오기
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import ArrowBackIcon from '../../../Icon/Icon_Arrow.svg'; // Ensure this is the correct path to your back arrow icon
+
 
 const Gymfilter = () => {
   const { district } = useParams();
+  const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState(null);
+
+  const goBack = () => {
+    navigate('/Exercise/main');
+  };
 
   const addresses = [
     { id: 1, image: 'https://via.placeholder.com/150', name: '상도 BBGYM', address: '서울 동작구 상도로 95 2층', price: '11,000원', distance: '2.7km', tags: ['OT무료'] },
@@ -27,13 +33,15 @@ const Gymfilter = () => {
     return item.address.includes(district) && (!selectedTag || item.tags.includes(selectedTag));
   });
 
+
   return (
     <Container>
       <Header>
+        <BackButton onClick={goBack}>
+          <img src={ArrowBackIcon} alt="Back" />
+        </BackButton>
         <Title>{district}</Title>
-        <Link to="/gym" style={styles.backButton}>
-          <StyledSearchIcon src={Search} alt="back" />
-        </Link>
+        <StyledSearchIcon src={Search} alt="Search" />
       </Header>
       <TagContainer>
         {tags.map(tag => (
@@ -93,6 +101,7 @@ const Header = styled.header`
   padding-bottom: 10px;
   margin-bottom: 20px;
   margin-top: 15px;
+  margin-left: 40px;
 `;
 
 const Title = styled.h1`
@@ -127,6 +136,12 @@ const TagButton = styled.button`
 
 const AddressList = styled.div`
   width: 100%;
+`;
+
+const BackButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 
