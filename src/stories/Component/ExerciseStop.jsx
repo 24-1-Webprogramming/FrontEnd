@@ -2,7 +2,9 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Switch } from './Switch';
 import TextField from './TextField';
-import { PlayIcon, StopIcon, ResetIcon } from './icon';
+import { ReactComponent as Play } from '../../Icon/Play.svg';
+import { ReactComponent as Stop } from '../../Icon/Stop.svg';
+import { ReactComponent as Reset } from '../../Icon/Reset.svg';
 import { SetPlus, SetMinus, Info } from './ButtonS';
 
 const Container = styled.div`
@@ -177,19 +179,19 @@ const ExerciseStop = () => {
                 <ButtonContainer>
                     {time === 0 ? (
                         <Button onClick={startTimer}>
-                            <PlayIcon />
+                            <Play />
                         </Button>
                     ) : isRunning ? (
                         <Button onClick={stopTimer}>
-                            <StopIcon />
+                            <Stop />
                         </Button>
                     ) : (
                         <>
                             <Button onClick={resetTimer}>
-                                <ResetIcon />
+                                <Reset/>
                             </Button>
                             <Button onClick={startTimer}>
-                                <PlayIcon />
+                                <Play />
                             </Button>
                         </>
                     )}
