@@ -63,7 +63,7 @@ const ExerciseWrite = () => {
             )}
 
             <SubContainer>
-                <Text>오늘 운동은 ?</Text>
+                <Text>오늘 운동은 어땠나요?</Text>
                 <RateContainer>
                     {[0, 1, 2, 3, 4].map((index) => (
                         <StyledIconButton
@@ -72,7 +72,7 @@ const ExerciseWrite = () => {
                             height='134px'
                             src={selectedRate === index ? `/FaceIcons/Blue${(index + 1) * 20}.svg` : `/FaceIcons/Gray${(index + 1) * 20}.svg`}
                             text={['짱맛도리', '맛도리', '맛있다', '맛있...나?', '퉤퉤'][index]}
-                            textSize='20px'
+                            textSize='16px'
                             textColor='#000'
                             borderRadius='10%'
                             onClick={() => handleIconButtonClick(index)}
@@ -80,11 +80,12 @@ const ExerciseWrite = () => {
                     ))}
                 </RateContainer>
                 <div>
-                    <Text>한 줄 일기:</Text>
-                    <TextField width='100%' height='45px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='14px' />
+                    <TextField width='95%' height='55px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='15px' />
                 </div>
-                <Text>오늘의 루틴: <Description>탄탄한 하체 프로젝트 DAY1</Description></Text>
-                <Text>칼로리: <Description>300 kcal</Description></Text>
+                <TextContainer>
+                    <Text>오늘의 루틴 <Description>탄탄한 하체 프로젝트 DAY1</Description></Text>
+                    <Text>칼로리 <Description>300 kcal</Description></Text>
+                </TextContainer>
             </SubContainer>
 
             <FixedButtonContainer>
@@ -97,6 +98,16 @@ const ExerciseWrite = () => {
 };
 
 export default ExerciseWrite;
+
+
+const TextContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top:20px;
+    margin-left: 10px;
+    gap: -20px;
+    `
+
 
 const Container = styled.div`
     display: flex;
@@ -133,7 +144,8 @@ const SubContainer = styled.div`
 
 const Text = styled.div`
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
+    font-family: 'Pretendard';
     color: #000;
     margin-bottom: 8px;
     margin-top: 8px;
@@ -148,9 +160,10 @@ const RateContainer = styled.div`
 
 const Description = styled.span`
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     color: #000;
     margin-bottom: 8px;
+    margin-left: 7px;
 `;
 
 const StyledIconButton = styled(IconButton)`

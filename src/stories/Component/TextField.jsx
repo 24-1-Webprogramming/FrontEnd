@@ -19,7 +19,7 @@ const Div = styled.div`
 
 const Label = styled.label`
   display: block;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   margin-bottom: 8px;
   color: gray;
@@ -29,6 +29,7 @@ const Label = styled.label`
 
 const StyledTextField = styled.input`
   outline: none;
+  font-family: Pretendard;
   border: none;
   padding: 8px;
   border-radius: 0px;

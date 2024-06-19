@@ -13,24 +13,25 @@ const IconButton = ({ src, text, textSize, textColor, borderRadius, width, heigh
     cursor: disabled ? '' : 'pointer',
     transition: 'background-color 0.3s ease',
     display: 'flex',
-    flexDirection: 'column', // 아이콘과 텍스트를 상하로 정렬하기 위해 추가
-    justifyContent: 'center', // 아이콘과 텍스트를 수직 가운데 정렬하기 위해 추가
-    alignItems: 'center', // 아이콘과 텍스트를 수평 가운데 정렬하기 위해 추가
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   const iconStyle = {
-    width: `${iconWidth}px`, // 픽셀 단위로 변경
-    height: `${iconHeight}px`, // 픽셀 단위로 변경
+    width: `${iconWidth}px`,
+    height: `${iconHeight}px`,
   };
 
   const textStyle = {
     fontSize: textSize,
-    color: disabled ? disabledFontcolor : textColor, // disabled 상태일 때 텍스트 색상 변경
-    marginTop: `${iconTextSpacing}px`, // 아이콘과 텍스트 사이의 간격을 props로 설정된 값으로 지정
-    whiteSpace: 'nowrap', // 텍스트가 너무 길어질 경우 줄바꿈을 방지하기 위해 추가
+    color: disabled ? disabledFontcolor : textColor,
+    marginTop: `${iconTextSpacing}px`,
+    whiteSpace: 'nowrap',
+    fontWeight: '500' // 텍스트 굵기를 굵게 설정
   };
 
-  const iconSrc = disabled && disabledIcon ? disabledIcon : src; // disabled 상태일 때 아이콘 이미지 변경
+  const iconSrc = disabled && disabledIcon ? disabledIcon : src;
 
   return (
     <button 
@@ -39,13 +40,14 @@ const IconButton = ({ src, text, textSize, textColor, borderRadius, width, heigh
       disabled={disabled}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick} // 클릭 이벤트 핸들러 추가
+      onClick={onClick}
     >
       <img src={iconSrc} alt="" style={iconStyle} />
       {text && <span style={textStyle}>{text}</span>}
     </button>
   );
 };
+
 
 IconButton.propTypes = {
   src: PropTypes.string.isRequired,

@@ -6,7 +6,7 @@ const InfoCard = ({ name, imgSrc, description }) => {
         <Card height="448px" shadow={false} borderRadius="10px">
             <Container>
                 <Name>{name}</Name>
-                <img src={imgSrc} alt={name} />
+                <img decoding="async" src={imgSrc} alt={name}  width='250px'/>
                 <Description>{description}</Description>
             </Container>
         </Card>

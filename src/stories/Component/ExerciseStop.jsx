@@ -148,7 +148,7 @@ const ExerciseStop = ({ exerciseName }) => {
 
     // Find the exercise info from exerciseInfo
     const exerciseData = exerciseInfo.find(exercise => exercise.exercise === exerciseName);
-    const gif_url = exerciseData ? exerciseData.gifurl : '';
+    const gif_url = exerciseData ? exerciseData.gif_url : '';
     const description = exerciseData ? exerciseData.description : '';
 
     const toggleModal = () => {
@@ -207,7 +207,7 @@ const ExerciseStop = ({ exerciseName }) => {
         <Container>
             {isModalOpen && (
                 <DarkOverlay onClick={toggleModal}>
-                    <Xinfo name={exerciseName} imgSrc={gif_url} description={description}/>
+                    <Xinfo name={exerciseName} imgSrc={gif_url} width={'150px'}description={description}/>
                 </DarkOverlay>
             )}
             <WatchContainer>
