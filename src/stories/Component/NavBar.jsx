@@ -93,15 +93,15 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
-        <StyledLink to="/mypage" onClick={() => handleButtonClick('MyPage')}>
+        <StyledLink to="/Mypage" onClick={() => handleButtonClick('Mypage')}>
           <IconButton
-            src="/Icons/Icon_mypage.svg"
+            src="/Icons/Icon_Mypage.svg"
             text="마이페이지"
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'MyPage'}
-            disabledIcon="/Icons/Icon_mypage_c.svg"
+            disabled={activeState === 'Mypage'}
+            disabledIcon="/Icons/Icon_Mypage_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           /> 
@@ -115,7 +115,7 @@ NavBar.propTypes = {
   height: PropTypes.string.isRequired,
   paddingTop: PropTypes.string.isRequired,
   paddingBottom: PropTypes.string.isRequired,
-  activeState: PropTypes.oneOf(['Home', 'Exercise', 'Statistic', 'Group', 'MyPage']).isRequired,
+  activeState: PropTypes.oneOf(['Home', 'Exercise', 'Statistic', 'Group', 'Mypage']).isRequired,
   setActiveState: PropTypes.func.isRequired,
 };
 
@@ -124,19 +124,21 @@ NavBar.defaultProps = {
   paddingTop: '0px',
   paddingBottom: '0px',
   activeState: 'Home', // 기본 상태는 'Home'
+  setActiveState: () => {} // 기본적으로 아무 동작도 하지 않는 함수를 추가
 };
+
 
 export default NavBar;
 
 const BottomLayout = styled.div`
   position: fixed;
   bottom: 0px;
-  left: 0px;
+  left: 0px; /* 확실한 위치 고정을 위해 추가 */
   width: 100%;
   background-color: ${(props) => props.bgColor};
   display: flex;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1000; /* 충분히 높은 z-index를 설정 */
 `;
 
 const NavBarContainer = styled.div`
@@ -144,6 +146,7 @@ const NavBarContainer = styled.div`
   justify-content: space-around;
   width: 100%;
 `;
+
 
 const StyledLink = styled(Link)`
   text-decoration: none;

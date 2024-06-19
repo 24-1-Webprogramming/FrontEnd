@@ -44,7 +44,7 @@ const ExerciseComplete = () => {
                 <StyledLink to='/exercise/main'>
                     <Button width='100%' height='45px' label='완료하기' backgroundColor='#FFF' color='#495EF6' type='border' />
                 </StyledLink>
-                <StyledLink to='/exercise/routine/:id/record'>
+                <StyledLink to='/exercise/write'>
                     <Button width='100%' height='45px' label='기록남기기' backgroundColor='#FFF' color='#495EF6' type='border' />
                 </StyledLink>
             </FixedButtonContainer>

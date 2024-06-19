@@ -6,9 +6,11 @@ import Header from '../../Component/Header';
 import TextField from '../../Component/TextField';
 import { CalendarIcon } from '../../Component/icon';
 import IconButton from '../../Component/IconButton';
+import { Link } from 'react-router-dom';
 
 const ExerciseWrite = () => {
     const [selectedRate, setSelectedRate] = useState(null);
+    const [uploadedImage, setUploadedImage] = useState(null);
 
     const handleIconButtonClick = (index) => {
         if (selectedRate === index) {
@@ -28,6 +30,17 @@ const ExerciseWrite = () => {
         }
     };
 
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setUploadedImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     return (
         <Container>
             <Header text='운동 기록' />
@@ -37,75 +50,47 @@ const ExerciseWrite = () => {
                 <CalendarIcon />
             </Title>
 
-            <Button width='100%' height='240px' label='+ 사진 추가' type='border' />
+            {uploadedImage ? (
+                <ImagePreviewContainer>
+                    <FileInput type="file" accept="image/*" onChange={handleImageUpload} />
+                    <ImagePreview src={uploadedImage} alt="Uploaded" />
+                </ImagePreviewContainer>
+            ) : (
+                <FileInputWrapper>
+                    <FileInput type="file" accept="image/*" onChange={handleImageUpload} />
+                    <Button width='100%' height='240px' label='+ 사진 추가' type='border' />
+                </FileInputWrapper>
+            )}
 
             <SubContainer>
                 <Text>오늘 운동은 ?</Text>
                 <RateContainer>
-                    <IconButton
-                        width='48px'
-                        height='67px'
-                        src={selectedRate === 0 ? '/FaceIcons/Blue100.svg' : '/FaceIcons/Gray100.svg'}
-                        text='짱맛도리'
-                        textSize='10px'
-                        textColor='#000'
-                        borderRadius='10%'
-                        onClick={() => handleIconButtonClick(0)}
-                        disabled={selectedRate !== null && selectedRate !== 0}
-                    />
-                    <IconButton
-                        width='48px'
-                        height='67px'
-                        src={selectedRate === 1 ? '/FaceIcons/Blue100.svg' : '/FaceIcons/Gray100.svg'}
-                        text='맛도리'
-                        textSize='10px'
-                        textColor='#000'
-                        borderRadius='10%'
-                        onClick={() => handleIconButtonClick(1)}
-                        disabled={selectedRate !== null && selectedRate !== 1}
-                    />
-                    <IconButton
-                        width='48px'
-                        height='67px'
-                        src={selectedRate === 2 ? '/FaceIcons/Blue80.svg' : '/FaceIcons/Gray80.svg'}
-                        text='맛있다'
-                        textSize='10px'
-                        textColor='#000'
-                        borderRadius='10%'
-                        onClick={() => handleIconButtonClick(2)}
-                        disabled={selectedRate !== null && selectedRate !== 2}
-                    />
-                    <IconButton
-                        width='48px'
-                        height='67px'
-                        src={selectedRate === 3 ? '/FaceIcons/Blue60.svg' : '/FaceIcons/Gray60.svg'}
-                        text='맛있...나?'
-                        textSize='10px'
-                        textColor='#000'
-                        borderRadius='10%'
-                        onClick={() => handleIconButtonClick(3)}
-                        disabled={selectedRate !== null && selectedRate !== 3}
-                    />
-                    <IconButton
-                        width='48px'
-                        height='67px'
-                        src={selectedRate === 4 ? '/FaceIcons/Blue40.svg' : '/FaceIcons/Gray40.svg'}
-                        text='퉤퉤'
-                        textSize='10px'
-                        textColor='#000'
-                        borderRadius='10%'
-                        onClick={() => handleIconButtonClick(4)}
-                        disabled={selectedRate !== null && selectedRate !== 4}
-                    />
+                    {[0, 1, 2, 3, 4].map((index) => (
+                        <StyledIconButton
+                            key={index}
+                            width='96px'
+                            height='134px'
+                            src={selectedRate === index ? `/FaceIcons/Blue${(index + 1) * 20}.svg` : `/FaceIcons/Gray${(index + 1) * 20}.svg`}
+                            text={['짱맛도리', '맛도리', '맛있다', '맛있...나?', '퉤퉤'][index]}
+                            textSize='20px'
+                            textColor='#000'
+                            borderRadius='10%'
+                            onClick={() => handleIconButtonClick(index)}
+                        />
+                    ))}
                 </RateContainer>
-                <Text>한 줄 일기:</Text>
-                <TextField width='100%' height='45px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='14px' />
+                <div>
+                    <Text>한 줄 일기:</Text>
+                    <TextField width='100%' height='45px' placeholder='오늘의 운동을 한 줄로 표현해주세요.' fontSize='14px' />
+                </div>
                 <Text>오늘의 루틴: <Description>탄탄한 하체 프로젝트 DAY1</Description></Text>
                 <Text>칼로리: <Description>300 kcal</Description></Text>
             </SubContainer>
 
             <FixedButtonContainer>
-                <Button width='100%' height='45px' label='기록 완료' type='primary' onClick={handleRecordComplete} />
+                <StyledLink to='/statistic'>
+                    <Button width='100%' label='기록 완료' type='primary' onClick={handleRecordComplete} disabled={selectedRate === null} />
+                </StyledLink>
             </FixedButtonContainer>
         </Container>
     );
@@ -117,7 +102,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 15%;
+    padding-top: 100px;
     padding-bottom: 15%;
     gap: 33px;
     padding-left: 20px;
@@ -139,6 +124,9 @@ const CenteredText = styled.span`
 `;
 
 const SubContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     width: 100%;
     text-align: left;
 `;
@@ -163,4 +151,44 @@ const Description = styled.span`
     font-weight: 400;
     color: #000;
     margin-bottom: 8px;
+`;
+
+const StyledIconButton = styled(IconButton)`
+    width: ${({ width }) => width};
+    height: calc(${({ width }) => width} * 1.4);
+`;
+
+const FileInputWrapper = styled.div`
+    position: relative;
+    width: 100%;
+    height: 240px;
+`;
+
+const FileInput = styled.input`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+`;
+
+const ImagePreviewContainer = styled.div`
+    width: 100%;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+`;
+
+const ImagePreview = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+`;
+
+const StyledLink = styled(Link)`
+    width: 100%;
 `;

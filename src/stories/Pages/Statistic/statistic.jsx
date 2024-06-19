@@ -29,8 +29,8 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    margin-top: 20%;
-    margin-bottom: 20%;
+    margin-top: 80px;
+    margin-bottom: 80px;
 `
 
 export default DashBoard;

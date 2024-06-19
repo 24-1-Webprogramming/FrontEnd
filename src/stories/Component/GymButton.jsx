@@ -43,11 +43,12 @@ const ButtonText = styled.div`
     color: var(--Primary, #5467F5);
     text-align: center;
     font-family: Pretendard;
-    font-size: 9px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.36px;
+    margin-top  : 5px;
     transition: color 0.3s ease;
 
     ${Container}:hover & {

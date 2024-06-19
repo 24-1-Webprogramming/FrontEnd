@@ -56,7 +56,6 @@ const CardContainer = styled.div`
   background: ${(props) => props.background}; // Use background prop here
   color: ${(props) => props.color};
   padding: 16px;
-  box-shadow: ${(props) => (props.shadow ? '0 4px 8px rgba(0, 0, 0, 0.1)' : 'none')};
   display: flex;
   flex-direction: column;
   align-items: center;
