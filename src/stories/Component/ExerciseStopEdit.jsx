@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { Switch } from './Switch';
 import TextField from './TextField';
-import { PlayIcon, StopIcon, ResetIcon } from './icon';
+import { XIcon } from './icon';
 import { SetPlus, SetMinus, Info } from './ButtonS';
 
 const Container = styled.div`
@@ -116,43 +116,8 @@ const Text = styled.div`
     line-height: normal;
 `;
 
-const ExerciseStop = () => {
-    const [time, setTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
+const ExerciseStopEdit = () => {
     const [rows, setRows] = useState([{ id: 1 }]); // 초기에 하나의 Row를 가지고 시작
-
-    const timerRef = useRef(null);
-
-    const startTimer = () => {
-        if (!isRunning) {
-            setIsRunning(true);
-            timerRef.current = setInterval(() => {
-                setTime((prevTime) => prevTime + 1);
-            }, 1000);
-        }
-    };
-
-    const stopTimer = () => {
-        if (isRunning) {
-            clearInterval(timerRef.current);
-            setIsRunning(false);
-        }
-    };
-
-    const resetTimer = () => {
-        clearInterval(timerRef.current);
-        setIsRunning(false);
-        setTime(0);
-    };
-
-    const formatTime = (time) => {
-        const getSeconds = `0${time % 60}`.slice(-2);
-        const minutes = `${Math.floor(time / 60)}`;
-        const getMinutes = `0${minutes % 60}`.slice(-2);
-        const getHours = `0${Math.floor(time / 3600)}`.slice(-2);
-
-        return `${getHours} : ${getMinutes} : ${getSeconds}`;
-    };
 
     const addRow = () => {
         const newRow = {
@@ -173,26 +138,8 @@ const ExerciseStop = () => {
         <Container>
             <WatchContainer>
                 <ExerciseText>원레그 익스텐션 <Info/></ExerciseText>
-                <TimeDisplay>{formatTime(time)}</TimeDisplay>
                 <ButtonContainer>
-                    {time === 0 ? (
-                        <Button onClick={startTimer}>
-                            <PlayIcon />
-                        </Button>
-                    ) : isRunning ? (
-                        <Button onClick={stopTimer}>
-                            <StopIcon />
-                        </Button>
-                    ) : (
-                        <>
-                            <Button onClick={resetTimer}>
-                                <ResetIcon />
-                            </Button>
-                            <Button onClick={startTimer}>
-                                <PlayIcon />
-                            </Button>
-                        </>
-                    )}
+                    <XIcon/>
                 </ButtonContainer>
             </WatchContainer>
             <RowContainer>
@@ -233,4 +180,4 @@ const ExerciseStop = () => {
     );
 };
 
-export default ExerciseStop;
+export default ExerciseStopEdit;

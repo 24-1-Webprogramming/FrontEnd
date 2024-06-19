@@ -4,10 +4,10 @@ import { Button } from '../../Component/Button';
 import styled from 'styled-components';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import Header from '../../Component/Header';
-import Stopwatch from '../../Component/Stopwatch';
 import ExerciseStop from '../../Component/ExerciseStop';
+import ExerciseStopEdit from '../../Component/ExerciseStopEdit';
 
-const ExerciseSuggestion = () => {
+const ExerciseSuggestionDetail = () => {
 
     const [nickname, setNickname] = useState('');
 
@@ -22,19 +22,22 @@ const ExerciseSuggestion = () => {
         <Container>
             <Header text = ''/>
 
-            <Stopwatch />
+            <NameContainer>
+                운동루틴명
+            </NameContainer>
 
-            <ExerciseStop />
+
+
+            <ExerciseStopEdit />
 
             <FixedButtonContainer>
-                <Button width='100%' height='45px' label='운동추가' type='border'/>
-                <Button width='100%' height='45px' label='운동완료' type='primary'/>
+                <Button width='100%' height='45px' label='루틴추가' type='primary'/>
             </FixedButtonContainer>
         </Container>
     );
 };
 
-export default ExerciseSuggestion;
+export default ExerciseSuggestionDetail;
 
 const Container = styled.div`
     display: flex;
@@ -59,4 +62,24 @@ const Divider = styled.div`
     width: 0.5px;
     height: 34px;
     background-color: #9BC3FF;
+`;
+
+const NameContainer = styled.div`
+    color: var(--deprecated-Gray-01, #252525);
+    font-family: Pretendard;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 30px */
+    letter-spacing: -0.75px;
+
+    display: flex;
+    padding: var(--FormSm-FormSmVerticalPadding, 0px) 10px 16px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 2px solid var(--deactive, #B2BAC2);
+    width: 80%;
+    height: 49px;
+    position: relative;
 `;
