@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '../../Component/Button';
 import styled from 'styled-components';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
@@ -12,27 +12,77 @@ const ExerciseWrite = () => {
     const [selectedRate, setSelectedRate] = useState(null);
     const [uploadedImage, setUploadedImage] = useState(null);
     const [diaryEntry, setDiaryEntry] = useState('');
-    const TodayRecord = ["탄탄한 하체 프로젝트 DAY1", "300"];
+    const [todayRecord, setTodayRecord] = useState({
+        routineName: '',
+        calories: '',
+        date: new Date().toLocaleDateString('ko-KR')
+    });
+
+    useEffect(() => {
+        // Fetch the current routine details stored in localStorage
+        const currentRoutine = JSON.parse(localStorage.getItem('currentRoutine'));
+        if (currentRoutine) {
+            setTodayRecord({
+                routineName: currentRoutine.name,
+                calories: currentRoutine.kcal,
+                date: new Date().toLocaleDateString('ko-KR')
+            });
+        }
+
+        // Initialize emotion data in localStorage if not present
+        initializeEmotionData();
+    }, []);
 
     const handleIconButtonClick = (index) => {
         setSelectedRate(index === selectedRate ? null : index);
     };
+    
 
     const handleRecordComplete = () => {
         if (selectedRate !== null) {
-            const recordDetails = [
-                uploadedImage,                // Uploaded image
-                selectedRate,                 // Emotional rating of the exercise
-                diaryEntry,                   // User's diary entry
-                TodayRecord[0],               // Exercise routine
-                `${TodayRecord[1]} kcal`      // Calories burnt
-            ];
+            const recordDetails = {
+                uploadedImage,
+                emotion: selectedRate,
+                diaryEntry,
+                routineName: todayRecord.routineName,
+                calories: `${todayRecord.calories} kcal`,
+                date: todayRecord.date // 이 부분은 기존에 설정한 오늘 날짜 그대로 유지
+            };
+    
+            // Save the record details and update the emotion data in localStorage
+            updateEmotionData(recordDetails.date, recordDetails.emotion);
             console.log('Record Details:', recordDetails);
-            // Additional actions based on the saved record can be added here
         } else {
             console.log('Please select a rating.');
         }
     };
+
+    const initializeEmotionData = () => {
+        if (!localStorage.getItem('emotion')) {
+            const sampleData = [
+                { date: "2024-06-10", emotion: 1 },
+                { date: "2024-06-15", emotion: 3 },
+            ];
+            localStorage.setItem('emotion', JSON.stringify(sampleData));
+        }
+    };
+
+    const updateEmotionData = (date, emotion) => {
+        const emotionData = JSON.parse(localStorage.getItem('emotion'));
+        const previousDate = new Date(date);
+        previousDate.setDate(previousDate.getDate() - 1); // 날짜에서 하루를 뺌
+    
+        const formattedDate = previousDate.toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).replaceAll('. ', '-').replace('.', ''); // YYYY-MM-DD 포맷으로 변경
+    
+        const newEmotion = { date: formattedDate, emotion };
+        const updatedEmotionData = [...emotionData, newEmotion];
+        localStorage.setItem('emotion', JSON.stringify(updatedEmotionData));
+    };
+    
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -41,23 +91,18 @@ const ExerciseWrite = () => {
             reader.onloadend = () => {
                 setUploadedImage(reader.result);
             };
-            reader.onerror = () => {
-                console.error('There was an error reading the file.');
-            };
             reader.readAsDataURL(file);
         } else {
             console.error('Please upload an image file.');
         }
     };
-    
-    
 
     return (
         <Container>
             <Header text='운동 기록' />
 
             <Title>
-                <CenteredText>2024년 6월 14일</CenteredText>
+                <CenteredText>{todayRecord.date}</CenteredText>
                 <CalendarIcon />
             </Title>
 
@@ -72,8 +117,6 @@ const ExerciseWrite = () => {
                     <Button width='100%' height='240px' label='+ 사진 추가' type='border' />
                 </FileInputWrapper>
             )}
-
-
 
             <SubContainer>
                 <Text>오늘 운동은 어땠나요?</Text>
@@ -100,8 +143,8 @@ const ExerciseWrite = () => {
                     onChange={(e) => setDiaryEntry(e.target.value)}
                 />
                 <TextContainer>
-                    <Text>오늘의 루틴 <Description>{TodayRecord[0]}</Description></Text>
-                    <Text>칼로리 <Description>{TodayRecord[1]} kcal</Description></Text>
+                    <Text>오늘의 루틴 <Description>{todayRecord.routineName}</Description></Text>
+                    <Text>칼로리 <Description>{todayRecord.calories} kcal</Description></Text>
                 </TextContainer>
             </SubContainer>
 
@@ -109,7 +152,9 @@ const ExerciseWrite = () => {
                 <StyledLink to={{
                     pathname : '/statistic',
                     state : {
-                        uploadedImage : uploadedImage
+                        uploadedImage : uploadedImage,
+                        emotionData: selectedRate,
+                        date: todayRecord.date
                     }
                 }}>
                     <Button
@@ -126,6 +171,7 @@ const ExerciseWrite = () => {
 };
 
 export default ExerciseWrite;
+
 
 const TextContainer = styled.div`
     display: flex;

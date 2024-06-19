@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 const StopwatchContainer = styled.div`
@@ -12,11 +12,11 @@ const StopwatchContainer = styled.div`
 
 const TimeDisplay = styled.div`
   color: #404040;
-    font-family: Pretendard;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
+  font-family: Pretendard;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 const ButtonContainer = styled.div`
@@ -30,7 +30,7 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   background-color: #fff;
-  color: white;
+  color: #5467F5;
 
   &:disabled {
     background-color: #ddd;
@@ -39,9 +39,22 @@ const Button = styled.button`
 `;
 
 const Stopwatch = () => {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(() => Number(localStorage.getItem('stopwatchTime')) || 0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('stopwatchTime', time);
+    console.log(time);
+  }, [time]);
 
   const startTimer = () => {
     if (!isRunning) {
@@ -63,6 +76,7 @@ const Stopwatch = () => {
     clearInterval(timerRef.current);
     setIsRunning(false);
     setTime(0);
+    localStorage.removeItem('stopwatchTime');  // Optionally reset the timer in localStorage
   };
 
   const formatTime = (time) => {
