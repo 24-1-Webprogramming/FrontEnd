@@ -78,7 +78,7 @@ const AddressSettingPage = ({ setStep, setSelectedSubAddress }) => {
             <img src={SearchIcon} alt="search" />
             <SearchInput
               type="text"
-              placeholder=" 내 주변 위치 설정 (시/구 단위)"
+              placeholder=" 내 주변 위치 입력 (시/구 단위)"
               value={searchTerm}
               onChange={handleSearchChange}
             />
@@ -169,15 +169,24 @@ const SearchBox = styled.div`
   border-radius: 10px;
   padding: 10px;
 `;
-
 const SearchInput = styled.input`
   flex: 1;
   border: none;
   outline: none;
   background-color: transparent;
-  font-size: 16px;
+  font-size: 14px;
   padding-left: 10px;
+  font-family: 'Pretendard', sans-serif; // Ensure the font-family also includes fallbacks
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  color: #333;
+
+  &::placeholder {
+    color: #B2BAC2; // Set the color of placeholder text
+    font-family: 'Pretendard', sans-serif; // Apply the 'Pretendard' font to the placeholder
+  }
 `;
+
 
 const DistrictList = styled.div`
   width: 100%;

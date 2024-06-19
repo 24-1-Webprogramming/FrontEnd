@@ -104,9 +104,9 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             disabledIcon="/Icons/Icon_mypage_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
-          />
+          /> 
         </StyledLink>
-      </NavBarContainer>
+      </NavBarContainer> 
     </BottomLayout>
   );
 };

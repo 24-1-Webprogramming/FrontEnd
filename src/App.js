@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 import Splash from './stories/Pages/Onboarding/Splash';
 import ProfileSetup from './stories/Pages/Onboarding/ProfileSetup';
@@ -33,9 +34,11 @@ import ExerciseRoutineList from './stories/Pages/Exercise/ExerciseRoutineList';
 
 import ExerciseSuggestionAdd from './stories/Pages/Exercise/ExerciseSuggestionAdd';
 
+const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
+
 const App = () => {
   return (
-    <>
+    <GoogleOAuthProvider clientId={googleClientId}>
       <GlobalStyle />
       <Router>
         <Routes>
@@ -76,7 +79,7 @@ const App = () => {
           <Route path="/*" element={<Error/>} />
         </Routes>
       </Router>
-    </>
+    </GoogleOAuthProvider>
   );
 };
 
