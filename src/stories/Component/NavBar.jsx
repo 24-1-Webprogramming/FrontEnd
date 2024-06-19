@@ -43,65 +43,60 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
       <NavBarContainer ref={navBarRef}>
         <StyledLink to="/home" onClick={() => handleButtonClick('Home')}>
           <IconButton
-            src="/Icons/Icon_Home.svg"
+            src={activeState === 'Home' ? "/Icons/Icon_Home_c.svg" : "/Icons/Icon_Home.svg" }
             text="홈"
+            textColor={activeState === 'Home' ?  "#495EF6" : "#B2BAC2"}
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'Home'}
-            disabledIcon="/Icons/Icon_Home_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
         <StyledLink to="/exercise/main" onClick={() => handleButtonClick('Exercise')}>
           <IconButton
-            src="/Icons/Icon_exercise.svg"
+            src={activeState === 'Exercise' ? "/Icons/Icon_exercise_c.svg" : "/Icons/Icon_exercise.svg"}
             text="운동"
+            textColor={activeState === 'Exercise' ?  "#495EF6" : "#B2BAC2"}
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'Exercise'}
-            disabledIcon="/Icons/Icon_exercise_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
         <StyledLink to="/statistic" onClick={() => handleButtonClick('Statistic')}>
           <IconButton
-            src="/Icons/Icon_statistic.svg"
+            src={activeState === 'Statistic' ? "/Icons/Icon_statistic_c.svg" : "/Icons/Icon_statistic.svg"}
             text="통계"
+            textColor={activeState === 'Statistic' ?  "#495EF6" : "#B2BAC2"}
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'Statistic'}
-            disabledIcon="/Icons/Icon_statistic_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
         <StyledLink to="/group" onClick={() => handleButtonClick('Group')}>
           <IconButton
-            src="/Icons/Icon_group.svg"
+            src={activeState === 'Group' ? "/Icons/Icon_group_c.svg" : "/Icons/Icon_group.svg"}
             text="그룹"
+            textColor={activeState === 'Group' ?  "#495EF6" : "#B2BAC2"}
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'Group'}
-            disabledIcon="/Icons/Icon_group_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
         <StyledLink to="/Mypage" onClick={() => handleButtonClick('Mypage')}>
           <IconButton
-            src="/Icons/Icon_Mypage.svg"
+            src={activeState === 'Mypage' ? "/Icons/Icon_Mypage_c.svg" : "/Icons/Icon_Mypage.svg"}
             text="마이페이지"
+            textColor = {activeState === 'Mypage' ?  "#495EF6" : "#B2BAC2"}
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'Mypage'}
-            disabledIcon="/Icons/Icon_Mypage_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           /> 
