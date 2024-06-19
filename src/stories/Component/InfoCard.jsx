@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const InfoCard = () => {
+const InfoCard = ({ name, imgSrc, description }) => {
     return (
-        <Card
-        height="448px"
-        shadow={false}
-        borderRadius="10px"
-        >
-            <Name>으악</Name>
+        <Card height="448px" shadow={false} borderRadius="10px">
+            <Container>
+                <Name>{name}</Name>
+                <img src={imgSrc} alt={name} />
+                <Description>{description}</Description>
+            </Container>
         </Card>
     );
+};
 
+InfoCard.defaultProps = {
+    name: 'Name',
+    imgSrc: '',
+    description: 'Description',
 };
 
 const Card = styled.div`
@@ -22,6 +27,8 @@ const Card = styled.div`
     gap: 14px;
     border-radius: 31px;
     background: #FFF;
+    width: 80%;
+    height: 448px;
 `;
 
 const Name = styled.div`
@@ -36,18 +43,27 @@ const Name = styled.div`
 
 const Container = styled.div`
     display: flex;
-    width: 60px;
-    height: 51px;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    flex-shrink: 0;
+    gap: 14px;
 `;
 
-const Divider = styled.div`
-    width: 0.5px;
-    height: 34px;
-    background-color: #9BC3FF;
+const Description = styled.div`
+    color: #000;
+    text-align: left;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    background: #d9d9d9;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
 `;
 
 export default InfoCard;

@@ -20,7 +20,7 @@ const ExercisePlay = () => {
 
     return (
         <Container>
-            <Header text = ''/>
+            <Header text = '루틴명'/>
 
             <Stopwatch />
 
