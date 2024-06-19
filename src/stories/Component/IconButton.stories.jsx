@@ -82,9 +82,9 @@ Group.args = {
   disabledIcon: '/Icons/Icon_group_c.svg',
 };
 
-export const MyPage = Template.bind({});
-MyPage.args = {
-  src: '/Icons/Icon_mypage.svg',
+export const Mypage = Template.bind({});
+Mypage.args = {
+  src: '/Icons/Icon_Mypage.svg',
   text: '마이페이지',
   borderRadius: '0%',
   width: '40px',
@@ -92,7 +92,7 @@ MyPage.args = {
   disabled: false,
   currentBackgroundColor: 'transparent',
   hoverBackgroundColor: 'rgba(0, 0, 0, 0.1)',
-  disabledIcon: '/Icons/Icon_mypage_c.svg',
+  disabledIcon: '/Icons/Icon_Mypage_c.svg',
 };
 
 export const Expressions = () => {

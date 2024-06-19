@@ -11,6 +11,7 @@ import GymButton from '../../Component/GymButton';
 import { ChangeR } from '../../Component/ButtonS';
 import Xset from '../../Component/Xset';
 import { ExerciseCard } from '../../Component/CardS';
+import Header from '../../Component/Header';
 
 const ExercisePage = () => {
     const [nickname, setNickname] = useState('');
@@ -102,7 +103,7 @@ const ExercisePage = () => {
     return (
         <div>
             <Container>
-                
+              <Header showIcon={true} text="운동" backButton={false} />
                 <HeadContainer>
                     <Titles>
                         <div>
@@ -170,8 +171,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 15%; /* Add padding to ensure content is not hidden behind the Header */
-    padding-bottom: 15%; /* Add padding to ensure content is not hidden behind the NavBar */
+    padding-top: 80px;
+    padding-bottom: 80px; /* Add padding to ensure content is not hidden behind the NavBar */
     gap: 20px; /* Ensure 45px space between each Card */
 `;
 

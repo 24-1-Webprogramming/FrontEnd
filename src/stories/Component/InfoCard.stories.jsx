@@ -1,7 +1,7 @@
-import MypageEdit from './MypageEdit';
+import InfoCard from './InfoCard';
 
 const meta = {
-  component: MypageEdit,
+  component: InfoCard,
 };
 
 export default meta;

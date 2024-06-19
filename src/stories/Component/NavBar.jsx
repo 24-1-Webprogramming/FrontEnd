@@ -93,15 +93,15 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
-        <StyledLink to="/mypage" onClick={() => handleButtonClick('MyPage')}>
+        <StyledLink to="/Mypage" onClick={() => handleButtonClick('Mypage')}>
           <IconButton
-            src="/Icons/Icon_mypage.svg"
+            src="/Icons/Icon_Mypage.svg"
             text="마이페이지"
             borderRadius="0%"
             width={iconButtonWidth}
             height={height}
-            disabled={activeState === 'MyPage'}
-            disabledIcon="/Icons/Icon_mypage_c.svg"
+            disabled={activeState === 'Mypage'}
+            disabledIcon="/Icons/Icon_Mypage_c.svg"
             currentBackgroundColor="transparent"
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           /> 
@@ -115,7 +115,7 @@ NavBar.propTypes = {
   height: PropTypes.string.isRequired,
   paddingTop: PropTypes.string.isRequired,
   paddingBottom: PropTypes.string.isRequired,
-  activeState: PropTypes.oneOf(['Home', 'Exercise', 'Statistic', 'Group', 'MyPage']).isRequired,
+  activeState: PropTypes.oneOf(['Home', 'Exercise', 'Statistic', 'Group', 'Mypage']).isRequired,
   setActiveState: PropTypes.func.isRequired,
 };
 

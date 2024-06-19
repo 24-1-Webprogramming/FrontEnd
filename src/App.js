@@ -27,7 +27,7 @@ import Group from './stories/Pages/Group/Group';
 import GroupCreateSuccess from './stories/Pages/Group/GroupCreateSuccess';
 import GroupJoinSuccess from './stories/Pages/Group/GroupJoinSuccess';
 
-import Mypage from './stories/Pages/mypage/mypage';
+import Mypage from './stories/Pages/Mypage/Mypage';
 import GroupInvite from './stories/Pages/Group/GroupInvite';
 
 import ExercisePage from './stories/Pages/Exercise/ExercisePage';
@@ -37,6 +37,7 @@ import ExercisePlay from './stories/Pages/Exercise/ExercisePlay';
 import ExerciseAdd from './stories/Pages/Exercise/ExerciseAdd';
 import ExerciseEdit from './stories/Pages/Exercise/ExerciseEdit';
 import ExerciseComplete from './stories/Pages/Exercise/ExerciseComplete';
+import ExerciseWrite from './stories/Pages/Exercise/ExerciseWrite';
 
 const googleClientId = '241488948308-7719rl1iltknq0c1mnea32tbhg463ac2.apps.googleusercontent.com'; // Replace this with your actual client ID
 
@@ -80,6 +81,9 @@ const App = () => {
           <Route path="/Exercise/routine/:id/play" element={<ExercisePlay/>} />
           <Route path="/Exercise/routine/:id/edit" element={<ExerciseEdit/>} />
           <Route path="/Exercise/routine/:id/complete" element={<ExerciseComplete/>} />
+          <Route path="/Exercise/write" element={<ExerciseWrite/>} />
+
+          <Route path="/Mypage" element={<Mypage/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>
