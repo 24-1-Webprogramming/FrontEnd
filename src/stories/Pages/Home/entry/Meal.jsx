@@ -1,35 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button } from '../../../Component/Button';
 import TextField from '../../../Component/TextField';
 import styled from 'styled-components';
 import Header from '../../../Component/Header';
-import { meal } from '../../data/data';
-import { useNavigate } from 'react-router-dom';
 
 const Meal = () => {
-    const [step, setStep] = useState(0); // 단계
-    const [responses, setResponses] = useState(Array(meal.length).fill(null)); // 답변 저장 배열
-    const [isButtonEnabled, setIsButtonEnabled] = useState(false); // 버튼 활성화 여부
-    const [currentInput, setCurrentInput] = useState(''); // 현재 입력값
+    const { time } = useParams(); // URL에서 time 파라미터 추출
+    const [step, setStep] = useState(0);
+    const [responses, setResponses] = useState([]);
+    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+    const [currentInput, setCurrentInput] = useState('');
     const navigate = useNavigate();
+
+    const initialQuestions = [
+        { intro: '맛있게 드셨나봐요', question: '어떤 음식을 드셨나요?', unit: '', allowedCharsType: '' },
+        { intro: '', question: '탄수화물 정보를 알려주세요 (g)', unit: 'g', allowedCharsType: 'numericWithDecimal' },
+        { intro: '', question: '단백질 정보를 알려주세요 (g)', unit: 'g', allowedCharsType: 'numericWithDecimal' },
+        { intro: '', question: '지방 정보를 알려주세요 (g)', unit: 'g', allowedCharsType: 'numericWithDecimal' },
+    ];
+    const [questions, setQuestions] = useState(initialQuestions);
+
+    useEffect(() => {
+        if(responses[0]){
+            const updatedQuestions = questions.map((item, index) => {
+                if (index > 0) {
+                    return { ...item, intro: `${responses[0]}의` };
+                }
+                return item;
+            });
+            setQuestions(updatedQuestions);
+        }
+        if (responses.length === initialQuestions.length) {
+            const carbs = parseFloat(responses[1] || 0);
+            const protein = parseFloat(responses[2] || 0);
+            const fats = parseFloat(responses[3] || 0);
+            const totalCalories = Math.round(carbs * 4 + protein * 4 + fats * 9); // 소숫점 제거하고 반올림
+            const newResponses = [...responses, totalCalories]; // 총 칼로리 추가
+            localStorage.setItem(time, JSON.stringify(newResponses)); // 로컬 스토리지에 저장
+            console.log('Saved to localStorage:', newResponses); // 로컬 스토리지 값 로깅
+            navigate('/home');
+        }
+    }, [responses, time, navigate]);
+    
 
     const handleInputChange = (value) => {
         setCurrentInput(value);
-        setIsButtonEnabled(value.trim() !== ''); // 입력값이 비어 있지 않으면 버튼 활성화
+        setIsButtonEnabled(value.trim() !== '');
     };
 
     const handleNextStep = () => {
-        const newResponses = responses.map((response, index) => index === step ? currentInput : response);
+        const newResponses = [...responses, currentInput];
         setResponses(newResponses);
-        localStorage.setItem('meal', JSON.stringify(newResponses));
 
-        if (step < meal.length - 1) {
+        if (step < questions.length - 1) {
             setStep(step + 1);
-            setCurrentInput(''); // 입력값 초기화
-            setIsButtonEnabled(false); // 버튼 비활성화
-        } else {
-            console.log('meal complete:', newResponses);
-            navigate('/home');
+            setCurrentInput('');
+            setIsButtonEnabled(false);
         }
     };
 
@@ -37,16 +64,21 @@ const Meal = () => {
         <>
             <Header text="식사 기록" path="/home" />
             <Container>
-                <SurveyContent
-                    step={step}
-                    intro={meal[step].intro}
-                    question={meal[step].question}
-                    handleInputChange={handleInputChange}
-                    isButtonEnabled={isButtonEnabled}
-                    handleNextStep={handleNextStep}
-                    currentInput={currentInput}
-                    allowedCharsType={meal[step].allowedCharsType}
-                />
+                {questions.map((question, index) => (
+                    step === index && (
+                        <SurveyContent
+                            key={index}
+                            step={step}
+                            intro={question.intro}
+                            question={question.question}
+                            handleInputChange={handleInputChange}
+                            isButtonEnabled={isButtonEnabled}
+                            handleNextStep={handleNextStep}
+                            currentInput={currentInput}
+                            allowedCharsType={question.allowedCharsType}
+                        />
+                    )
+                ))}
             </Container>
         </>
     );
@@ -56,25 +88,21 @@ const SurveyContent = ({
     step, intro, question, allowedCharsType, handleInputChange, currentInput, isButtonEnabled, handleNextStep
 }) => {
     return (
-        <>
-            <ContainerTop>
-                <StepText>{step + 1}/{meal.length}</StepText>
-                <TextBox>
-                    <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
-                    <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
-                </TextBox>
-                <TextField
-                    onChange={(e) => handleInputChange(e.target.value)}
-                    value={currentInput}
-                    allowedCharsType={allowedCharsType}
-                    placeholder=""
-                    customText={meal[step].unit}
-                    width="321px"
-                />
-            </ContainerTop>
-
-            <AnswerButtons isButtonEnabled={isButtonEnabled} handleNextStep={handleNextStep} isLastStep={step === meal.length - 1} />
-        </>
+        <ContainerTop>
+            <StepText>{step + 1}/{4}</StepText>
+            <TextBox>
+                <h2 style={{ color: '#000', textAlign: 'left', marginBottom: '5px' }}>{intro}</h2>
+                <h2 style={{ color: '#495EF6', textAlign: 'left', marginTop: '5px' }}>{question}</h2>
+            </TextBox>
+            <TextField
+                onChange={(e) => handleInputChange(e.target.value)}
+                value={currentInput}
+                allowedCharsType={allowedCharsType}
+                placeholder=""
+                width="321px"
+            />
+            <AnswerButtons isButtonEnabled={isButtonEnabled} handleNextStep={handleNextStep} isLastStep={step === 4 - 1} />
+        </ContainerTop>
     );
 };
 
@@ -82,7 +110,7 @@ const AnswerButtons = ({ isButtonEnabled, handleNextStep, isLastStep }) => (
     <AnswerButtonContainer>
         <Button
             onClick={handleNextStep}
-            disabled={!isButtonEnabled}  // 버튼 활성화/비활성화 상태에 따라
+            disabled={!isButtonEnabled}
             label={isLastStep ? '완료' : '다음'}
             type="primary"
             size="medium"

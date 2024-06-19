@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import MorningDefault from '../../../Icon/MorningDefault.svg';
 import MorningActive from '../../../Icon/MorningActive.svg';
@@ -15,14 +15,27 @@ import styled from 'styled-components';
 
 const HomeScrolldownMeal = () => {
   const [activeTab, setActiveTab] = useState('meal');
-  const navigate = useNavigate(); // Create a useNavigate hook instance
+  const navigate = useNavigate();
+  const mealTypes = ['아침', '점심', '저녁', '기타'];
 
-  const meals = [
-    { name: '아침', kcal: '371kcal', isInputted: true },
-    { name: '점심', kcal: '371kcal', isInputted: true },
-    { name: '저녁', kcal: '입력전', isInputted: false },
-    { name: '기타', kcal: '입력전', isInputted: false },
-  ];
+  const [meals, setMeals] = useState(mealTypes.map(type => ({
+    name: type,
+    kcal: '입력전',
+    isInputted: false
+  })));
+
+  useEffect(() => {
+    mealTypes.forEach(type => {
+      const storedData = localStorage.getItem(type);
+      if (storedData) {
+        const data = JSON.parse(storedData);
+        const totalCalories = data[4]; // 총 칼로리값 인덱스
+        setMeals(prevMeals => prevMeals.map(meal => 
+          meal.name === type ? { ...meal, kcal: `${totalCalories}kcal`, isInputted: true } : meal
+        ));
+      }
+    });
+  }, []);
 
   const icons = {
     MorningDefault, MorningActive,
@@ -47,16 +60,10 @@ const HomeScrolldownMeal = () => {
         <Header>
           <Title>식단 관리</Title>
           <Tabs>
-            <TabButton
-              active={activeTab === 'meal'}
-              onClick={() => setActiveTab('meal')}
-            >
+            <TabButton active={activeTab === 'meal'} onClick={() => setActiveTab('meal')}>
               식사
             </TabButton>
-            <TabButton
-              active={activeTab === 'water'}
-              onClick={() => setActiveTab('water')}
-            >
+            <TabButton active={activeTab === 'water'} onClick={() => setActiveTab('water')}>
               물
             </TabButton>
           </Tabs>
@@ -81,7 +88,6 @@ const HomeScrolldownMeal = () => {
     </Container>
   );
 };
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
