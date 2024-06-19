@@ -24,6 +24,7 @@ const Home = () => {
     }, []);
 
     return (
+        <>
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
                 <HeadLine />
@@ -38,11 +39,11 @@ const Home = () => {
                         <HomeScrolldownWeight/>
                         <HomeScrolldownDDay/>
                 {showArrow && <StyledDownArrow />}
-                
-                <FixedButtonContainer>
-                    <NavBar activeState="Home" />
-                </FixedButtonContainer>
             </Container>
+            <FixedButtonContainer>
+                <NavBar activeState="Home" />
+            </FixedButtonContainer>
+        </>
     );
 };
 

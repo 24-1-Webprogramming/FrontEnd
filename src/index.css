@@ -16,3 +16,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
