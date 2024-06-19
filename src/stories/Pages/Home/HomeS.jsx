@@ -99,6 +99,8 @@ CharacterSector.defaultProps = {
 };
 
 const Line = styled.div`
+  position: fixed;
+  top: 79px;
   width: 100%;
   height: 53px;
   display: flex;
@@ -106,7 +108,20 @@ const Line = styled.div`
   justify-content: space-between;
   padding: 0;
   background-color: #5467f5;
-  margin-top: 20%;
+`;
+
+const TopLayout = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: ${(props) => props.bgColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 49px;
+  z-index: 1000;
+  padding: 10px 10px 20px 10px;
 `;
 
 const LeftContainer = styled.div`

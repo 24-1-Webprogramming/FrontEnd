@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../Component/Header';
 import NavBar from '../../Component/NavBar';
 import styled from 'styled-components';
-import { MdKeyboardArrowDown } from 'react-icons/md'; // Import the arrow icon
-
+import { MdKeyboardArrowDown } from 'react-icons/md'; // Import the arrow ico
 import { HeadLine, CharacterSector } from './HomeS';
 import FixedButtonContainer from '../../Component/FixedButtonContainer';
 import HomeScrolldownMeal from './Home_Scrolldown_Meal';
@@ -25,55 +24,32 @@ const Home = () => {
     }, []);
 
     return (
-        <>
             <Container>
                 <Header showIcon={true} text="홈" backButton={false} />
                 <HeadLine />
-                <Section>
                     <CharacterSector
                         continuousExerciseDays={1}
                         characterMessage="작디작은 1kg 아령"
                         currentSteps={currentSteps}
                     />
-                    <EntrySection>
                         <HomeScrolldownMeal />
                         <HomeScrolldownWeight/>
                         <HomeScrolldownDDay/>
-                    </EntrySection>
-                </Section>
                 {showArrow && <StyledDownArrow />} {/* Use the icon here */}
+                
+                <FixedButtonContainer>
+                    <NavBar activeState="Home" />
+                </FixedButtonContainer>
             </Container>
-            <FixedButtonContainer>
-                <NavBar activeState="Home" />
-            </FixedButtonContainer>
-        </>
     );
 };
 
-const EntrySection = styled.div`
+const Container = styled.div`
     display:flex;
-    margin-top: 210px;
+    margin-top: 70px;
     flex-direction: column;
     justify-content:center;
     margin-bottom: 100px;
-    gap: 80px;
-`
-
-const Container = styled.div`
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    padding-top: -550px; /* 기본값 */
-
-    @media (min-width: 600px) {
-        padding-top: -700px; /* Adjust padding for smaller screens */
-    }
-`;
-
-const Section = styled.div`
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
 `;
 
 const StyledDownArrow = styled(MdKeyboardArrowDown)`
