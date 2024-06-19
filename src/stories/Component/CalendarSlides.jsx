@@ -8,7 +8,7 @@ import { Calendar } from './Calendar'; // Calendar 컴포넌트를 가져옵니�
 const CalendarWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 350px;np
   border-radius: 8px;
   overflow: hidden;
 `;

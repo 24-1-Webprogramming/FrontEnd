@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '../../Component/Button';
 import { Link } from 'react-router-dom';
 import Hbar2 from './Hbar2';
+import Header from '../../Component/Header';
 import MySVGIcon from './Leave_check'; // import the SVG component
 import styled from 'styled-components';
 import DumbbellCryingIcon from '../../../Icon/Crying2.svg'; // DumbbellCrying3 SVG import
@@ -39,9 +40,7 @@ const SurveyStartPage = () => {
 
   return (
     <PageContainer>
-      <HeaderContainer>
-        <Hbar2 onSave={handleComplete} onCancel={handleCancel} />
-      </HeaderContainer>
+      <Header/>
       <ContentContainer>
         <h2 style={{ marginTop: '30px', textAlign: 'left', width: '322px', height: '63px', fontFamily: 'Pretendard Variable', fontSize: '25px', fontStyle: 'normal', fontWeight: '700', lineHeight: '120%', letterSpacing: '-0.75px', color: 'var(--deprecated-Gray-01, #252525)' }}>
           {nickname}님과 헤어지기 싫어요<br />
@@ -96,13 +95,9 @@ const PageContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  width: 393px; /* 페이지 크기에 맞추기 */
-  background-color: #fff;
-  padding: 20px 0; /* 여유 공간 추가 */
-  display: flex;
-  justify-content: center;
-  box-shadow: none; /* 헤더 밑의 선 제거 */
-  border-bottom: none; /* 헤더 밑의 선 제거 */
+    position: relative;
+    z-index: ${({ isModalOpen }) => (isModalOpen ? '101' : '1')};
+    margin-buttom:20p
 `;
 
 const ContentContainer = styled.div`
@@ -123,7 +118,7 @@ const AgreementContainer = styled.div`
   font-style: normal;
   font-size: 14px;
   color: ${({ agreementChecked }) => (agreementChecked ? '#FF3C3C' : '#535353')};
-  margin-top: 70px;
+  margin-top: 150px;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -140,7 +135,7 @@ const ButtonContainer = styled.div`
   padding: 20px;
   box-sizing: border-box;
   position: absolute;
-  bottom: 3px;
+  bottom: 0px;
 `;
 
 const BoldText = styled.span`
