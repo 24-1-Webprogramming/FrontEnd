@@ -40,7 +40,7 @@ import ExerciseWrite from './stories/Pages/Exercise/ExerciseWrite';
 
 import ClearStoragePage from './stories/Pages/utils/clearStorage';
 import ClearUserPage from './stories/Pages/utils/clearUser.jsx';
-
+import CheckOnboard from './stories/Pages/utils/checkOnboard.jsx';
 
 import Mypage from './stories/Pages/mypage/mypage';
 import Condition from './stories/Pages/mypage/MyPageConditions.jsx';
@@ -98,7 +98,7 @@ const App = () => {
           <Route path="/Error" element={<Error/>} />
           <Route path="/clearStorage" element={<ClearStoragePage/>} />
           <Route path="/clearUser" element={<ClearUserPage/>} />
-
+          <Route path='/checkOnboard' element={<CheckOnboard/>} />
 
           <Route path="/*" element={<Error/>} />
         </Routes>
