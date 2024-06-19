@@ -27,7 +27,7 @@ const ExerciseRoutineList = () => {
 
             <Container>
                 {routineData.map((routine, index) => (
-                    <StyledLink to={`/group/${routine.routineid}`} key={index}>
+                    <StyledLink to={`/exercise/routine/${routine.routineid}/add`} key={index}>
                         <GroupCard>
                             <GroupTextBox>
                                 <GroupTitle>{routine.name}</GroupTitle>

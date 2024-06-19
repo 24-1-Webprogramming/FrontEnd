@@ -31,7 +31,9 @@
   border-color: rgba(255, 77, 79, 1);
 }
 
-.storybook-button--primary:hover,
+.storybook-button--primary:hover {
+  background-color: #4154b3; 
+}
 .storybook-button--border:hover,
 .storybook-button--warning:hover {
   opacity: 0.9; /* Reduce opacity slightly to give a hover effect */

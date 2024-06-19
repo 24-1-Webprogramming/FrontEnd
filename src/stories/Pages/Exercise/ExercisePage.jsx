@@ -108,7 +108,9 @@ const ExercisePage = () => {
                         <div>
                             <Title>여긴루틴이름임</Title>
                             <Subtitle>오늘도 맛있는 운동 되세요!</Subtitle> </div>
-                        <ChangeR/>
+                        <StyledLink to = "/exercise/routine/list">
+                          <ChangeR/>
+                        </StyledLink>
                     </Titles>
                     <img src='/Characters/Sunglasses1_Black.svg'/>
                 </HeadContainer>
@@ -282,4 +284,8 @@ const XsetItem = styled.div`
   gap: 12px;
   padding: 7px;
   border-bottom: 1px solid #eee;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

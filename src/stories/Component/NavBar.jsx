@@ -54,7 +54,7 @@ const NavBar = ({ height, paddingTop, paddingBottom, activeState, setActiveState
             hoverBackgroundColor="rgba(0, 0, 0, 0.1)"
           />
         </StyledLink>
-        <StyledLink to="/exercise" onClick={() => handleButtonClick('Exercise')}>
+        <StyledLink to="/exercise/main" onClick={() => handleButtonClick('Exercise')}>
           <IconButton
             src="/Icons/Icon_exercise.svg"
             text="운동"
@@ -136,6 +136,7 @@ const BottomLayout = styled.div`
   background-color: ${(props) => props.bgColor};
   display: flex;
   justify-content: center;
+  z-index: 1000;
 `;
 
 const NavBarContainer = styled.div`

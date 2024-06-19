@@ -4,6 +4,7 @@ import SearchIcon from '../assets/search.svg';
 import { StarIconActive, StarIconDeactive } from './icon';
 import { Button } from './Button';
 import FixedButtonContainer from './FixedButtonContainer';
+import { Link } from 'react-router-dom';
 
 // Styled components
 const Container = styled.div`
@@ -48,7 +49,7 @@ const Checkbox = styled.input`
 const SearchContainer = styled.div`
   display: flex;
   width: 100%;
-  padding: 7px 11px;
+  padding: 7px 7px;
   align-items: center;
   gap: 9px;
   border-radius: 10px;
@@ -203,17 +204,18 @@ const ExerciseList = ({ exercises, onSelectedExercisesChange }) => {
   
       {exerciseList.map((exercise, index) => (
         <ExerciseItem key={index}>
-          <ExerciseContent onClick={() => toggleMark(exercise.exercise)}>
-            <StarIconContainer>
+            <StarIconContainer onClick={() => toggleMark(exercise.exercise)}>
               {favoriteNames.has(exercise.exercise) ? <StarIconActive /> : <StarIconDeactive />}
             </StarIconContainer>
+            
+          <ExerciseContent onClick={() => toggleCheck(exercise.exercise)}>
             {exercise.exercise}
+            <Checkbox
+              type="checkbox"
+              checked={checkedNames.has(exercise.exercise)}
+              onClick={() => toggleCheck(exercise.exercise)}
+            />
           </ExerciseContent>
-          <Checkbox
-            type="checkbox"
-            checked={checkedNames.has(exercise.exercise)}
-            onChange={() => toggleCheck(exercise.exercise)}
-          />
         </ExerciseItem>
       ))}
       <FixedButtonContainer>

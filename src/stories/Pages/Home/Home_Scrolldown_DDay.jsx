@@ -70,7 +70,6 @@ const TextBox = styled.div`
   gap: 16px;
 `
 
-
 const Button = styled.button`
   font-size: 16px;
   font-family: Pretendard;
