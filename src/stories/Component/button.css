@@ -32,7 +32,7 @@
 }
 
 .storybook-button--primary:hover {
-  background-color: #4154b3; 
+  background-color: rgba(73, 94, 246, 1); 
 }
 .storybook-button--border:hover,
 .storybook-button--warning:hover {

@@ -207,7 +207,7 @@ const ExerciseStop = ({ exerciseName }) => {
         <Container>
             {isModalOpen && (
                 <DarkOverlay onClick={toggleModal}>
-                    <Xinfo name={exerciseName} imgSrc={gif_url} width={'150px'}description={description}/>
+                    <Xinfo name={exerciseName} imgSrc={gif_url} description={description}/>
                 </DarkOverlay>
             )}
             <WatchContainer>
